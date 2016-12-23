@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases;
-
-import java.util.Collection;
+package interfaz;
 
 /**
  *
  * @author Jonathan
  */
-public class pack {
-    Collection<imagen> colIm;
-    String nombre;
+public class fabrica {
+    
 }

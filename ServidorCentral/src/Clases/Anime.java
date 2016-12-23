@@ -13,4 +13,15 @@ import java.util.Map;
  */
 public class Anime {
     Map<String,Genero> generos;
+    String nombre;
+
+    public Map<String, Genero> getGeneros() {
+        return generos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    
 }

@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases.Cuentas;
-
-import Clases.Anime;
-import Clases.Pack;
-import java.util.Collection;
-import java.util.Map;
+package interfaz;
 
 /**
  *
  * @author Jonathan
  */
-public class Cliente extends Usuario{
-    Collection<Anime> pendientes;
-    Map<String,Pack> packs;
+public class ICalidad {
     
 }

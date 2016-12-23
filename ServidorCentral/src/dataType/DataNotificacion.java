@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Clases;
+package dataType;
 
 /**
  *
  * @author Jonathan
  */
-public class imagen {
+public class DataNotificacion {
     
 }
