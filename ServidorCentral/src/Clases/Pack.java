@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import Clases.Cuentas.Favorito;
 import Clases.Cuentas.Usuario;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Jonathan
  */
-public class Pack {
+public class Pack extends Favorito{
     private Map<Integer,Imagen> colIm;
     private String nombre;
     private Usuario propietario;

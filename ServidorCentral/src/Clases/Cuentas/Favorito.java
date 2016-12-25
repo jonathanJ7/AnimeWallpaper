@@ -9,6 +9,6 @@ package Clases.Cuentas;
  *
  * @author Jonathan
  */
-public class Favorito {
+abstract public class Favorito {
     
 }

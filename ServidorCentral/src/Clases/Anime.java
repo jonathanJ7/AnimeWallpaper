@@ -5,13 +5,14 @@
  */
 package Clases;
 
+import Clases.Cuentas.Favorito;
 import java.util.Map;
 
 /**
  *
  * @author Jonathan
  */
-public class Anime {
+public class Anime extends Favorito{
     private Map<String,Genero> generos;
     private String nombre,descripcion,link;
     private Integer capitulos;

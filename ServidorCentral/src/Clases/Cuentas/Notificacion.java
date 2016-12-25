@@ -10,5 +10,27 @@ package Clases.Cuentas;
  * @author Jonathan
  */
 public class Notificacion {
+    private String mensaje,link;
+
+    public Notificacion(String mensaje, String link) {
+        this.mensaje = mensaje;
+        this.link = link;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public String getLink() {
+        return link;
+    }
     
 }

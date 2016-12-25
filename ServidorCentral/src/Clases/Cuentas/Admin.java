@@ -11,4 +11,8 @@ package Clases.Cuentas;
  */
 public class Admin extends Usuario{
     
+    public Admin(String nickname, String correo, String pass) {
+        super(nickname, correo, pass);
+    }
+    
 }

@@ -5,13 +5,14 @@
  */
 package Clases;
 
+import Clases.Cuentas.Favorito;
 import java.util.Map;
 
 /**
  *
  * @author Jonathan
  */
-public class Calidad {
+public class Calidad extends Favorito{
     private Map<Integer,Imagen> imgs;
     private String calidad;//ej: 720x480
 

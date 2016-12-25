@@ -5,11 +5,13 @@
  */
 package Clases;
 
+import Clases.Cuentas.Favorito;
+
 /**
  *
  * @author Jonathan
  */
-public class Imagen {
+public class Imagen extends Favorito{
     private Integer identificador;
     private Byte[] imag;
     private String Descripcion;
