@@ -14,9 +14,9 @@ import java.util.Map;
  * @author Jonathan
  */
 public class Pack {
-    Map<Integer,Imagen> colIm;
-    String nombre;
-    Usuario propietario;
+    private Map<Integer,Imagen> colIm;
+    private String nombre;
+    private Usuario propietario;
 
     public Pack(Map<Integer,Imagen> colIm, String nombre, Usuario propietario) {
         this.nombre = nombre;

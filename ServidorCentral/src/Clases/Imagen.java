@@ -10,9 +10,9 @@ package Clases;
  * @author Jonathan
  */
 public class Imagen {
-    Integer identificador;
-    Byte[] imag;
-    String Descripcion;
+    private Integer identificador;
+    private Byte[] imag;
+    private String Descripcion;
 
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;

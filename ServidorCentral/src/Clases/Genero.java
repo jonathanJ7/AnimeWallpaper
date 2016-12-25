@@ -12,9 +12,9 @@ import java.util.Map;
  * @author Jonathan
  */
 public class Genero {
-    Map<String,Anime> animes;
-    String nombre;
-    String descripcion;
+    private Map<String,Anime> animes;
+    private String nombre;
+    private String descripcion;
 
     public Genero(Map<String, Anime> animes, String nombre, String descripcion) {
         this.animes = animes;
