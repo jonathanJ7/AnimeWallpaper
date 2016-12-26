@@ -5,14 +5,10 @@
  */
 package Controladores;
 
-import Clases.Calidad;
-import java.util.Map;
-
 /**
  *
  * @author Jonathan
  */
-public class CtrlCalidad {
-    Map<String,Calidad> calidades;
+public class CtrlBusqueda {
     
 }

@@ -15,13 +15,13 @@ import java.util.Map;
  * @author Jonathan
  */
 public class DataCliente extends DataUsuario{
-    private Collection<DataAnime> pendientes;
+    private Collection<String> pendientes;
     private Map<String,DataPack> packs;
     private Collection<DataFavorito> fav;
     private Collection<DataNotificacion> noVistas;
     private Collection<DataNotificacion> visto;
 
-    public DataCliente(Collection<DataAnime> pendientes, Map<String, DataPack> packs, Collection<DataFavorito> fav, Collection<DataNotificacion> noVistas, Collection<DataNotificacion> visto, String nickname, String correo) {
+    public DataCliente(Collection<String> pendientes, Map<String, DataPack> packs, Collection<DataFavorito> fav, Collection<DataNotificacion> noVistas, Collection<DataNotificacion> visto, String nickname, String correo) {
         super(nickname, correo);
         this.pendientes = pendientes;
         this.packs = packs;
@@ -30,7 +30,7 @@ public class DataCliente extends DataUsuario{
         this.visto = visto;
     }
 
-    public Collection<DataAnime> getPendientes() {
+    public Collection<String> getPendientes() {
         return pendientes;
     }
 

@@ -7,7 +7,6 @@ package Clases.Cuentas;
 
 import Clases.Anime;
 import Clases.Pack;
-import dataType.DataAnime;
 import dataType.DataCliente;
 import dataType.DataFavorito;
 import dataType.DataNotificacion;
@@ -23,16 +22,16 @@ import java.util.Map;
  * @author Jonathan
  */
 public class Cliente extends Usuario{
-    private Collection<Anime> pendientes;
+    private Collection<String> pendientes;//nombre anime
     private Map<String,Pack> packs;
     private Collection<Favorito> fav;
     private Collection<Notificacion> noVistas;
     private Collection<Notificacion> visto;
     
     public DataUsuario toData(){
-        Collection<DataAnime> pend = new HashSet();
-        for(Anime an : pendientes){
-            pend.add(an.toData());
+        Collection<String> pend = new HashSet();
+        for(String an : pendientes){
+            pend.add(an);
         }
         Map<String, DataPack> pa = new HashMap();
         for(Pack an : packs.values()){
@@ -53,7 +52,7 @@ public class Cliente extends Usuario{
         return new DataCliente(pend, pa, fa,nv,vsto,  this.getNickname(), this.getCorreo());
     }
 
-    public Cliente(Collection<Anime> pendientes, Map<String, Pack> packs, Collection<Favorito> fav, Collection<Notificacion> noVistas, Collection<Notificacion> visto, String nickname, String correo, String pass) {
+    public Cliente(Collection<String> pendientes, Map<String, Pack> packs, Collection<Favorito> fav, Collection<Notificacion> noVistas, Collection<Notificacion> visto, String nickname, String correo, String pass) {
         super(nickname, correo, pass);
         this.pendientes = pendientes;
         this.packs = packs;
@@ -62,7 +61,7 @@ public class Cliente extends Usuario{
         this.visto = visto;
     }
 
-    public Collection<Anime> getPendientes() {
+    public Collection<String> getPendientes() {
         return pendientes;
     }
 
@@ -92,7 +91,7 @@ public class Cliente extends Usuario{
    }
    
    
-   public void add(Anime anim){
+   public void add(String anim){
         pendientes.add(anim);
     }
     public void remove(Anime anim){

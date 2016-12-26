@@ -15,7 +15,21 @@ import java.util.Map;
  */
 public class Calidad extends Favorito{
     private Map<Integer,Imagen> imgs;
-    private String calidad;//ej: 720x480
+    private String calidad,anime;//ej: 720x480
+
+    public Calidad(Map<Integer, Imagen> imgs, String calidad, String anime) {
+        this.imgs = imgs;
+        this.calidad = calidad;
+        this.anime = anime;
+    }
+
+    public void setAnime(String anime) {
+        this.anime = anime;
+    }
+
+    public String getAnime() {
+        return anime;
+    }
 
     public DataCalidad toData(){
         return null;
@@ -37,10 +51,6 @@ public class Calidad extends Favorito{
         this.calidad = calidad;
     }
 
-    public Calidad(Map<Integer, Imagen> imgs, String calidad) {
-        this.imgs = imgs;
-        this.calidad = calidad;
-    }
      public void add(Imagen img){
         imgs.put(img.getIdentificador(), img);
     }
