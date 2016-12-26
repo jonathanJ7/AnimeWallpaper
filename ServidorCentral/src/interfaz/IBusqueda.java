@@ -19,6 +19,8 @@ abstract public class IBusqueda {
     abstract Collection<DataAnimeImNom> buscarAnime(String anime);
     abstract Collection<DataCalidad> buscarCalidad(String anime,String calidadMin,String calidadMax,Boolean horizontal);
     abstract Collection<DataGeneroReducido> buscarGenero(String nombre);
-    abstract Collection<DataPackReducido> buscarPack(String nombre,String propietario);
+    abstract Collection<DataPackReducido> buscarPackNom(String nombre);
+    abstract Collection<DataPackReducido> buscarPackProp(String propietario);
+    
     
 }

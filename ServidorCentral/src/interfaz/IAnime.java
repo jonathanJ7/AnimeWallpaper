@@ -32,7 +32,7 @@ abstract public class IAnime {
     abstract void modGenero(DataGenero dtgen, String nombre);
     
     abstract Collection<DataPackReducido> listarPacks();
-    abstract DataPack detallePack();
+    abstract DataPack detallePack(String nombre,String propietario);
     
     
 }
