@@ -21,7 +21,7 @@ public class Imagen extends Favorito{
         this.Descripcion = Descripcion;
     }
     public DataImagen toData(){
-        return null;
+        return new DataImagen(identificador,imag,Descripcion);
     }
     
 

@@ -15,7 +15,7 @@ public class Notificacion {
     private String mensaje,link;
     
     public DataNotificacion toData(){
-        return null;
+        return new DataNotificacion(mensaje,link);
     }
 
     public Notificacion(String mensaje, String link) {

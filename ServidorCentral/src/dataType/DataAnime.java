@@ -5,6 +5,7 @@
  */
 package dataType;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -13,13 +14,13 @@ import java.util.Map;
  */
 public class DataAnime extends DataFavorito {
     
-    private Map<String,DataGenero> generos;
+    private Collection<String> generos;
     private String nombre,descripcion,link;
     private Integer capitulos;
     private Map<String,DataCalidad> calidades;
     private DataImagen imagen;
 
-    public DataAnime(Map<String, DataGenero> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, DataCalidad> calidades,DataImagen im) {
+    public DataAnime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, DataCalidad> calidades,DataImagen im) {
         this.generos = generos;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -33,7 +34,7 @@ public class DataAnime extends DataFavorito {
         return imagen;
     }
 
-    public Map<String, DataGenero> getGeneros() {
+    public Collection<String> getGeneros() {
         return generos;
     }
 

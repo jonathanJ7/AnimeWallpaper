@@ -6,6 +6,7 @@
 package Clases;
 
 import Clases.Cuentas.Favorito;
+import dataType.DataCalidad;
 import java.util.Map;
 
 /**
@@ -16,6 +17,10 @@ public class Calidad extends Favorito{
     private Map<Integer,Imagen> imgs;
     private String calidad;//ej: 720x480
 
+    public DataCalidad toData(){
+        return null;
+    } 
+    
     public Map<Integer, Imagen> getImgs() {
         return imgs;
     }

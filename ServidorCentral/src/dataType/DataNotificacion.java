@@ -11,4 +11,18 @@ package dataType;
  */
 public class DataNotificacion {
     
+    private String mensaje,link;
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public DataNotificacion(String mensaje, String link) {
+        this.mensaje = mensaje;
+        this.link = link;
+    }
 }

@@ -5,7 +5,9 @@
  */
 package Clases;
 
+import dataType.DataAnime;
 import dataType.DataGenero;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +20,11 @@ public class Genero {
     private String descripcion;
 
     public DataGenero toData(){
-        return null;
+        Map<String, DataAnime> ani = new HashMap();
+        for(Anime anim: animes.values()){
+            ani.put(anim.getNombre(), anim.toData());
+        }
+        return new DataGenero(ani,  nombre,  descripcion);
     }
     
     public Genero(Map<String, Anime> animes, String nombre, String descripcion) {

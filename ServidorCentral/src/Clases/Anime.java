@@ -8,9 +8,9 @@ package Clases;
 import Clases.Cuentas.Favorito;
 import dataType.DataAnime;
 import dataType.DataCalidad;
-import dataType.DataGenero;
-import dataType.DataImagen;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Jonathan
  */
 public class Anime extends Favorito{
-    private Map<String,Genero> generos;
+    private Collection<String> generos;
     private String nombre,descripcion,link;
     private Integer capitulos;
     private Map<String,Calidad> calidades;
@@ -27,15 +27,18 @@ public class Anime extends Favorito{
     
     
     public DataAnime toData(){
-        Map<String, DataGenero> gnro = new HashMap();
-        for(Genero gen : generos.values()){
-            gnro.put(gen.getNombre(),gen.toData());
+        Collection<String> gnro = new HashSet();
+        for(String gen : generos){
+            gnro.add(gen);
         }
          Map<String, DataCalidad> cali = new HashMap();
+        for(Calidad gen : calidades.values()){
+            cali.put(gen.getCalidad(),gen.toData());
+        }
         return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
     }
 
-    public Anime(Map<String, Genero> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {
+    public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {
         this.generos = generos;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -43,17 +46,14 @@ public class Anime extends Favorito{
         this.capitulos = capitulos;
         this.imagen = imagen;
     }
-    public void add(Genero gen){
-        generos.put(gen.getNombre(), gen);
+    public void add(String gen){
+        generos.add(gen);
     }
     public void remove(String nomGen){
         generos.remove(nomGen);
     }
-   public Genero getGenero(String nombre){
-       return generos.get(nombre);
-   }
 
-    public void setGeneros(Map<String, Genero> generos) {
+    public void setGeneros(Collection<String> generos) {
         this.generos = generos;
     }
 
@@ -93,7 +93,7 @@ public class Anime extends Favorito{
         return imagen;
     }
 
-    public Map<String, Genero> getGeneros() {
+    public Collection<String> getGeneros() {
         return generos;
     }
 
