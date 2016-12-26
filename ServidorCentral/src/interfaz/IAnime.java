@@ -5,10 +5,24 @@
  */
 package interfaz;
 
+import dataType.DataAnime;
+import dataType.reducidos.DataAnimeImNom;
+import dataType.reducidos.DataGeneroReducido;
+import java.util.Collection;
+
 /**
  *
  * @author Jonathan
  */
-public class IAnime {
+abstract public class IAnime {
+    
+    abstract Collection<DataAnimeImNom> listarAnimes();
+    abstract DataAnime detalleAnime(String anime);
+    
+    abstract Collection<String> listarGeneros();
+    abstract DataGeneroReducido detalleGenero(String gen);
+    
+    abstract void addAnime(DataAnime dtanime);
+    abstract void modAnime(DataAnime dtanime);
     
 }
