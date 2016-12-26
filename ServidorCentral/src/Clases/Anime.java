@@ -7,6 +7,10 @@ package Clases;
 
 import Clases.Cuentas.Favorito;
 import dataType.DataAnime;
+import dataType.DataCalidad;
+import dataType.DataGenero;
+import dataType.DataImagen;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,11 +22,17 @@ public class Anime extends Favorito{
     private String nombre,descripcion,link;
     private Integer capitulos;
     private Map<String,Calidad> calidades;
+    private Imagen imagen;
     
     
     
     public DataAnime toData(){
-        return null;
+        Map<String, DataGenero> gnro = new HashMap();
+        for(Genero gen : generos.values()){
+            gnro.put(gen.getNombre(),gen.toData());
+        }
+         Map<String, DataCalidad> cali = new HashMap();
+        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
     }
 
     public Anime(Map<String, Genero> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {
@@ -82,7 +92,6 @@ public class Anime extends Favorito{
     public Imagen getImagen() {
         return imagen;
     }
-    Imagen imagen;
 
     public Map<String, Genero> getGeneros() {
         return generos;

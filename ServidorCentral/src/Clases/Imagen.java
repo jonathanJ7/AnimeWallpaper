@@ -6,6 +6,7 @@
 package Clases;
 
 import Clases.Cuentas.Favorito;
+import dataType.DataImagen;
 
 /**
  *
@@ -18,6 +19,9 @@ public class Imagen extends Favorito{
 
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
+    }
+    public DataImagen toData(){
+        return null;
     }
     
 

@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import dataType.DataGenero;
 import java.util.Map;
 
 /**
@@ -16,6 +17,10 @@ public class Genero {
     private String nombre;
     private String descripcion;
 
+    public DataGenero toData(){
+        return null;
+    }
+    
     public Genero(Map<String, Anime> animes, String nombre, String descripcion) {
         this.animes = animes;
         this.nombre = nombre;
