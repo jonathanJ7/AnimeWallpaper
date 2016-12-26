@@ -9,6 +9,6 @@ package dataType;
  *
  * @author Jonathan
  */
-public class DataAnime {
+public class DataAnime extends DataFavorito {
     
 }

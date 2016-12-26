@@ -5,12 +5,18 @@
  */
 package Clases.Cuentas;
 
+import dataType.DataNotificacion;
+
 /**
  *
  * @author Jonathan
  */
 public class Notificacion {
     private String mensaje,link;
+    
+    public DataNotificacion toData(){
+        return null;
+    }
 
     public Notificacion(String mensaje, String link) {
         this.mensaje = mensaje;

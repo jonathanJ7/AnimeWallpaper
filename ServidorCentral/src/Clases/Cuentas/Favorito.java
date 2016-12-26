@@ -5,10 +5,15 @@
  */
 package Clases.Cuentas;
 
+import dataType.DataFavorito;
+
 /**
  *
  * @author Jonathan
  */
 abstract public class Favorito {
     
+    public DataFavorito toData(){
+        return null;
+    }
 }

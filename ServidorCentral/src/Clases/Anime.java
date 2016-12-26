@@ -6,6 +6,7 @@
 package Clases;
 
 import Clases.Cuentas.Favorito;
+import dataType.DataAnime;
 import java.util.Map;
 
 /**
@@ -17,6 +18,12 @@ public class Anime extends Favorito{
     private String nombre,descripcion,link;
     private Integer capitulos;
     private Map<String,Calidad> calidades;
+    
+    
+    
+    public DataAnime toData(){
+        return null;
+    }
 
     public Anime(Map<String, Genero> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {
         this.generos = generos;

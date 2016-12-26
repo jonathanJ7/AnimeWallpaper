@@ -9,6 +9,11 @@ package dataType;
  *
  * @author Jonathan
  */
-public class DataAdmin {
+public class DataAdmin extends DataUsuario {
+    
+    public DataAdmin(String nickname, String correo) {
+        super(nickname, correo);
+    }
+    
     
 }

@@ -7,6 +7,7 @@ package Clases;
 
 import Clases.Cuentas.Favorito;
 import Clases.Cuentas.Usuario;
+import dataType.DataPack;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,11 @@ public class Pack extends Favorito{
     private Map<Integer,Imagen> colIm;
     private String nombre;
     private Usuario propietario;
+    
+    
+    public DataPack toData(){
+        return null;
+    }
 
     public Pack(Map<Integer,Imagen> colIm, String nombre, Usuario propietario) {
         this.nombre = nombre;

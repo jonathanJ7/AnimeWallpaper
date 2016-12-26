@@ -9,6 +9,6 @@ package dataType;
  *
  * @author Jonathan
  */
-public class DataPack {
+public class DataPack extends DataFavorito{
     
 }

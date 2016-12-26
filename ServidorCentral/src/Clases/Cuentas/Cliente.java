@@ -7,7 +7,15 @@ package Clases.Cuentas;
 
 import Clases.Anime;
 import Clases.Pack;
+import dataType.DataAnime;
+import dataType.DataCliente;
+import dataType.DataFavorito;
+import dataType.DataNotificacion;
+import dataType.DataPack;
+import dataType.DataUsuario;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -20,6 +28,30 @@ public class Cliente extends Usuario{
     private Collection<Favorito> fav;
     private Collection<Notificacion> noVistas;
     private Collection<Notificacion> visto;
+    
+    public DataUsuario toData(){
+        Collection<DataAnime> pend = new HashSet();
+        for(Anime an : pendientes){
+            pend.add(an.toData());
+        }
+        Map<String, DataPack> pa = new HashMap();
+        for(Pack an : packs.values()){
+            pa.put(an.getNombre(), an.toData());
+        }
+        Collection<DataFavorito> fa = new HashSet();
+        for(Favorito an : fav){
+            fa.add(an.toData());
+        }
+        Collection<DataNotificacion> nv = new HashSet();
+        for(Notificacion an : noVistas){
+            nv.add(an.toData());
+        }
+        Collection<DataNotificacion> vsto = new HashSet();
+        for(Notificacion an : visto){
+            vsto.add(an.toData());
+        }
+        return new DataCliente(pend, pa, fa,nv,vsto,  this.getNickname(), this.getCorreo());
+    }
 
     public Cliente(Collection<Anime> pendientes, Map<String, Pack> packs, Collection<Favorito> fav, Collection<Notificacion> noVistas, Collection<Notificacion> visto, String nickname, String correo, String pass) {
         super(nickname, correo, pass);
