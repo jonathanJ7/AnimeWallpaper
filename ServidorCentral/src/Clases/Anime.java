@@ -8,6 +8,7 @@ package Clases;
 import Clases.Cuentas.Favorito;
 import dataType.DataAnime;
 import dataType.DataCalidad;
+import dataType.reducidos.DataAnimeImNom;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,6 +37,9 @@ public class Anime extends Favorito{
             cali.put(gen.getCalidad(),gen.toData());
         }
         return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
+    }
+    public DataAnimeImNom toDataReducido(){        
+        return new DataAnimeImNom(nombre,imagen.toData());
     }
 
     public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {

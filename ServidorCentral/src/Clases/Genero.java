@@ -7,8 +7,11 @@ package Clases;
 
 import dataType.DataAnime;
 import dataType.DataGenero;
+import dataType.reducidos.DataAnimeImNom;
+import dataType.reducidos.DataGeneroReducido;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -25,6 +28,13 @@ public class Genero {
             ani.put(anim.getNombre(), anim.toData());
         }
         return new DataGenero(ani,  nombre,  descripcion);
+    }
+    public DataGeneroReducido toDataReducido(){
+        Map<String,DataAnimeImNom> mapToRet = new HashMap();
+        for (Entry ent : animes.entrySet() ){
+            mapToRet.put((String)ent.getKey(), ( (Anime)ent.getValue() ).toDataReducido()  );
+        }
+        return new DataGeneroReducido(mapToRet,nombre,descripcion);
     }
     
     public Genero(Map<String, Anime> animes, String nombre, String descripcion) {

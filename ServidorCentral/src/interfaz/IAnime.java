@@ -17,22 +17,22 @@ import java.util.Collection;
  *
  * @author Jonathan
  */
-abstract public class IAnime {
+ public interface IAnime {
     
-    abstract Collection<DataAnimeImNom> listarAnimes();
-    abstract DataAnime detalleAnime(String anime);
+    Collection<DataAnimeImNom> listarAnimes();
+    DataAnime detalleAnime(String anime);
     
-    abstract Collection<String> listarGeneros();
-    abstract DataGeneroReducido detalleGenero(String gen);
+    Collection<String> listarGeneros();
+    DataGeneroReducido detalleGenero(String gen);
     
-    abstract void addAnime(DataAnime dtanime);
-    abstract void modAnime(DataAnime dtanime,String nombre);
+    void addAnime(DataAnime dtanime);
+    void modAnime(DataAnime dtanime,String nombre);
     
-    abstract void addGenero(DataGenero dtgen);
-    abstract void modGenero(DataGenero dtgen, String nombre);
+    void addGenero(DataGenero dtgen);
+    void modGenero(DataGenero dtgen, String nombre);
     
-    abstract Collection<DataPackReducido> listarPacks();
-    abstract DataPack detallePack(String nombre,String propietario);
+    Collection<DataPackReducido> listarPacks();
+    DataPack detallePack(String nombre,String propietario);
     
     
 }

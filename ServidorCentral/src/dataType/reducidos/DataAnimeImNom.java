@@ -5,15 +5,17 @@
  */
 package dataType.reducidos;
 
+import dataType.DataImagen;
+
 /**
  *
  * @author Jonathan
  */
 public class DataAnimeImNom {
     String nombre;
-    Byte[] img;
+    DataImagen img;
 
-    public DataAnimeImNom(String nombre, Byte[] img) {
+    public DataAnimeImNom(String nombre, DataImagen img) {
         this.nombre = nombre;
         this.img = img;
     }
@@ -22,7 +24,7 @@ public class DataAnimeImNom {
         return nombre;
     }
 
-    public Byte[] getImg() {
+    public DataImagen getImg() {
         return img;
     }
     

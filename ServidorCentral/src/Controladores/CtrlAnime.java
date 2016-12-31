@@ -7,6 +7,7 @@ package Controladores;
 
 import Clases.Anime;
 import Clases.Genero;
+import Clases.Imagen;
 import dataType.DataAnime;
 import dataType.DataGenero;
 import dataType.DataPack;
@@ -15,62 +16,92 @@ import dataType.reducidos.DataGeneroReducido;
 import dataType.reducidos.DataPackReducido;
 import interfaz.IAnime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
  *
  * @author Jonathan
  */
-public class CtrlAnime extends IAnime{
+public class CtrlAnime implements IAnime{
     Map<String,Genero> generos;
     Map<String,Anime> animes;
 
-    Collection<DataAnimeImNom> listarAnimes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private CtrlAnime() {
+        generos = new HashMap();
+        animes = new HashMap();
+    }
+    private static CtrlAnime instance = null;
+    public CtrlAnime getInstance(){
+        if(instance == null){
+            instance = new CtrlAnime();
+        }
+        return instance;
+    }
+    
+
+    public Collection<DataAnimeImNom> listarAnimes() {
+        Collection<DataAnimeImNom> ret = new HashSet();
+        for(Anime anim: animes.values()){
+            ret.add(anim.toDataReducido());
+        }
+        return ret;
     }
 
-    DataAnime detalleAnime(String anime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DataAnime detalleAnime(String anime) throws Error{
+        Anime anim = animes.get(anime);
+        if (anim == null){
+            return anim.toData();
+        }else{
+            throw new Error("No existe el anime: " +anime);
+        }
     }
 
     
-    Collection<String> listarGeneros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<String> listarGeneros() {
+        return generos.keySet();
     }
 
     
-    DataGeneroReducido detalleGenero(String gen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DataGeneroReducido detalleGenero(String gen) throws Error{
+        Genero genero = generos.get(gen);
+        if (genero == null){
+            return genero.toDataReducido();
+        }else{
+            throw new Error("No existe el genero: " +gen);
+        }
     }
 
     
-    void addAnime(DataAnime dtanime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addAnime(DataAnime dtanime) {
+        Imagen imag = new Imagen(dtanime.getImagen().getIdentificador(),dtanime.getImagen().getImag(),dtanime.getImagen().getDescripcion());
+        animes.put(dtanime.getNombre(),new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),imag));
     }
 
     
-    void modAnime(DataAnime dtanime, String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void modAnime(DataAnime dtanime, String nombre) {
+        
     }
 
     
-    void addGenero(DataGenero dtgen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addGenero(DataGenero dtgen) {
+        
     }
 
     
-    void modGenero(DataGenero dtgen, String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void modGenero(DataGenero dtgen, String nombre) {
+        
     }
 
     
-    Collection<DataPackReducido> listarPacks() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<DataPackReducido> listarPacks() {
+        return null;
     }
 
     
-    DataPack detallePack(String nombre, String propietario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DataPack detallePack(String nombre, String propietario) {
+        return null;
     }
     
 }
