@@ -24,9 +24,20 @@ public class Anime extends Favorito{
     private Integer capitulos;
     private Map<String,Calidad> calidades;
     private Imagen imagen;
-    
-    
-    
+
+    public void setCalidades(Map<String, Calidad> calidades) {
+        this.calidades = calidades;
+    }
+
+    public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, Calidad> calidades, Imagen imagen) {
+        this.generos = generos;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.link = link;
+        this.capitulos = capitulos;
+        this.calidades = calidades;
+        this.imagen = imagen;
+    }
     public DataAnime toData(){
         Collection<String> gnro = new HashSet();
         for(String gen : generos){
@@ -40,15 +51,6 @@ public class Anime extends Favorito{
     }
     public DataAnimeImNom toDataReducido(){        
         return new DataAnimeImNom(nombre,imagen.toData());
-    }
-
-    public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Imagen imagen) {
-        this.generos = generos;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.link = link;
-        this.capitulos = capitulos;
-        this.imagen = imagen;
     }
     public void add(String gen){
         generos.add(gen);

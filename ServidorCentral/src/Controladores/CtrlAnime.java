@@ -6,10 +6,13 @@
 package Controladores;
 
 import Clases.Anime;
+import Clases.Calidad;
 import Clases.Genero;
 import Clases.Imagen;
 import dataType.DataAnime;
+import dataType.DataCalidad;
 import dataType.DataGenero;
+import dataType.DataImagen;
 import dataType.DataPack;
 import dataType.reducidos.DataAnimeImNom;
 import dataType.reducidos.DataGeneroReducido;
@@ -74,14 +77,69 @@ public class CtrlAnime implements IAnime{
     }
 
     
-    public void addAnime(DataAnime dtanime) {
+    public void addAnime(DataAnime dtanime)  throws Error{
         Imagen imag = new Imagen(dtanime.getImagen().getIdentificador(),dtanime.getImagen().getImag(),dtanime.getImagen().getDescripcion());
-        animes.put(dtanime.getNombre(),new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),imag));
+        Map<String,Calidad> mapaCali = new HashMap();
+        for(DataCalidad dtc: dtanime.getCalidades().values()){
+            Map<Integer,Imagen> ims = new HashMap();
+            for(DataImagen dim: dtc.getImgs().values()){
+                ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
+            }
+            mapaCali.put(dtc.getCalidad(), new Calidad(ims,dtc.getCalidad(),dtc.getAnime()));
+        }
+        Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,imag);
+        animes.put(dtanime.getNombre(),anime);
+        Collection<String> error = new HashSet();
+        for(String gen: dtanime.getGeneros()){
+            Genero gener = generos.get(gen);
+            if (gener == null){
+                error.add(gen);
+            }else{
+                gener.add(anime);
+            }
+        }
+        if(!error.isEmpty()){
+            String paraError = "";
+            for(String err: error){
+                paraError += err+", ";
+            }
+            throw new Error("No se pudo añadir el anime a los siguientes generos: "+paraError);
+        }
     }
 
     
     public void modAnime(DataAnime dtanime, String nombre) {
-        
+        Anime anim = animes.get(nombre);
+        if(dtanime.getCalidades() != null){
+            Map<String,Calidad> mapaCali = new HashMap();
+            for(DataCalidad dtc: dtanime.getCalidades().values()){
+                Map<Integer,Imagen> ims = new HashMap();
+                for(DataImagen dim: dtc.getImgs().values()){
+                    ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
+                }
+                mapaCali.put(dtc.getCalidad(), new Calidad(ims,dtc.getCalidad(),dtc.getAnime()));
+            }
+            anim.setCalidades(mapaCali);
+        }
+        if(dtanime.getGeneros() != null){
+            anim.setGeneros(dtanime.getGeneros());
+        }
+        if (dtanime.getCapitulos() != null){
+            anim.setCapitulos(dtanime.getCapitulos());
+        }
+        if(dtanime.getDescripcion() != null){
+            anim.setDescripcion(dtanime.getDescripcion());
+        }
+        if(dtanime.getImagen() !=null){
+            DataImagen dtim = dtanime.getImagen();
+            anim.setImagen(new Imagen(dtim.getIdentificador(),dtim.getImag(),dtim.getDescripcion()));
+        }
+        if(dtanime.getLink() != null){
+            anim.setLink(dtanime.getLink());
+        }
+        if(dtanime.getNombre() != null){
+            anim.setNombre(dtanime.getNombre());
+        }    
     }
 
     
