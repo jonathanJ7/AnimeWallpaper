@@ -29,7 +29,7 @@ import java.util.Collection;
     void modAnime(DataAnime dtanime,String nombre);
     
     void addGenero(DataGenero dtgen);
-    void modGenero(DataGenero dtgen, String nombre);
+    void modGenero(String nombre,String nuevoNom,String desc);
     
     Collection<DataPackReducido> listarPacks();
     DataPack detallePack(String nombre,String propietario);

@@ -9,6 +9,7 @@ import Clases.Anime;
 import Clases.Calidad;
 import Clases.Genero;
 import Clases.Imagen;
+import Clases.Pack;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataGenero;
@@ -28,12 +29,16 @@ import java.util.Map;
  * @author Jonathan
  */
 public class CtrlAnime implements IAnime{
-    Map<String,Genero> generos;
-    Map<String,Anime> animes;
+    private Map<String,Genero> generos;
+    private Map<String,Anime> animes;
+    private Map<String,Pack> packs; //String = "nombre&propietario"
+    
+    private static final String separador= "&";
 
     private CtrlAnime() {
         generos = new HashMap();
         animes = new HashMap();
+        packs = new HashMap();
     }
     private static CtrlAnime instance = null;
     public CtrlAnime getInstance(){
@@ -42,7 +47,15 @@ public class CtrlAnime implements IAnime{
         }
         return instance;
     }
-    
+    private Pack getPack(String nombre, String propietario){
+        return packs.get(nombre+separador+propietario);
+    }
+    private void removePack(String nombre, String propietario){
+        packs.remove(nombre+separador+propietario);
+    }
+    private void addPack(Pack pack){
+        packs.put(pack.getNombre()+separador+pack.getPropietario(), pack);
+    }
 
     public Collection<DataAnimeImNom> listarAnimes() {
         Collection<DataAnimeImNom> ret = new HashSet();
@@ -110,56 +123,90 @@ public class CtrlAnime implements IAnime{
     
     public void modAnime(DataAnime dtanime, String nombre) {
         Anime anim = animes.get(nombre);
-        if(dtanime.getCalidades() != null){
-            Map<String,Calidad> mapaCali = new HashMap();
-            for(DataCalidad dtc: dtanime.getCalidades().values()){
-                Map<Integer,Imagen> ims = new HashMap();
-                for(DataImagen dim: dtc.getImgs().values()){
-                    ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
+        if(anim!=null){
+            if(dtanime.getCalidades() != null){
+                Map<String,Calidad> mapaCali = new HashMap();
+                for(DataCalidad dtc: dtanime.getCalidades().values()){
+                    Map<Integer,Imagen> ims = new HashMap();
+                    for(DataImagen dim: dtc.getImgs().values()){
+                        ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
+                    }
+                    mapaCali.put(dtc.getCalidad(), new Calidad(ims,dtc.getCalidad(),dtc.getAnime()));
                 }
-                mapaCali.put(dtc.getCalidad(), new Calidad(ims,dtc.getCalidad(),dtc.getAnime()));
+                anim.setCalidades(mapaCali);
             }
-            anim.setCalidades(mapaCali);
+            if(dtanime.getGeneros() != null){
+                Collection<String> grs = dtanime.getGeneros();
+                anim.setGeneros(grs);
+                for(Genero gen: generos.values()){
+                    if(!grs.contains(gen.getNombre())){
+                        gen.remove(nombre);
+                    }else if(gen.getAnime(nombre)==null){
+                        gen.add(anim);
+                    }
+                }
+            }
+            if (dtanime.getCapitulos() != null){
+                anim.setCapitulos(dtanime.getCapitulos());
+            }
+            if(dtanime.getDescripcion() != null){
+                anim.setDescripcion(dtanime.getDescripcion());
+            }
+            if(dtanime.getImagen() !=null){
+                DataImagen dtim = dtanime.getImagen();
+                anim.setImagen(new Imagen(dtim.getIdentificador(),dtim.getImag(),dtim.getDescripcion()));
+            }
+            if(dtanime.getLink() != null){
+                anim.setLink(dtanime.getLink());
+            }
+            if(dtanime.getNombre() != null){
+                anim.setNombre(dtanime.getNombre());
+            } 
+        }else{
+            throw new Error("No existe el anime: "+nombre);
         }
-        if(dtanime.getGeneros() != null){
-            anim.setGeneros(dtanime.getGeneros());
-        }
-        if (dtanime.getCapitulos() != null){
-            anim.setCapitulos(dtanime.getCapitulos());
-        }
-        if(dtanime.getDescripcion() != null){
-            anim.setDescripcion(dtanime.getDescripcion());
-        }
-        if(dtanime.getImagen() !=null){
-            DataImagen dtim = dtanime.getImagen();
-            anim.setImagen(new Imagen(dtim.getIdentificador(),dtim.getImag(),dtim.getDescripcion()));
-        }
-        if(dtanime.getLink() != null){
-            anim.setLink(dtanime.getLink());
-        }
-        if(dtanime.getNombre() != null){
-            anim.setNombre(dtanime.getNombre());
-        }    
     }
 
     
-    public void addGenero(DataGenero dtgen) {
+    public void addGenero(DataGenero dtgen)  throws Error{
+        Genero definitivo = new Genero(new HashMap(),dtgen.getNombre(),dtgen.getDescripcion());
+        generos.put(dtgen.getNombre(), definitivo);
+        for(DataAnime dtanime: dtgen.getAnimes().values()){
+            addAnime(dtanime);
+        }
+    }
+
+    
+    public void modGenero(String nombre,String nuevoNom,String desc) {
+        Genero gen = generos.get(nombre);
+        if(gen==null){
+            throw new Error("No existe el genero: "+nombre);
+        }else{
+            if(desc != null){
+                gen.setDescripcion(desc);
+            }
+            if(nuevoNom != null){
+                gen.setNombre(nuevoNom);
+                generos.remove(nombre);
+                generos.put(nuevoNom,gen);
+            }
+        }
         
-    }
-
-    
-    public void modGenero(DataGenero dtgen, String nombre) {
         
     }
 
     
     public Collection<DataPackReducido> listarPacks() {
-        return null;
+        Collection<DataPackReducido>  ret = new HashSet();
+        for(Pack pack : packs.values()){
+            ret.add(new DataPackReducido(pack.getMuestra().toData(),pack.getNombre(),pack.getPropietario().getCorreo()));
+        }
+        return ret;
     }
 
     
     public DataPack detallePack(String nombre, String propietario) {
-        return null;
+        return getPack(nombre,propietario).toData();
     }
     
 }

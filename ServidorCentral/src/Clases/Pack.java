@@ -10,6 +10,7 @@ import Clases.Cuentas.Usuario;
 import dataType.DataImagen;
 import dataType.DataPack;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -29,6 +30,11 @@ public class Pack extends Favorito{
             colecIm.put(im.getIdentificador(),im.toData());
         }
         return new DataPack(colecIm,nombre,propietario.getCorreo());
+    }
+    
+    public Imagen getMuestra(){
+        Iterator iter = colIm.values().iterator();
+        return (Imagen) iter.next();
     }
 
     public Pack(Map<Integer,Imagen> colIm, String nombre, Usuario propietario) {

@@ -15,12 +15,12 @@ import java.util.Collection;
  *
  * @author Jonathan
  */
-abstract public class IBusqueda {
-    abstract Collection<DataAnimeImNom> buscarAnime(String anime);
-    abstract Collection<DataCalidad> buscarCalidad(String anime,String calidadMin,String calidadMax,Boolean horizontal);
-    abstract Collection<DataGeneroReducido> buscarGenero(String nombre);
-    abstract Collection<DataPackReducido> buscarPackNom(String nombre);
-    abstract Collection<DataPackReducido> buscarPackProp(String propietario);
+public interface IBusqueda {
+    Collection<DataAnimeImNom> buscarAnime(String anime);
+    Collection<DataCalidad> buscarCalidad(String anime,String calidadMin,String calidadMax,Boolean horizontal);
+    Collection<DataGeneroReducido> buscarGenero(String nombre);
+    Collection<DataPackReducido> buscarPackNom(String nombre);
+    Collection<DataPackReducido> buscarPackProp(String propietario);
     
     
 }

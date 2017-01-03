@@ -16,18 +16,18 @@ import java.util.Map;
  *
  * @author Jonathan
  */
-public abstract class IUsr {
-    abstract Map<String,DataUsuario> listarUsuarios();
-    abstract DataCliente detalleCliente(String correo);
+public interface IUsr {
+    Map<String,DataUsuario> listarUsuarios();
+    DataCliente detalleCliente(String correo);
     
-    abstract void addUsr(DataUsuario dtusr);
-    abstract void addPendiente(String correo, String anime);
-    abstract void addPack(String correo, DataPack pack);
-    abstract void addFav(String correo,DataFavorito fav);
-    abstract void removeFav(String correo,DataFavorito fav);//si es anime solo necesita el nombre, si es calidad necesita calidad y nombre del anime, y si es pack necesita propietario y nombre
-    abstract void addNotificacion(String correo, DataNotificacion notif);
-    abstract void movNotificacion(String correo, DataNotificacion notif);
+    void addUsr(DataUsuario dtusr);
+    void addPendiente(String correo, String anime);
+    void addPack(String correo, DataPack pack);
+    void addFav(String correo,DataFavorito fav);
+    void removeFav(String correo,DataFavorito fav);//si es anime solo necesita el nombre, si es calidad necesita calidad y nombre del anime, y si es pack necesita propietario y nombre
+    void addNotificacion(String correo, DataNotificacion notif);
+    void movNotificacion(String correo, DataNotificacion notif);
     
-    abstract boolean credenciales(String correo,String pass);
+    boolean credenciales(String correo,String pass);
     
 }
