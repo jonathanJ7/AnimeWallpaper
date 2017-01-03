@@ -52,15 +52,15 @@ public class Cliente extends Usuario{
         return new DataCliente(pend, pa, fa,nv,vsto,  this.getNickname(), this.getCorreo());
     }
 
-    public Cliente(Collection<String> pendientes, Map<String, Pack> packs, Collection<Favorito> fav, Collection<Notificacion> noVistas, Collection<Notificacion> visto, String nickname, String correo, String pass) {
-        super(nickname, correo, pass);
-        this.pendientes = pendientes;
-        this.packs = packs;
-        this.fav = fav;
-        this.noVistas = noVistas;
-        this.visto = visto;
+ 
+    public Cliente(String nickname, String correo,String pass) {
+        super(nickname, correo,pass);
+        this.pendientes = new HashSet();
+        this.packs = new HashMap();;
+        this.fav = new HashSet();
+        this.noVistas = new HashSet();
+        this.visto = new HashSet();
     }
-
     public Collection<String> getPendientes() {
         return pendientes;
     }

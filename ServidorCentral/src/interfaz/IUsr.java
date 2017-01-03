@@ -18,16 +18,18 @@ import java.util.Map;
  */
 public interface IUsr {
     Map<String,DataUsuario> listarUsuarios();
-    DataCliente detalleCliente(String correo);
+    DataCliente detalleCliente(String nick);
     
-    void addUsr(DataUsuario dtusr);
-    void addPendiente(String correo, String anime);
-    void addPack(String correo, DataPack pack);
-    void addFav(String correo,DataFavorito fav);
-    void removeFav(String correo,DataFavorito fav);//si es anime solo necesita el nombre, si es calidad necesita calidad y nombre del anime, y si es pack necesita propietario y nombre
-    void addNotificacion(String correo, DataNotificacion notif);
-    void movNotificacion(String correo, DataNotificacion notif);
+    void addUsr(DataUsuario dtusr,String pass);
+    void addPendiente(String nick, String anime);
+    void removePendiente(String nick, String anime);
+    void addPack(String nick, DataPack pack);
+    void removePack(String nick, String nombre);
+    void addFav(String nick,DataFavorito fav);
+    void removeFav(String nick,DataFavorito fav);//si es anime solo necesita el nombre, si es calidad necesita calidad y nombre del anime, y si es pack necesita propietario y nombre
+    void addNotificacion(String nick, DataNotificacion notif);
+    void movNotificacion(String nick, DataNotificacion notif);
     
-    boolean credenciales(String correo,String pass);
+    boolean credenciales(String nick,String pass);
     
 }

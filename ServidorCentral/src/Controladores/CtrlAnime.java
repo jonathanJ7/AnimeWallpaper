@@ -41,7 +41,7 @@ public class CtrlAnime implements IAnime{
         packs = new HashMap();
     }
     private static CtrlAnime instance = null;
-    public CtrlAnime getInstance(){
+    public static CtrlAnime getInstance(){
         if(instance == null){
             instance = new CtrlAnime();
         }
@@ -88,7 +88,14 @@ public class CtrlAnime implements IAnime{
             throw new Error("No existe el genero: " +gen);
         }
     }
-
+    public Anime getAnime(String anime){
+        Anime ret =  animes.get(anime);
+        if (ret == null){
+            throw new Error("No existe el anime: "+anime);
+        }else{
+            return ret;
+        }
+    }
     
     public void addAnime(DataAnime dtanime)  throws Error{
         Imagen imag = new Imagen(dtanime.getImagen().getIdentificador(),dtanime.getImagen().getImag(),dtanime.getImagen().getDescripcion());
