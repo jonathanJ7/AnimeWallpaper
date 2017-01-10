@@ -9,14 +9,20 @@ package servidor;
  *
  * @author Jonathan
  */
+import dataType.DataAnime;
 import dataType.DataCliente;
 import dataType.DataFavorito;
+import dataType.DataGenero;
 import dataType.DataNotificacion;
 import dataType.DataPack;
 import dataType.DataUsuario;
+import dataType.reducidos.DataAnimeImNom;
+import dataType.reducidos.DataGeneroReducido;
+import dataType.reducidos.DataPackReducido;
 import interfaz.IAnime;
 import interfaz.IUsr;
 import interfaz.fabrica;
+import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -55,7 +61,11 @@ public class Publicador {
     public Endpoint getEndpoint() {
             return endpoint;
     }
+    @WebMethod
+    public void publicdtt(DataPackReducido dpr,DataAnimeImNom dain){       
+    }
     
+    /*********INTERFAZ DE USUARIO *******/
     @WebMethod
     public DataMap /*Map<String,DataUsuario>*/ listarUsuarios(){
         return new DataMap(interUsr.listarUsuarios());
@@ -108,5 +118,51 @@ public class Publicador {
             ret ="";
         }
         return ret;
+    }
+    /********** INTERFAZ DE ANIME *****************/
+    
+    @WebMethod
+    public DataCollection /*Collection<DataAnimeImNom>*/ listarAnimes(){
+        return new DataCollection(interAnime.listarAnimes());
+    }
+    @WebMethod
+    public DataAnime detalleAnime(String anime){
+        return interAnime.detalleAnime(anime);
+    }
+    
+    @WebMethod
+    public DataCollection /*Collection<String>*/ listarGeneros(){
+        return new DataCollection(interAnime.listarGeneros());
+    }
+    @WebMethod
+    public DataGeneroReducido detalleGenero(String gen){
+        return interAnime.detalleGenero(gen);
+    }
+    
+    @WebMethod
+    public void addAnime(DataAnime dtanime){
+        interAnime.addAnime(dtanime);
+    }
+    @WebMethod
+    public void modAnime(DataAnime dtanime,String nombre){
+        interAnime.modAnime(dtanime, nombre);
+    }
+    
+    @WebMethod
+    public void addGenero(DataGenero dtgen){
+        interAnime.addGenero(dtgen);
+    }
+    @WebMethod
+    public void modGenero(String nombre,String nuevoNom,String desc){
+        interAnime.modGenero(nombre, nuevoNom, desc);
+    }
+    
+    @WebMethod
+    public DataCollection /*Collection<DataPackReducido>*/listarPacks(){
+        return new DataCollection(interAnime.listarPacks());
+    }
+    @WebMethod
+    public DataPack detallePack(String nombre,String propietario){
+        return interAnime.detallePack(nombre, propietario);
     }
 }

@@ -9,8 +9,14 @@ package errores;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Error extends Exception {
 
+    public Error() {
+    }
+    
     public Error(String message) {
         super(message);
     }

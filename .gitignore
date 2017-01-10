@@ -2,3 +2,12 @@ ServidorCentral/nbproject
 ServidorCentral/build.xml
 ServidorCentral/manifest.mf
 ServidorCentral/build/
+/ServidorWeb/nbproject/
+/ServidorWeb/build/
+ServidorCentral/boot/
+ServidorCentral/boot - copia/
+ServidorWeb/build.xml
+ServidorWeb/catalog.xml
+ServidorWeb/web/WEB-INF/
+ServidorWeb/web/META-INF/
+ServidorWeb/src/conf/

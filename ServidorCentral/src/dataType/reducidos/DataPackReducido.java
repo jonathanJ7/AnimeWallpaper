@@ -12,10 +12,28 @@ import java.util.Map;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataPackReducido {
     private DataImagen imMuesra;
     private String nombre;
     private String propietario;
+
+    public DataPackReducido() {
+    }
+
+    public void setImMuesra(DataImagen imMuesra) {
+        this.imMuesra = imMuesra;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
+    }
 
     public DataImagen getImMuesra() {
         return imMuesra;

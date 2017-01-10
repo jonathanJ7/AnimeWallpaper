@@ -11,9 +11,23 @@ import dataType.DataImagen;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataAnimeImNom {
     String nombre;
     DataImagen img;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setImg(DataImagen img) {
+        this.img = img;
+    }
+
+    public DataAnimeImNom() {
+    }
 
     public DataAnimeImNom(String nombre, DataImagen img) {
         this.nombre = nombre;

@@ -14,12 +14,38 @@ import java.util.Map;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataCliente extends DataUsuario{
     private Collection<String> pendientes;
     private Map<String,DataPack> packs;
     private Collection<DataFavorito> fav;
     private Collection<DataNotificacion> noVistas;
     private Collection<DataNotificacion> visto;
+
+    public void setPendientes(Collection<String> pendientes) {
+        this.pendientes = pendientes;
+    }
+
+    public void setPacks(Map<String, DataPack> packs) {
+        this.packs = packs;
+    }
+
+    public void setFav(Collection<DataFavorito> fav) {
+        this.fav = fav;
+    }
+
+    public void setNoVistas(Collection<DataNotificacion> noVistas) {
+        this.noVistas = noVistas;
+    }
+
+    public void setVisto(Collection<DataNotificacion> visto) {
+        this.visto = visto;
+    }
+
+    public DataCliente() {
+    }
 
     public DataCliente(Collection<String> pendientes, Map<String, DataPack> packs, Collection<DataFavorito> fav, Collection<DataNotificacion> noVistas, Collection<DataNotificacion> visto, String nickname, String correo) {
         super(nickname, correo);

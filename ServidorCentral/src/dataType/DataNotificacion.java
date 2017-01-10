@@ -9,9 +9,23 @@ package dataType;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataNotificacion {
     
     private String mensaje,link;
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public DataNotificacion() {
+    }
 
     public String getMensaje() {
         return mensaje;

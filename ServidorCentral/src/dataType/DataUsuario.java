@@ -9,10 +9,25 @@ package dataType;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataUsuario {
     private String nickname;
     private String correo;
 
+    public DataUsuario() {
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
     public String getNickname() {
         return nickname;
     }

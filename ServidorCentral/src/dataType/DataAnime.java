@@ -12,6 +12,9 @@ import java.util.Map;
  *
  * @author Jonathan
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DataAnime extends DataFavorito {
     
     private Collection<String> generos;
@@ -19,6 +22,37 @@ public class DataAnime extends DataFavorito {
     private Integer capitulos;
     private Map<String,DataCalidad> calidades;
     private DataImagen imagen;
+
+    public DataAnime() {
+    }
+
+    public void setGeneros(Collection<String> generos) {
+        this.generos = generos;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setCapitulos(Integer capitulos) {
+        this.capitulos = capitulos;
+    }
+
+    public void setCalidades(Map<String, DataCalidad> calidades) {
+        this.calidades = calidades;
+    }
+
+    public void setImagen(DataImagen imagen) {
+        this.imagen = imagen;
+    }
 
     public DataAnime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, DataCalidad> calidades,DataImagen im) {
         this.generos = generos;
