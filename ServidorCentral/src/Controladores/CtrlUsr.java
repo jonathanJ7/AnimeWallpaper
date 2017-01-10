@@ -31,6 +31,17 @@ import java.util.Map;
 public class CtrlUsr implements IUsr{
     Map<String,Usuario> usuarios; //String = nick 
 
+    private CtrlUsr() {
+        usuarios = new HashMap();
+    }
+    private static CtrlUsr instance =null;
+    public static CtrlUsr getInstance(){
+        if(instance==null){
+            instance = new CtrlUsr();
+        }
+        return instance;
+    }
+
     
     public Map<String, DataUsuario> listarUsuarios() { //String nick
         Map<String, DataUsuario> ret = new HashMap();
