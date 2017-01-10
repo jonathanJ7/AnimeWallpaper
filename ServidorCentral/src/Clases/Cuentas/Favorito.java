@@ -13,7 +13,5 @@ import dataType.DataFavorito;
  */
 abstract public class Favorito {
     
-    public DataFavorito toData(){
-        return null;
-    }
+    abstract public DataFavorito toData();
 }

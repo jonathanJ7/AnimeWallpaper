@@ -9,7 +9,7 @@ package dataType;
  *
  * @author Jonathan
  */
-public class DataImagen extends DataFavorito{
+public class DataImagen{
     private Integer identificador;
     private Byte[] imag;
     private String Descripcion;

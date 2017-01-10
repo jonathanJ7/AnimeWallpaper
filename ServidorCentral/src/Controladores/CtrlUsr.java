@@ -7,10 +7,13 @@ package Controladores;
 
 import Clases.Cuentas.Admin;
 import Clases.Cuentas.Cliente;
+import Clases.Cuentas.Notificacion;
 import Clases.Cuentas.Usuario;
 import Clases.Imagen;
 import Clases.Pack;
 import dataType.DataAdmin;
+import dataType.DataAnime;
+import dataType.DataCalidad;
 import dataType.DataCliente;
 import dataType.DataFavorito;
 import dataType.DataImagen;
@@ -107,7 +110,18 @@ public class CtrlUsr implements IUsr{
         Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
-            //ACA FALTA HACER LO IMPORTANTE 
+            if(fav instanceof DataPack){
+                DataPack DPack = (DataPack) fav;
+                Pack pack = CtrlAnime.getInstance().getPack(DPack.getNombre(), DPack.getPropietario());
+                cli.add(pack);
+            }else if(fav instanceof DataAnime){
+                cli.add(CtrlAnime.getInstance().getAnime(((DataAnime) fav).getNombre()));
+            }else if(fav instanceof DataCalidad){
+                cli.add(CtrlAnime.getInstance().getAnime(
+                        ((DataCalidad) fav).getAnime()
+                ).getCalidad(((DataCalidad) fav).getCalidad())
+                );                
+            }
         }else{
             throw new Error("No existe el cliente: "+nick);
         }
@@ -115,30 +129,92 @@ public class CtrlUsr implements IUsr{
 
     
     public void removeFav(String nick, DataFavorito fav) {
-        
+        Usuario usr = usuarios.get(nick);
+        if(usr != null && usr instanceof Cliente){
+            Cliente cli = (Cliente) usr;
+            if(fav instanceof DataPack){
+                DataPack DPack = (DataPack) fav;
+                Pack pack = CtrlAnime.getInstance().getPack(DPack.getNombre(), DPack.getPropietario());
+                cli.remove(pack);
+            }else if(fav instanceof DataAnime){
+                cli.remove(CtrlAnime.getInstance().getAnime(((DataAnime) fav).getNombre()));
+            }else if(fav instanceof DataCalidad){
+                cli.remove(CtrlAnime.getInstance().getAnime(
+                        ((DataCalidad) fav).getAnime()
+                ).getCalidad(((DataCalidad) fav).getCalidad())
+                );                
+            }
+        }else{
+            throw new Error("No existe el cliente: "+nick);
+        }
     }
 
     
     public void addNotificacion(String nick, DataNotificacion notif) {
-        
+        Usuario usr = usuarios.get(nick);
+        if(usr != null && usr instanceof Cliente){
+            Cliente cli = (Cliente) usr;
+            cli.add(new Notificacion(notif.getMensaje(),notif.getLink()));
+        }else{
+            throw new Error("No existe el cliente: "+nick);
+        }
     }
 
     
     public void movNotificacion(String nick, DataNotificacion notif) {
+        Usuario usr = usuarios.get(nick);
+        if(usr != null && usr instanceof Cliente){
+            Cliente cli = (Cliente) usr;
+            boolean error=true;
+            for(Notificacion noti: cli.getNoVistas()){
+                if(noti.getLink().equals(notif.getLink()) && noti.getMensaje().equals(notif.getMensaje())){
+                    cli.remove(noti);
+                    cli.addVisto(noti);
+                    error=false;
+                    break;
+                }
+            }
+            if(error){
+                throw new Error("La notificacion no existe");
+            }
+        }else{
+            throw new Error("No existe el cliente: "+nick);
+        }
         
     }
 
     
-    public boolean credenciales(String nick, String pass) {
-        return true;
+    public String credenciales(String correo, String pass) {//se loguea por correo por seguridad
+        for(Usuario usr : usuarios.values()){
+            if(usr.getCorreo().equals(correo)){
+                if(usr.getPass().equals(pass)){
+                    return usr.getNickname();
+                }
+                break;
+            }
+        }
+        return null;
     }
 
     public void removePendiente(String nick, String anime) {
-
+        Usuario usr = usuarios.get(nick);
+        if(usr != null && usr instanceof Cliente){
+            Cliente cli = (Cliente) usr;
+            cli.removeAnime(anime);
+        }else{
+            throw new Error("No existe el cliente: "+nick);
+        }
+        
     }
 
     public void removePack(String nick, String nombre) {
-    
+        Usuario usr = usuarios.get(nick);
+        if(usr != null && usr instanceof Cliente){
+            Cliente cli = (Cliente) usr;
+            cli.remove(nombre);
+        }else{
+            throw new Error("No existe el cliente: "+nick);
+        }
     }
     
 }

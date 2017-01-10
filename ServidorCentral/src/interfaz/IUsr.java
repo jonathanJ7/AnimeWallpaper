@@ -30,6 +30,6 @@ public interface IUsr {
     void addNotificacion(String nick, DataNotificacion notif);
     void movNotificacion(String nick, DataNotificacion notif);
     
-    boolean credenciales(String nick,String pass);
+    String credenciales(String correo ,String pass);//se loguea por correo por seguridad
     
 }

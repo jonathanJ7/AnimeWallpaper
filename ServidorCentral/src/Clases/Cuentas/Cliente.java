@@ -94,7 +94,7 @@ public class Cliente extends Usuario{
    public void add(String anim){
         pendientes.add(anim);
     }
-    public void remove(Anime anim){
+    public void removeAnime(String anim){
         pendientes.remove(anim);
     }
    

@@ -47,16 +47,15 @@ public class CtrlAnime implements IAnime{
         }
         return instance;
     }
-    private Pack getPack(String nombre, String propietario){
+    public Pack getPack(String nombre, String propietario){
         return packs.get(nombre+separador+propietario);
     }
-    private void removePack(String nombre, String propietario){
+    public void removePack(String nombre, String propietario){
         packs.remove(nombre+separador+propietario);
     }
-    private void addPack(Pack pack){
+    public void addPack(Pack pack){
         packs.put(pack.getNombre()+separador+pack.getPropietario(), pack);
     }
-
     public Collection<DataAnimeImNom> listarAnimes() {
         Collection<DataAnimeImNom> ret = new HashSet();
         for(Anime anim: animes.values()){

@@ -52,6 +52,9 @@ public class Anime extends Favorito{
     public DataAnimeImNom toDataReducido(){        
         return new DataAnimeImNom(nombre,imagen.toData());
     }
+    public Calidad getCalidad(String cali){
+        return calidades.get(cali);
+    }
     public void add(String gen){
         generos.add(gen);
     }

@@ -12,7 +12,7 @@ import dataType.DataImagen;
  *
  * @author Jonathan
  */
-public class Imagen extends Favorito{
+public class Imagen{
     private Integer identificador;
     private Byte[] imag;
     private String Descripcion;
