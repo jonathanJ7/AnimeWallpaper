@@ -174,12 +174,9 @@ public class CtrlAnime implements IAnime{
     }
 
     
-    public void addGenero(DataGenero dtgen)  throws Error{
+    public void addGenero(DataGenero dtgen){
         Genero definitivo = new Genero(new HashMap(),dtgen.getNombre(),dtgen.getDescripcion());
         generos.put(dtgen.getNombre(), definitivo);
-        for(DataAnime dtanime: dtgen.getAnimes().values()){
-            addAnime(dtanime);
-        }
     }
 
     

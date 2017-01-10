@@ -5,12 +5,14 @@
  */
 package servidor;
 
+import dataType.DataAnime;
+import dataType.DataGenero;
+import interfaz.IAnime;
+import interfaz.fabrica;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import javax.imageio.ImageIO;
 
 /**
@@ -32,6 +34,52 @@ public class ServidorCentral {
     }
     static public String getResolucion(BufferedImage img){
         return Integer.toString(img.getWidth())+"x"+Integer.toString(img.getHeight());
+    }
+    static public void cargarGeneros(){
+        IAnime interAnime = fabrica.getInstance().getIAnime();
+        String nombre =null;
+        String descripcion =null;
+        
+        nombre="Shojo";
+        descripcion = "En japonés significa \"joven\" o \"niña\". Estos anime son generalmente dirigidos a las niñas. Ejemplos: Fruits Basket o Mermaid Melody Pichi Pichi Pitch ";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Shonen";
+        descripcion = "En japonés significa \"joven\" estos animes van mas dirijidos a los niños. Ejemplos: Dragon Ball Z o Digimon";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Comedia";
+        descripcion = "Es el género dramático opuesto a la tragedia y, por tanto, relacionado casi siempre con historias con final feliz.";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Drama";
+        descripcion = "Es la representación de algún episodio o conflicto de la vida de los seres humanos por medio del diálogo de los personajes o del monólogo. En el género dramático, el autor lleva el desarrollo de la acción a la escena: los hechos no se relatan, sino que se representan.";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Romance";
+        descripcion = "Es un género  que se caracteriza por retratar argumentos construidos de eventos y personajes relacionados con la expresión del amor y las relaciones románticas";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Sobrenatural";
+        descripcion = "Es un subgénero de fantasía que combina elementos de Ficción sobrenatural y el género dramático";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        /*
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        */
+    }
+    static public DataAnime cargarAnimeAux(String nombre,Collection<String> generos){
+        return null;
+        
     }
     static public void organizarImagenes(){
         BufferedImage img = null;
