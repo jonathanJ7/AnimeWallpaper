@@ -19,9 +19,9 @@
         for(DataAnimeImNom data: listaAnimes){
             String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
         %>
-        <div id="anime">
+        <div id="anime" onclick="location.href = '/Anime/<%=data.getNombre()%>'">
             <a><%=data.getNombre()%></a><br>
-            <img src="data:image/png;base64, <%=b64%>" alt="no está" style="width:150px;height: 150px" ><br>
+            <img src="data:image/png;base64, <%=b64%>" style="width:150px;height: 150px" ><br>
         </div>
         <%
         }

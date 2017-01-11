@@ -71,7 +71,7 @@ public class CtrlAnime implements IAnime{
 
     public DataAnime detalleAnime(String anime) throws Error{
         Anime anim = animes.get(anime);
-        if (anim == null){
+        if (anim != null){
             return anim.toData();
         }else{
             throw new Error("No existe el anime: " +anime);

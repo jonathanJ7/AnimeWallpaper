@@ -7,6 +7,8 @@ package Clases;
 
 import Clases.Cuentas.Favorito;
 import dataType.DataCalidad;
+import dataType.DataImagen;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,7 +34,11 @@ public class Calidad extends Favorito{
     }
 
     public DataCalidad toData(){
-        return null;
+        Map<Integer,DataImagen> imagenes = new HashMap();
+        for(Imagen im : imgs.values()){
+            imagenes.put(im.getIdentificador(), im.toData());
+        }
+        return new DataCalidad(imagenes,calidad,anime);
     } 
     
     public Map<Integer, Imagen> getImgs() {

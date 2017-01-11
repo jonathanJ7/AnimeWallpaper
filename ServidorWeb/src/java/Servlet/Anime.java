@@ -13,14 +13,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import servidor.DataAnime;
 import servidor.DataAnimeImNom;
 
 /**
  *
  * @author Jonathan
  */
-@WebServlet(name = "Home", urlPatterns = {"/Home"})
-public class Home extends HttpServlet {
+@WebServlet(name = "Anime", urlPatterns = {"/Anime/*"})
+public class Anime extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,9 +35,11 @@ public class Home extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         servidor.PublicadorService service =  new servidor.PublicadorService();
         servidor.Publicador port = service.getPublicadorPort();
-        Collection<DataAnimeImNom> listaAnimes = herramienta.pasarACol(port.listarAnimes());
-        request.setAttribute("listaAnimes", listaAnimes);
-        request.getRequestDispatcher( "/home.jsp").forward(request,response);
+        
+        String anime = request.getPathInfo().replace("%20"," ").substring(1);
+        DataAnime dtanime = port.detalleAnime(anime);
+        request.setAttribute("detalleAnime", dtanime);
+        request.getRequestDispatcher( "/detalleAnime.jsp").forward(request,response);
         
     }
 
