@@ -14,14 +14,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DataImagen{
     private Integer identificador;
-    private Byte[] imag;
+    private byte[] imag;
     private String Descripcion;
 
     public void setIdentificador(Integer identificador) {
         this.identificador = identificador;
     }
 
-    public void setImag(Byte[] imag) {
+    public void setImag(byte[] imag) {
         this.imag = imag;
     }
 
@@ -32,7 +32,7 @@ public class DataImagen{
     public DataImagen() {
     }
 
-    public DataImagen(Integer identificador, Byte[] imag, String Descripcion) {
+    public DataImagen(Integer identificador, byte[] imag, String Descripcion) {
         this.identificador = identificador;
         this.imag = imag;
         this.Descripcion = Descripcion;
@@ -42,7 +42,7 @@ public class DataImagen{
         return identificador;
     }
 
-    public Byte[] getImag() {
+    public byte[] getImag() {
         return imag;
     }
 

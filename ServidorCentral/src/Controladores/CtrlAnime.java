@@ -34,11 +34,16 @@ public class CtrlAnime implements IAnime{
     private Map<String,Pack> packs; //String = "nombre&propietario"
     
     private static final String separador= "&";
+    private Integer identImg;
 
     private CtrlAnime() {
         generos = new HashMap();
         animes = new HashMap();
         packs = new HashMap();
+        identImg = 0;
+    }
+    public Integer getIdentImg(){
+        return identImg++;
     }
     private static CtrlAnime instance = null;
     public static CtrlAnime getInstance(){

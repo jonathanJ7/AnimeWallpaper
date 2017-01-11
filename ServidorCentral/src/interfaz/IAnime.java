@@ -34,5 +34,7 @@ import java.util.Collection;
     Collection<DataPackReducido> listarPacks();
     DataPack detallePack(String nombre,String propietario);
     
+    Integer getIdentImg();
+    
     
 }

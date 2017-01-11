@@ -14,7 +14,7 @@ import Controladores.CtrlUsr;
  */
 public class fabrica {
 
-    static public fabrica instance =null;
+    static private fabrica instance =null;
     private fabrica() {
     }
     static public fabrica getInstance(){

@@ -14,7 +14,7 @@ import dataType.DataImagen;
  */
 public class Imagen{
     private Integer identificador;
-    private Byte[] imag;
+    private byte[] imag;
     private String Descripcion;
 
     public void setDescripcion(String Descripcion) {
@@ -25,7 +25,7 @@ public class Imagen{
     }
     
 
-    public Imagen(Integer identificador, Byte[] imag, String Descripcion) {
+    public Imagen(Integer identificador, byte[] imag, String Descripcion) {
         this.identificador = identificador;
         this.imag = imag;
         this.Descripcion = Descripcion;
@@ -35,18 +35,18 @@ public class Imagen{
         return Descripcion;
     }
 
-    public Imagen(Integer identificador, Byte[] imag) {
+    public Imagen(Integer identificador, byte[] imag) {
         this.identificador = identificador;
         this.imag = imag;
     }
     static public Imagen descargar(String url){
         return null;//VER
     }
-    public void setImag(Byte[] imag) {
+    public void setImag(byte[] imag) {
         this.imag = imag;
     }
 
-    public Byte[] getImag() {
+    public byte[] getImag() {
         return imag;
     }
 
