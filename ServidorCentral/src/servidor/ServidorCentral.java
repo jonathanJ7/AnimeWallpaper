@@ -5,6 +5,7 @@
  */
 package servidor;
 
+import Clases.Imagen;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataGenero;
@@ -14,16 +15,16 @@ import interfaz.fabrica;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -150,7 +151,14 @@ public class ServidorCentral {
         
         
     }
-    static private DataAnime cargarAnimeAux(Collection<String> generos,String nombre,String link,String descrip,int capitulos){
+    static public Imagen redimencion(Imagen img){
+        BufferedImage toResize = ServidorCentral.byteToBuff(img.getImag());
+        toResize = ServidorCentral.resize(toResize, 400, 400);
+        byte[] miniatura = ServidorCentral.buffTobyte(toResize);
+        Imagen imMini = new Imagen(img.getIdentificador(),miniatura,null);
+        return imMini;
+    }
+    static public DataAnime cargarAnimeAux(Collection<String> generos,String nombre,String link,String descrip,int capitulos){
         
         if(prefix==null){
             try {
@@ -190,14 +198,23 @@ public class ServidorCentral {
         DataAnime ret = new DataAnime(generos,nombre,descrip,link,capitulos,calidades,dtim);        
         return ret;
     }
-    static private byte[] buffTobyte(BufferedImage img){
+    static public byte[] buffTobyte(BufferedImage img){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             ImageIO.write(img, "jpg", baos);
         } catch (IOException ex) {}
         return baos.toByteArray();
     }
-    static private byte[] getFile(String name){
+    static public BufferedImage byteToBuff(byte[] imageInByte){
+        InputStream in = new ByteArrayInputStream(imageInByte);
+        BufferedImage bImageFromConvert = null;
+        try {
+            bImageFromConvert = ImageIO.read(in);
+        } catch (IOException ex) {
+        }
+        return bImageFromConvert;
+    }
+    static public byte[] getFile(String name){
         byte[] byteArray = null;
         try {
                 File f = new File(name);
@@ -208,7 +225,7 @@ public class ServidorCentral {
         }
         return byteArray;
     }
-    static private void organizarImagenes(){
+    static public void organizarImagenes(){
         BufferedImage img = null;
         try {
             if(prefix==null){
@@ -250,7 +267,7 @@ public class ServidorCentral {
             System.out.printf("error");
         }
     }
-    static private BufferedImage resize(BufferedImage bufferedImage, int newW, int newH) {
+    static public BufferedImage resize(BufferedImage bufferedImage, int newW, int newH) {
         int w = bufferedImage.getWidth();
         int h = bufferedImage.getHeight();
         BufferedImage imagenRedimensionada = new BufferedImage(newW, newH, bufferedImage.getType());

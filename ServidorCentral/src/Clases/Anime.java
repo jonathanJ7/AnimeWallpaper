@@ -49,6 +49,17 @@ public class Anime extends Favorito{
         }
         return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
     }
+    public DataAnime toDataMiniatura(){
+        Collection<String> gnro = new HashSet();
+        for(String gen : generos){
+            gnro.add(gen);
+        }
+         Map<String, DataCalidad> cali = new HashMap();
+        for(Calidad gen : calidades.values()){
+            cali.put(gen.getCalidad(),gen.toDataMiniatura());
+        }
+        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
+    }
     public DataAnimeImNom toDataReducido(){        
         return new DataAnimeImNom(nombre,imagen.toData());
     }

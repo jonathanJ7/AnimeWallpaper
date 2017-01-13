@@ -13,6 +13,7 @@ import dataType.DataAnime;
 import dataType.DataCliente;
 import dataType.DataFavorito;
 import dataType.DataGenero;
+import dataType.DataImagen;
 import dataType.DataNotificacion;
 import dataType.DataPack;
 import dataType.DataUsuario;
@@ -22,7 +23,6 @@ import dataType.reducidos.DataPackReducido;
 import interfaz.IAnime;
 import interfaz.IUsr;
 import interfaz.fabrica;
-import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -124,6 +124,10 @@ public class Publicador {
     @WebMethod
     public DataCollection /*Collection<DataAnimeImNom>*/ listarAnimes(){
         return new DataCollection(interAnime.listarAnimes());
+    }
+    @WebMethod
+    public byte[] getImagen(String anime, String calidad, int identificador){
+        return interAnime.getImagen(anime, calidad, identificador);
     }
     @WebMethod
     public DataAnime detalleAnime(String anime){

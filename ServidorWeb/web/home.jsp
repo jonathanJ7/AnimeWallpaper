@@ -14,30 +14,50 @@
         <title>JSP Page</title>
         <jsp:include page="/header.jsp"/>
         <style>
-            .imagenHome{
-                width: 100%;
-                height: 100%;
-                cursor:pointer;
+            .container {
+              position: relative;
+              width: 25%;
+              height: 250px;
+              float: left;
+              cursor: pointer;
             }
-            .paraMostrar{
-                width: 25%;
-                height: 250px;
-                cursor:pointer;
-                float: left;
+
+            .image {
+              display: block;
+              width: 100%;
+              height: 100%;
             }
-            .paraMostrar:hover .textoSobreImagen{
-                display: block;
+
+            .overlay {
+              position: absolute;
+              bottom: 100%;
+              left: 0;
+              right: 0;
+              background-color: black;
+              opacity: 0.7;
+              overflow: hidden;
+              width: 100%;
+              height:0;
+              transition: .2s ease;
             }
-            .paraMostrar:hover .imagenHome{
-                opacity: 0.3;
+
+            .container:hover .overlay {
+              bottom: 0;
+              height: 100%;
             }
-            .textoSobreImagen{
-                display: none;
-                position:absolute;
-                color:black;
-                text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+
+            .text {
+              white-space: nowrap; 
+              color: white;
+              font-size: 20px;
+              position: absolute;
+              overflow: hidden;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);              
+            
             }
-      
         </style>
     </head>
     <body>
@@ -47,13 +67,127 @@
             String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
         %>
         
-        <div class="paraMostrar">
-            <a> </a> 
-            <a class="textoSobreImagen"><br>&nbsp;&nbsp;&nbsp;<%=data.getNombre()%></a>
-            <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="imagenHome" src="data:image/png;base64, <%=b64%>" >
-        </div>
+
+            <div class="container" onclick="location.href = '/Anime/<%=data.getNombre()%>'" >
+              <img class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
         <%
         }
         %>
+        
+        
+        <%--RELLEO--%>
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container">
+              <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container">
+              <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container">
+              <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container">
+              <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container">
+              <img onclick="location.href = '/Anime/<%=data.getNombre()%>'" class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        <% 
+        
+        for(DataAnimeImNom data: listaAnimes){
+            String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
+        %>
+        
+
+            <div class="container" onclick="location.href = '/Anime/<%=data.getNombre()%>'" >
+              <img class="image" src="data:image/png;base64, <%=b64%>" >
+              <div class="overlay">
+                <div class="text"><%=data.getNombre()%></div>
+              </div>
+            </div>
+        <%
+        }
+        %>
+        
+        
+        
     </body>
 </html>

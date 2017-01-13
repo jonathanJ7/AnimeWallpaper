@@ -72,7 +72,7 @@ public class CtrlAnime implements IAnime{
     public DataAnime detalleAnime(String anime) throws Error{
         Anime anim = animes.get(anime);
         if (anim != null){
-            return anim.toData();
+            return anim.toDataMiniatura();
         }else{
             throw new Error("No existe el anime: " +anime);
         }
@@ -215,6 +215,23 @@ public class CtrlAnime implements IAnime{
     
     public DataPack detallePack(String nombre, String propietario) {
         return getPack(nombre,propietario).toData();
+    }
+
+    @Override
+    public byte[] getImagen(String anime, String calidad, int identificador) {
+        Anime anim= getAnime(anime);
+        Calidad cali = anim.getCalidad(calidad);
+        if(cali ==null){
+            throw new Error("no existe la calidad: "+calidad+" en el anime: "+anime);
+        }else{
+            Imagen im = cali.getImagen(identificador);
+            if(im==null){
+                throw new Error("No existe la imagen");
+            }else{
+                return im.getImag();
+            }
+        }
+       
     }
     
 }
