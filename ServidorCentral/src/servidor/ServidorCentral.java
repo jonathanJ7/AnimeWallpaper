@@ -11,7 +11,10 @@ import dataType.DataGenero;
 import dataType.DataImagen;
 import interfaz.IAnime;
 import interfaz.fabrica;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,6 +22,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -154,6 +159,8 @@ public class ServidorCentral {
         }
         String prefijoImagenes = prefix +"imagenes/";
         String anime = prefijoImagenes+nombre+"/";
+        String pathIm=null;
+        int identif=-1;
         
         DataImagen dtim = null;
         File folder = new File(anime);
@@ -165,15 +172,30 @@ public class ServidorCentral {
             String[] listaImagenes = folderCali.list();
             Map<Integer,DataImagen> imgs = new HashMap();
             for(String nomIm :listaImagenes){
-                int identif = Integer.parseInt(nomIm.split("\\.")[0]);
-                dtim = new DataImagen(identif,getFile(pathCali+nomIm),null);
+                pathIm = pathCali+nomIm;
+                identif = Integer.parseInt(nomIm.split("\\.")[0]);
+                dtim = new DataImagen(identif,getFile(pathIm),null);
                 imgs.put(identif,dtim);                
             }
             DataCalidad dcal = new DataCalidad(imgs,calidad,nombre);
             calidades.put(calidad, dcal);
         }
+        File toIm = new File(pathIm);
+        BufferedImage img = null;
+        try {
+            img= ImageIO.read(toIm);
+        } catch (IOException ex) {}
+        img= resize(img,500,500);
+        dtim = new DataImagen(identif,buffTobyte(img),null);
         DataAnime ret = new DataAnime(generos,nombre,descrip,link,capitulos,calidades,dtim);        
         return ret;
+    }
+    static private byte[] buffTobyte(BufferedImage img){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(img, "jpg", baos);
+        } catch (IOException ex) {}
+        return baos.toByteArray();
     }
     static private byte[] getFile(String name){
         byte[] byteArray = null;
@@ -228,5 +250,14 @@ public class ServidorCentral {
             System.out.printf("error");
         }
     }
-    
+    static private BufferedImage resize(BufferedImage bufferedImage, int newW, int newH) {
+        int w = bufferedImage.getWidth();
+        int h = bufferedImage.getHeight();
+        BufferedImage imagenRedimensionada = new BufferedImage(newW, newH, bufferedImage.getType());
+        Graphics2D g = imagenRedimensionada.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(bufferedImage, 0, 0, newW, newH, 0, 0, w, h, null);
+        g.dispose();
+        return imagenRedimensionada;
+    }
 }

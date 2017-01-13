@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="/header.jsp"/>
     </head>
     <body>
         
@@ -24,9 +25,9 @@
         
         <br><img src="data:image/png;base64, <%=b64%>" style="width:150px;height: 150px" ><br>
         <h1><%=anime.getNombre()%></h1>
-        <a><%=anime.getDescripcion()%></a>
-        <a><%=anime.getLink()%></a>
-        <a><%=anime.getCapitulos()%></a>
+        <br><a><%=anime.getDescripcion()%></a>
+        <br><a><%=anime.getLink()%></a>
+        <br><a><%=anime.getCapitulos()%></a>
     
         
         
@@ -37,7 +38,7 @@
             List<DataCalidad.Imgs.Entry> listIm =  ims.getEntry();
         %>
 
-            <a><%=ent.getKey()%></a>
+            <br><a><%=ent.getKey()%></a>
 
 
              <%       
