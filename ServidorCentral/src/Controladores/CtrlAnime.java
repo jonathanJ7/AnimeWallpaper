@@ -86,7 +86,7 @@ public class CtrlAnime implements IAnime{
     
     public DataGeneroReducido detalleGenero(String gen) throws Error{
         Genero genero = generos.get(gen);
-        if (genero == null){
+        if (genero != null){
             return genero.toDataReducido();
         }else{
             throw new Error("No existe el genero: " +gen);

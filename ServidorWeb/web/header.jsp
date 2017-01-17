@@ -57,7 +57,7 @@ body{
     <body>
         <div id="cabezal">
             <div class="itemTop"><a class="textoItem" href="/Home">Home</a></div>
-            <div class="itemTop"><a class="textoItem" href="#home">awsd</a></div>
+            <div class="itemTop"><a class="textoItem" href="/Generos">Generos</a></div>
             <div class="itemTop"><a class="textoItem" href="#home">adf</a></div>
             <div class="itemTop"><a class="textoItem" href="#home">asdasd</a></div>
         </div>

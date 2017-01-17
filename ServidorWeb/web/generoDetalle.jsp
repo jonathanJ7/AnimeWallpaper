@@ -4,10 +4,9 @@
     Author     : Jonathan
 --%>
 
-<%@page import="java.util.List"%>
-<%@page import="servidor.DataCalidad"%>
 <%@page import="servidor.DataImagen"%>
-<%@page import="servidor.DataAnime"%>
+<%@page import="servidor.DataAnimeImNom"%>
+<%@page import="servidor.DataGeneroReducido"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <jsp:include page="/header.jsp"/>
+    </head>
     <style>
              /*OVERLAY*/       
                     
@@ -154,97 +154,40 @@
                 font-weight: bold; 
             }
         </style>
-    </head>
     <body>
         
         <%
-        DataAnime anime = (DataAnime) request.getAttribute("detalleAnime");
-        String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(anime.getImagen().getImag());
+        DataGeneroReducido genero = (DataGeneroReducido) request.getAttribute("detalleGenero");
+        String b64 = null;
         %>
-        <div class="container"style="margin-right: 2%;">
-              <img class="image"  src="data:image/png;base64, <%=b64%>" >
-              <div class="overlay">
-                <div class="text"><%=anime.getNombre()%></div>
-              </div>
-        </div>
-        <h1><%=anime.getNombre()%></h1><br> 
-        <a class="negrita">Descripción: </a>  <a><%=anime.getDescripcion()%></a> <br><br>
-        <a class="negrita">Link: </a> <a href="<%=anime.getLink()%>"><%=anime.getLink()%></a> <br><br>
-        <a class="negrita">Capitulos: </a> <a><%=anime.getCapitulos()%></a>
-    
-        <br><br><br><br><br><br><br>
+        
+        <h1><%=genero.getNombre()%></h1><br> 
+        <a class="negrita">Descripción: </a>  <a><%=genero.getDescripcion()%></a> <br><br>
+        
         
         <%      
-        for(DataAnime.Calidades.Entry ent: anime.getCalidades().getEntry()){
-            DataCalidad dcal = ent.getValue();
-            DataCalidad.Imgs ims = dcal.getImgs();
-            List<DataCalidad.Imgs.Entry> listIm =  ims.getEntry();
+        for(DataGeneroReducido.Animes.Entry ent: genero.getAnimes().getEntry()){
+            DataAnimeImNom animeR = ent.getValue();
+            DataImagen imagen = animeR.getImg();
+            String alt = imagen.getDescripcion();
+            b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(imagen.getImag());
+            if(alt==null){
+                alt="Sin descripción";
+            }
         %>
 
 
-
-             <%       
-            for(DataCalidad.Imgs.Entry entr: listIm){
-                b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(entr.getValue().getImag()); 
-                String alt = entr.getValue().getDescripcion();
-                if(alt ==null){
-                    alt="Sin descripción";
-                }
-            %>
-                
-            <div class="container" onclick="zoom(this)" >
+            <div class="container" onclick="location.href = '/Anime/<%=ent.getKey()%>'" >
               <img class="image" src="data:image/png;base64, <%=b64%>" alt="<%=alt%>" >
-              <img style="display:none;" src="/imagenes/<%=anime.getNombre()%>/<%=ent.getKey()%>/<%=entr.getValue().getIdentificador()%>">
               <div class="overlay">
                 <div class="text"><%=ent.getKey()%></div>
               </div>
             </div>
             
-            
-            
-            <%
-            }
-            %>
-        
         <%
         }
         %>
        
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-
-              <!-- The Close Button -->
-              <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
-              <!-- Modal Content (The Image) -->
-              <img class="modal-content" id="img01">
-
-              <!-- Modal Caption (Image Text) -->
-              <div id="caption"></div>
-            </div>
-    
     </body>
-    <script>
-        function zoom(div){
-            var imagen = div.childNodes[1];
-            var imDos = div.childNodes[3];
-            modal.style.display = "block";
-            modalImg.src = imDos.src;
-            captionText.innerHTML = imagen.alt;
-        }
-        var modal = document.getElementById('myModal');
-
-        // Get the image and insert it inside the modal - use its "alt" text as a caption
-        var img = document.getElementById('myImg');
-        var modalImg = document.getElementById("img01");
-        var captionText = document.getElementById("caption");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() { 
-          modal.style.display = "none";
-        }
-    </script>
+    
 </html>
