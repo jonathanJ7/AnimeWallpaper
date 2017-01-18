@@ -5,24 +5,20 @@
  */
 package Servlet;
 
-import herramientas.herramienta;
 import java.io.IOException;
-import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servidor.DataAnime;
 import servidor.DataCliente;
-import servidor.DataFavorito;
 
 /**
  *
  * @author Jonathan
  */
-@WebServlet(name = "Anime", urlPatterns = {"/Anime/*"})
-public class Anime extends HttpServlet {
+@WebServlet(name = "Cuenta", urlPatterns = {"/Cuenta/*"})
+public class Cuenta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +29,33 @@ public class Anime extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String consulta = request.getPathInfo().replace("%20"," ").substring(1);
+        
         servidor.PublicadorService service =  new servidor.PublicadorService();
         servidor.Publicador port = service.getPublicadorPort();
         
-        String anime = request.getPathInfo().replace("%20"," ").substring(1);
-        DataAnime dtanime = port.detalleAnime(anime);
-        String usr = (String) request.getSession().getAttribute("nickName");
-        if(usr!=null){
-            Collection<DataFavorito> colF = herramienta.pasarACol(port.getDataFavorito(usr));
-            request.setAttribute("colFav", colF);
+        if(consulta.equals("Conectar")){
+            String nickName = port.credenciales((String) request.getParameter("Email"), (String) request.getParameter("Password"));
+            if(!nickName.equals("")){
+                request.getSession().setAttribute("nickName", nickName);
+                request.getSession().setAttribute("Email", (String) request.getParameter("Email"));                
+            }else{
+                request.getSession().setAttribute("alerta", "Correo o contraseña incorrectos");                
+            }
+        }else if(consulta.equals("Registrar")){
+            DataCliente  reg = new DataCliente();
+            reg.getFav();
+            reg.getNoVistas();
+            reg.getPendientes();
+            reg.getVisto();
+            reg.setNickname( (String) request.getParameter("Nickname"));
+            reg.setCorreo((String) request.getParameter("Email"));
+            port.addUsr(reg, (String) request.getParameter("Password"));
         }
-        request.setAttribute("detalleAnime", dtanime);
-        request.getRequestDispatcher( "/detalleAnime.jsp").forward(request,response);
         
+        response.sendRedirect("/Home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

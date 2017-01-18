@@ -21,6 +21,7 @@ import dataType.DataNotificacion;
 import dataType.DataPack;
 import dataType.DataUsuario;
 import interfaz.IUsr;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,18 @@ public class CtrlUsr implements IUsr{
             return (DataCliente) cli.toData();
         }
     }
+    
+    public Collection<DataFavorito> getDataFavorito(String nick) throws Error{
+        Usuario usr = usuarios.get(nick);
+        if(usr == null || !(usr instanceof Cliente)){
+            throw new Error("No existe el cliente: "+nick);
+        }else{
+            Cliente cli = (Cliente) usr;
+            return cli.getDataFavorito();
+        }
+    }
+    
+    
 
     
     public void addUsr(DataUsuario dtusr,String pass) {

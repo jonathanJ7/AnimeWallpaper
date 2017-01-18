@@ -39,7 +39,7 @@ public class Cliente extends Usuario{
         }
         Collection<DataFavorito> fa = new HashSet();
         for(Favorito an : fav){
-            fa.add(an.toData());
+            fa.add(an.toDataFav());
         }
         Collection<DataNotificacion> nv = new HashSet();
         for(Notificacion an : noVistas){
@@ -50,6 +50,14 @@ public class Cliente extends Usuario{
             vsto.add(an.toData());
         }
         return new DataCliente(pend, pa, fa,nv,vsto,  this.getNickname(), this.getCorreo());
+    }
+    
+    public Collection<DataFavorito> getDataFavorito(){
+        Collection<DataFavorito> fa = new HashSet();
+        for(Favorito an : fav){
+            fa.add(an.toDataFav());
+        }
+        return fa;
     }
 
  

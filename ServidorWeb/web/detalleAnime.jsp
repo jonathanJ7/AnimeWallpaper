@@ -4,6 +4,8 @@
     Author     : Jonathan
 --%>
 
+<%@page import="servidor.DataFavorito"%>
+<%@page import="java.util.Collection"%>
 <%@page import="java.util.List"%>
 <%@page import="servidor.DataCalidad"%>
 <%@page import="servidor.DataImagen"%>
@@ -156,6 +158,7 @@
     </head>
     <body>
         
+        
         <%
         DataAnime anime = (DataAnime) request.getAttribute("detalleAnime");
         String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(anime.getImagen().getImag());
@@ -183,7 +186,36 @@
         %>
         <br><br>
         
-        <a class="negrita">Descripción: </a>  <a><%=anime.getDescripcion()%></a> 
+        <a class="negrita">Descripción: </a>  <a><%=anime.getDescripcion()%></a> <br><br>
+        <%
+        Collection<DataFavorito> colFav =  (Collection<DataFavorito>) request.getAttribute("colFav");
+        if(colFav !=null){
+        
+            boolean encontrado = false;
+            for(DataFavorito dfav : colFav){
+                if(dfav instanceof DataAnime){
+                    DataAnime danime = (DataAnime) dfav;
+                    if(danime.getNombre().equals(anime.getNombre())){
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+            if(encontrado){
+        %>
+        
+            <img  onclick="cambio(this)" style="float:left;" width="50px" height="50px" src="/recursos/imagenes/favSi.png">
+        
+        <%
+            }else{
+         %>
+
+         <img  onclick="cambio(this)" style="float:left;" width="50px" height="50px" src="/recursos/imagenes/favNo.png">
+         
+         
+         <%
+        }}
+        %>
         <br><br><br><br><br><br><br>
         
         <%      
@@ -202,6 +234,7 @@
                 if(alt ==null){
                     alt="Sin descripción";
                 }
+                
             %>
                 
             <div class="container" onclick="zoom(this)" >
@@ -257,6 +290,15 @@
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() { 
           modal.style.display = "none";
+        }
+        function cambio(img){
+            var completo = img.src;
+            completo= completo.substring(completo.length-9,completo.length);
+            if(completo == "favSi.png"){
+                img.src = "/recursos/imagenes/favNo.png";
+            }else{
+                img.src = "/recursos/imagenes/favSi.png"
+            }
         }
     </script>
         <jsp:include page="/header.jsp"/>

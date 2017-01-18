@@ -106,11 +106,13 @@ body{
         <div id="cabezal">
             <div class="itemTop"><a class="textoItem" href="/Home">Home</a></div>
             <div class="itemTop"><a class="textoItem" href="/Generos">Generos</a></div>
-            <div class="itemTop"><a class="textoItem" href="#home">adf</a></div>
-            <div class="itemTop"><a class="textoItem" href="#home">asdasd</a></div>
+            <div class="itemTop"><a class="textoItem" href="/Perfiles">Usuarios</a></div>
+            <div class="itemTop"><a class="textoItem" href="#home">Packs</a></div>
             
-            
-            <form action="demo_form.asp" class="login">
+            <% String nickName = (String) request.getSession().getAttribute("nickName"); 
+            if(nickName==null){
+            %>
+            <form action="/Cuenta/Conectar" class="login">
                     <a class="inputLogin" href="#home">
                         <input type="email" name="Email" placeholder="Email" >
                     </a>
@@ -120,26 +122,49 @@ body{
                     <input type="submit" value="Conectar">    
             </form>
             
-        <div class="dropdown">
-            <div class="itemTop" onclick="myFunction()"><a class="textoItem" href="#home">Registrar</a></div>
-            <div id="myDropdown" class="dropdown-content">
-                <form action="demo_form.asp" class="login">
-                    <a class="inputLogin" href="#home">
-                        <input type="email" name="Email" placeholder="Email">
-                    </a>
-                    <a class="inputLogin" href="#home">
-                        <input type="text" name="Nickname" placeholder="Nickname">
-                    </a>
-                    <a class="inputLogin" href="#home">
-                        <input type="password" name="Password" placeholder="Password" >
-                    </a>
-                    <input style="margin-left: 33%" type="submit" value="Registrar">  
-                    <br>
-                </form>
+            <div class="dropdown">
+                <div class="itemTop"><a class="textoItem" href="#home">Registrar</a></div>
+                <div id="myDropdown" class="dropdown-content">
+                    <form action="/Cuenta/Registrar" class="login">
+                        <a class="inputLogin" href="#home">
+                            <input type="email" name="Email" placeholder="Email">
+                        </a>
+                        <a class="inputLogin" href="#home">
+                            <input type="text" name="Nickname" placeholder="Nickname">
+                        </a>
+                        <a class="inputLogin" href="#home">
+                            <input type="password" name="Password" placeholder="Password" >
+                        </a>
+                        <input style="margin-left: 33%" type="submit" value="Registrar">  
+                        <br>
+                    </form>
+                </div>
             </div>
-        </div>
+            <% }else{ %>
+            <div style="float:right;">
+                    <div class="dropdown">
+                    <div class="itemTop"><a class="textoItem" href="/Perfiles/<%=nickName%>"><%=nickName%></a></div>
+                    <div id="myDropdown" class="dropdown-content" style="right:0; margin-top: 50%;">
+                            <a class="inputLogin" href="/Perfiles/<%=nickName%>">Mi perfil</a>
+                            <a class="inputLogin" href="#home">cosa</a>
+                            <a class="inputLogin" href="/cerrarsesion.jsp">Cerrar sesion</a>
+                            
+                    </div>
+                </div>
+            </div>
+            <% }%>
             
         </div>
-        
+            
+    <% String alerta= (String) request.getSession().getAttribute("alerta");
+    if(alerta!=null){ %>
+        <script>
+            alert("<%=alerta%>");
+        </script>
+    <%  
+    request.getSession().setAttribute("alerta", null);
+    }
+    %>
     </body>
+    
 </html>

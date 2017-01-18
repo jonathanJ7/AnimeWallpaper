@@ -10,6 +10,7 @@ import dataType.DataFavorito;
 import dataType.DataNotificacion;
 import dataType.DataPack;
 import dataType.DataUsuario;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -31,5 +32,6 @@ public interface IUsr {
     void movNotificacion(String nick, DataNotificacion notif);
     
     String credenciales(String correo ,String pass);//se loguea por correo por seguridad
+    Collection<DataFavorito> getDataFavorito(String nick);
     
 }

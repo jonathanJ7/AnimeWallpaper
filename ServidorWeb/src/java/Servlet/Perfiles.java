@@ -7,22 +7,21 @@ package Servlet;
 
 import herramientas.herramienta;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servidor.DataAnime;
 import servidor.DataCliente;
-import servidor.DataFavorito;
+import servidor.DataUsuario;
 
 /**
  *
  * @author Jonathan
  */
-@WebServlet(name = "Anime", urlPatterns = {"/Anime/*"})
-public class Anime extends HttpServlet {
+@WebServlet(name = "Perfiles", urlPatterns = {"/Perfiles/*"})
+public class Perfiles extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +32,23 @@ public class Anime extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String consulta = request.getPathInfo();
+        
         servidor.PublicadorService service =  new servidor.PublicadorService();
         servidor.Publicador port = service.getPublicadorPort();
         
-        String anime = request.getPathInfo().replace("%20"," ").substring(1);
-        DataAnime dtanime = port.detalleAnime(anime);
-        String usr = (String) request.getSession().getAttribute("nickName");
-        if(usr!=null){
-            Collection<DataFavorito> colF = herramienta.pasarACol(port.getDataFavorito(usr));
-            request.setAttribute("colFav", colF);
+        if(consulta != null){
+            consulta = consulta.replace("%20"," ").substring(1);
+            DataCliente dcli = port.detalleCliente(consulta);
+            request.setAttribute("detalleCliente", dcli);
+            request.getRequestDispatcher( "/detalleCliente.jsp").forward(request,response);
+        }else{
+            Map<String,DataUsuario> map = herramienta.pasarAMap(port.listarUsuarios());  
+            request.setAttribute("colUsr", map.values());
+            request.getRequestDispatcher( "/usuarios.jsp").forward(request,response);
         }
-        request.setAttribute("detalleAnime", dtanime);
-        request.getRequestDispatcher( "/detalleAnime.jsp").forward(request,response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

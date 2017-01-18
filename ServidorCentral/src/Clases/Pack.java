@@ -36,7 +36,9 @@ public class Pack extends Favorito{
         Iterator iter = colIm.values().iterator();
         return (Imagen) iter.next();
     }
-
+    public DataPack toDataFav(){
+        return new DataPack(null,nombre,propietario.getNickname());
+    }
     public Pack(Map<Integer,Imagen> colIm, String nombre, Usuario propietario) {
         this.nombre = nombre;
         this.propietario = propietario;

@@ -8,6 +8,7 @@ package Clases;
 import Clases.Cuentas.Favorito;
 import dataType.DataAnime;
 import dataType.DataCalidad;
+import dataType.DataFavorito;
 import dataType.reducidos.DataAnimeImNom;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class Anime extends Favorito{
     public void setCalidades(Map<String, Calidad> calidades) {
         this.calidades = calidades;
     }
-
+    
     public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, Calidad> calidades, Imagen imagen) {
         this.generos = generos;
         this.nombre = nombre;
@@ -37,6 +38,9 @@ public class Anime extends Favorito{
         this.capitulos = capitulos;
         this.calidades = calidades;
         this.imagen = imagen;
+    }
+    public DataAnime toDataFav(){
+        return new DataAnime(null,nombre,null,null,null,null,null);
     }
     public DataAnime toData(){
         Collection<String> gnro = new HashSet();

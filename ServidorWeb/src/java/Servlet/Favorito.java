@@ -5,24 +5,20 @@
  */
 package Servlet;
 
-import herramientas.herramienta;
 import java.io.IOException;
-import java.util.Collection;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servidor.DataAnime;
-import servidor.DataCliente;
-import servidor.DataFavorito;
 
 /**
  *
  * @author Jonathan
  */
-@WebServlet(name = "Anime", urlPatterns = {"/Anime/*"})
-public class Anime extends HttpServlet {
+@WebServlet(name = "Favorito", urlPatterns = {"/Favorito/*"})
+public class Favorito extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +29,21 @@ public class Anime extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        servidor.PublicadorService service =  new servidor.PublicadorService();
-        servidor.Publicador port = service.getPublicadorPort();
-        
-        String anime = request.getPathInfo().replace("%20"," ").substring(1);
-        DataAnime dtanime = port.detalleAnime(anime);
-        String usr = (String) request.getSession().getAttribute("nickName");
-        if(usr!=null){
-            Collection<DataFavorito> colF = herramienta.pasarACol(port.getDataFavorito(usr));
-            request.setAttribute("colFav", colF);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Favorito</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Favorito at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        request.setAttribute("detalleAnime", dtanime);
-        request.getRequestDispatcher( "/detalleAnime.jsp").forward(request,response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

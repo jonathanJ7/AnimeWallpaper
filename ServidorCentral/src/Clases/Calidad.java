@@ -33,6 +33,9 @@ public class Calidad extends Favorito{
             miniaturas.put(im.getIdentificador(), imMini);
         }
     }
+    public DataCalidad toDataFav(){
+        return new DataCalidad(null,calidad,anime);
+    }
 
     public void setAnime(String anime) {
         this.anime = anime;

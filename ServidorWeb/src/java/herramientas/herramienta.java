@@ -21,7 +21,7 @@ public class herramienta{
     static public Map pasarAMap(DataMap mapa){
         Map ret = new HashMap();
         for (Object ob : mapa.getMapa().getEntry()){
-            Entry ent = (Entry) ob;
+            DataMap.Mapa.Entry ent = (DataMap.Mapa.Entry) ob;
             ret.put(ent.getKey(),ent.getValue());
         }
         return ret;

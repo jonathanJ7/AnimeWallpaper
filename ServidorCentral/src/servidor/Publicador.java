@@ -119,6 +119,11 @@ public class Publicador {
         }
         return ret;
     }
+    
+    @WebMethod
+    public DataCollection/*Collection<DataFavorito> */getDataFavorito(String nick){
+       return new DataCollection(interUsr.getDataFavorito(nick));
+    }
     /********** INTERFAZ DE ANIME *****************/
     
     @WebMethod
