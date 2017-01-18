@@ -12,10 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <jsp:include page="/header.jsp"/>
+        
         <style>
             .container {
-              position: relative;
+              position:relative;
               width: 25%;
               height: 250px;
               float: left;
@@ -68,6 +68,7 @@
         %>
         
 
+              
             <div class="container" onclick="location.href = '/Anime/<%=data.getNombre()%>'" >
               <img class="image" src="data:image/png;base64, <%=b64%>" >
               <div class="overlay">
@@ -188,6 +189,6 @@
         %>
         
         
-        
+        <jsp:include page="/header.jsp"/>
     </body>
 </html>

@@ -134,6 +134,8 @@ public class ServidorCentral {
         generos.add("Harem");
         
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+        
+        
         /*
         nombre = "";
         link = "";
