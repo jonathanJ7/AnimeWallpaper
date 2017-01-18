@@ -83,7 +83,42 @@ public class ServidorCentral {
         nombre="Harem";
         descripcion = "Es caracterizado por un hombre generalmente sin muchos talentos, rodeado por mujeres muy alocadas y distintas entre sí y comúnmente viviendo juntos.";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Colegial";
+        descripcion = "Es un subgénero que consiste en que la historia se desarrolle en una escuela o secundaria";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        nombre="Cosas de la vida";
+        descripcion = " es conocido por tener historias donde se centra más en los personajes que en la historia en general, y se tocan temas como la vida cotidiana de los personajes y sus problemas de todos los días.  Este tipo de animes también tienen elementos de romance y comedia para hacer de las series mucho más entretenidas";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Accion";
+        descripcion = "Es un género cinematográfico en el que prima la espectacularidad de las imágenes";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Thriller";
+        descripcion = "Es un género cuyo objetivo principal es mantener generalmente en un estado de tensión, de lo que pueda ocurrirle a los personajes y, por lo tanto, atento al desarrollo";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Seinen";
+        descripcion = "El objetivo es atraer a una audiencia masculina mayor de 16 años. Como tal, este tipo de anime tiende a ser mucho más sofisticado que el anime y manga shōnen. Algunos temas frecuentes en las tramas son la violencia y la política.";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
         /*
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
         nombre="Shonen";
         descripcion = "";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
@@ -97,6 +132,38 @@ public class ServidorCentral {
         nombre="Shonen";
         descripcion = "";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
+        nombre="Shonen";
+        descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));
+        
+        
         */
     }
     static private void cargarAnimes(){
@@ -135,8 +202,64 @@ public class ServidorCentral {
         
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
         
+        nombre = "Watamote";
+        link = "http://jkanime.net/watashi-ga-motenai-no-wa-dou-kangaetemo-omaera-ga-warui/";
+        desc = "Kuroki Tomoko, una chica que tiene \"50 años de experiencia\" en citas y que ha salido con más de un centenar de chicos… en juegos otome.\n" +
+"\n" +
+"En la vida real acaba de cumplir 15 años y va a dar comienzo su época en el instituto, está convencida de que con sus conocimientos será la más de popular. Una vez comienza el instituto, comienzan a pasar los días y se da cuenta de que no habla con nadie. ¿Cómo es posible? Un simple vistazo al espejo le hace darse cuenta de la realidad: no es precisamente una belleza y parece que hasta puede ser antipática.\n" +
+"\n" +
+"Poco a poco intentará cambiar para ser popular, pero claro, entre lo que le cuesta y lo que tiene una idea bastante distorsionada de la realidad, no será tan sencillo.";
+        capitulos = 12;
         
+        generos=new HashSet();
+        generos.add("Comedia");
+        generos.add("Colegial");
+        generos.add("Shonen");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+        
+        nombre = "Toradora";
+        link = "http://jkanime.net/toradora/";
+        desc = "Takasu Ryuuji comienza su segundo año de instituto con mucho animo. Sin embargo, hay una cosa que el odia, y es su mirada, heredada de su padre (un ganster), con lo cual posee una habilidad innata para intimidar a los demás, provocándole esto muchos malentendidos con sus compañeros, no obstante, todo esto va cambiar el primer día de clases, cuando Ryuuji tiene un encontronazo con Aisaka Taiga, la persona mas peligrosa del centro.";
+        capitulos = 25;
+        
+        generos=new HashSet();
+        generos.add("Comedia");
+        generos.add("Romance");
+        generos.add("Colegial");
+        generos.add("Cosas de la vida");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+        
+        
+        nombre = "Requiem for the Phantom";
+        link = "http://jkanime.net/requiem-for-the-phantom/";
+        desc = "La mafía americana, una de las más poderosas del mundo ceden ante el temor de una organización llamada INFERNO, no por su poder económico ni tampoco por su influencia mundial, sino por sus creaciones,asesinos a sangre fría y con habilidades sobre-humanas. Agatsuma Reiji llega a America para encontrarse con un familiar y presencia un asesinato brutal donde él es el único testigo de ese hecho. Más tarde es capturado por una de las más hábiles asesinas de la organización INFERNO, Phantom.Poco después es llevado a los laboratorios de INFERNO y es víctima de un lavado de cerebro.Al despertar,no recuerda nada,sin embargo,se da cuenta que poseé ciertas \"habilidades\".";
+        capitulos = 26;
+        
+        generos=new HashSet();
+        generos.add("Drama");
+        generos.add("Accion");
+        generos.add("Thriller");
+        generos.add("Seinen");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+                
+                
+        nombre = "Oreimo";
+        link = "http://jkanime.net/ore-no-imouto-ga-konnani-kawaii-wake-ga-nai/";
+        desc = "Nos cuenta la historia de Kyousuke Kousaka un estudiante de 17 años que cursa la preparatoria, tiene una hermana menor de 14 años quien es estudiante de secundaria, ademas es una modelo teen muy popular y que siempre lo ignora y rechaza como hermano sin llevarse nada bien llamada Kirino. Ore No Imouto Ga Konnani Kawaii Wake Ga Nai escrita por Tsukasa Fushimi y que llegará a estrenarse para octubre del 2010 viniendo a manos de la empresa Aniplex, trata mas que todo sobre como se relacionan estás dos personas luego de que un dia Kyousuke encuentra en el cuarto de su hermana por casualidad un dvd de Anime, pero lo mas interezante es que junto con ese dvd venía un juego eroge(erótico) llamado Imouto to Koishiyo(amor con la pequeña hermana) descubriendo así que su hermana Kirino es una otaku fanatica a muerte de los juegos para adultos y todo lo que esto conlleva haciendo mas difícil de lo que ya es la vida Kyosuke debido a todas las travesuras de su hermana. Un nuevo título con bastante Ecchi recomendado ya que el manga de la serie tuvo mucho exito y esperemos ocurra lo mismo con la serie.";
+        capitulos = 32;
+        
+        generos=new HashSet();
+        generos.add("Comedia");
+        generos.add("Cosas de la vida");
+        generos.add("Seinen");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
         /*
+        
+                
         nombre = "";
         link = "";
         desc = "";
@@ -148,7 +271,39 @@ public class ServidorCentral {
         generos.add("Shonen");
         generos.add("Sobrenatural");
         
-        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));*/
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+                
+                
+        nombre = "";
+        link = "";
+        desc = "";
+        capitulos = 12;
+        
+        generos=new HashSet();
+        generos.add("Comedia");
+        generos.add("Misterio");
+        generos.add("Shonen");
+        generos.add("Sobrenatural");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+                
+                
+        nombre = "";
+        link = "";
+        desc = "";
+        capitulos = 12;
+        
+        generos=new HashSet();
+        generos.add("Comedia");
+        generos.add("Misterio");
+        generos.add("Shonen");
+        generos.add("Sobrenatural");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+                
+                
+                
+                */
         
         
         

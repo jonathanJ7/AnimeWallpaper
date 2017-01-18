@@ -167,10 +167,23 @@
               </div>
         </div>
         <h1><%=anime.getNombre()%></h1><br> 
-        <a class="negrita">Descripción: </a>  <a><%=anime.getDescripcion()%></a> <br><br>
         <a class="negrita">Link: </a> <a href="<%=anime.getLink()%>"><%=anime.getLink()%></a> <br><br>
-        <a class="negrita">Capitulos: </a> <a><%=anime.getCapitulos()%></a>
+        <a class="negrita">Capitulos: </a> <a><%=anime.getCapitulos()%></a> <br><br>
     
+        <a class="negrita">Generos: </a> 
+        <%      
+        for(String genero: anime.getGeneros()){
+            
+        %>
+        
+        <a href="/Generos/<%=genero%>"  style="background-color: white"><%=genero%>, </a>
+        
+        <%
+        }
+        %>
+        <br><br>
+        
+        <a class="negrita">Descripción: </a>  <a><%=anime.getDescripcion()%></a> 
         <br><br><br><br><br><br><br>
         
         <%      
