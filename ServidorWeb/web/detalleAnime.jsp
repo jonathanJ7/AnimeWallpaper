@@ -154,11 +154,15 @@
             .negrita{
                 font-weight: bold; 
             }
+            .globo{
+                background-color: red;
+                opacity: .8;
+            }
         </style>
     </head>
     <body>
         
-        
+        <div class="globo">
         <%
         DataAnime anime = (DataAnime) request.getAttribute("detalleAnime");
         String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(anime.getImagen().getImag());
@@ -216,6 +220,7 @@
          <%
         }}
         %>
+        </div>
         <br><br><br><br><br><br><br>
         
         <%      
@@ -234,8 +239,8 @@
                 if(alt ==null){
                     alt="Sin descripción";
                 }
-                
             %>
+                
                 
             <div class="container" onclick="zoom(this)" >
               <img class="image" src="data:image/png;base64, <%=b64%>" alt="<%=alt%>" >
@@ -295,10 +300,21 @@
             var completo = img.src;
             completo= completo.substring(completo.length-9,completo.length);
             if(completo == "favSi.png"){
+                modificarFav(false);
                 img.src = "/recursos/imagenes/favNo.png";
             }else{
+                modificarFav(true);
                 img.src = "/recursos/imagenes/favSi.png"
             }
+        }
+        function modificarFav(isAdd) {
+            var xhttp = new XMLHttpRequest();
+            if(isAdd){
+                xhttp.open("GET", "/Favorito/Anime/add/<%=anime.getNombre()%>", true);
+            }else{
+                xhttp.open("GET", "/Favorito/Anime/remove/<%=anime.getNombre()%>", true);
+            }
+            xhttp.send();
         }
     </script>
         <jsp:include page="/header.jsp"/>

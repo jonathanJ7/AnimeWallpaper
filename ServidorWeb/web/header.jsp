@@ -45,7 +45,7 @@ body{
     margin-left :0px;
     
     margin-right :0px;
-    background-color: #333;
+    background-image: url("https://wallpaperscraft.com/image/love_ru_kotegawa_yui_anime_wood_scarf_snow_30055_1024x768.jpg");
     color: white;
     
 }
@@ -146,7 +146,7 @@ body{
                     <div class="itemTop"><a class="textoItem" href="/Perfiles/<%=nickName%>"><%=nickName%></a></div>
                     <div id="myDropdown" class="dropdown-content" style="right:0; margin-top: 50%;">
                             <a class="inputLogin" href="/Perfiles/<%=nickName%>">Mi perfil</a>
-                            <a class="inputLogin" href="#home">cosa</a>
+                            <a class="inputLogin" href="/Pack/crear">Crear pack</a>
                             <a class="inputLogin" href="/cerrarsesion.jsp">Cerrar sesion</a>
                             
                     </div>

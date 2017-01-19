@@ -5,20 +5,23 @@
  */
 package Servlet;
 
+import herramientas.herramienta;
 import java.io.IOException;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import servidor.DataAnime;
+import servidor.DataAnimeImNom;
+import servidor.DataGeneroReducido;
 
 /**
  *
  * @author Jonathan
  */
-@WebServlet(name = "Favorito", urlPatterns = {"/Favorito/*"})
-public class Favorito extends HttpServlet {
+@WebServlet(name = "Pack", urlPatterns = {"/Pack/*"})
+public class Pack extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,21 +34,21 @@ public class Favorito extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String consulta = request.getPathInfo();
+        
         servidor.PublicadorService service =  new servidor.PublicadorService();
         servidor.Publicador port = service.getPublicadorPort();
-        String consulta = request.getPathInfo().replace("%20"," ").substring(1);
-        String[] parametros = consulta.split("/");
-        String usuario = (String) request.getSession().getAttribute("nickName");
-        if(parametros[0].equals("Anime")){
-            DataAnime danime = new DataAnime();
-            danime.setNombre(parametros[2]);
-            if(parametros[1].equals("add")){
-                port.addFav(usuario,danime);
-            }else if(parametros[1].equals("remove")){
-                port.removeFav(usuario,danime);                
-            }
-        }
         
+        if(consulta != null){
+            consulta = consulta.replace("%20"," ").substring(1);
+            Collection<DataAnimeImNom> listaAnimes = herramienta.pasarACol(port.listarAnimes());
+            request.setAttribute("listaAnimes", listaAnimes);
+            request.getRequestDispatcher( "/crearPack.jsp").forward(request,response);
+        }else{/*
+            Collection<String> col = herramienta.pasarACol(port.listarGeneros());  
+            request.setAttribute("colGeneros", col);
+            request.getRequestDispatcher( "/generos.jsp").forward(request,response);*/
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
