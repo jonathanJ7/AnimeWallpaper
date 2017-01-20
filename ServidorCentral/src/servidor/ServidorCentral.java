@@ -6,12 +6,12 @@
 package servidor;
 
 import Clases.Imagen;
+import dataBase.conectar;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataCliente;
 import dataType.DataGenero;
 import dataType.DataImagen;
-import dataType.DataUsuario;
 import interfaz.IAnime;
 import interfaz.IUsr;
 import interfaz.fabrica;
@@ -43,10 +43,14 @@ public class ServidorCentral {
     
     
     public static void main(String[] args) {
+        conectar();
         cargarAnimes();
         cargarUsuarios();
         Publicador p = new Publicador();
         p.publicar();
+    }
+    static public void conectar(){
+        conectar.getConnection();
     }
     static public String getResolucion(BufferedImage img){
         return Integer.toString(img.getWidth())+"x"+Integer.toString(img.getHeight());
