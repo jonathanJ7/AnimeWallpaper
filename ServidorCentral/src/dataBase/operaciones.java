@@ -40,9 +40,7 @@ public class operaciones {
     public static DataImagen getDataImagen(int identificador){
         try {
             Statement statement = con.createStatement();
-            String sql = "SELECT *"
-                    + "FROM imagenes"
-                    + "WHERE identificador=2";
+            String sql = "SELECT * FROM imagenes WHERE identificador = '"+Integer.toString(identificador)+"'";
             ResultSet resS = statement.executeQuery(sql);
             resS.next();
             String desc = resS.getString(2);
@@ -50,6 +48,7 @@ public class operaciones {
             img = (ByteArrayInputStream) resS.getBlob(3).getBinaryStream();
             byte[] array = new byte[img.available()];
             img.read(array);
+            return new DataImagen(identificador,array,desc);
             
         } catch (SQLException ex) {
             System.out.println("Error en consulta: " +ex.getMessage());

@@ -10,6 +10,7 @@ import Clases.Calidad;
 import Clases.Genero;
 import Clases.Imagen;
 import Clases.Pack;
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataGenero;
@@ -218,21 +219,10 @@ public class CtrlAnime implements IAnime{
         return getPack(nombre,propietario).toDataMiniatura();
     }
 
-    public byte[] getImagen(String anime, String calidad, int identificador) {
-        Anime anim= getAnime(anime);
-        Calidad cali = anim.getCalidad(calidad);
-        if(cali ==null){
-            throw new Error("no existe la calidad: "+calidad+" en el anime: "+anime);
-        }else{
-            Imagen im = cali.getImagen(identificador);
-            if(im==null){
-                throw new Error("No existe la imagen");
-            }else{
-                return im.getImag();
-            }
-        }
-       
+    public byte[] getImagen(int identificador) {
+        return operaciones.getDataImagen(identificador).getImag();
     }
+    
     public Imagen getImagenPointer(String anime, String calidad, int identificador) {
         Anime anim= getAnime(anime);
         Calidad cali = anim.getCalidad(calidad);

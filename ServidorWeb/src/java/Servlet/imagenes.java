@@ -39,8 +39,8 @@ public class imagenes extends HttpServlet {
         String ruta = request.getPathInfo().substring(1).replace("%20"," ");
         String[] parametros = ruta.split("/");
         
-        byte[] img = port.getImagen(parametros[0], parametros[1], Integer.parseInt(parametros[2]));
-        
+        byte[] img = port.getImagen(Integer.parseInt(parametros[2]));
+                
         response.setContentType("image/png");
         response.setContentLength((int) img.length);
         OutputStream out = response.getOutputStream();

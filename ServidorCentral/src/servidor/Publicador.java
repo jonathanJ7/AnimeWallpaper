@@ -9,6 +9,7 @@ package servidor;
  *
  * @author Jonathan
  */
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCliente;
 import dataType.DataFavorito;
@@ -64,7 +65,6 @@ public class Publicador {
     @WebMethod
     public void publicdtt(DataPackReducido dpr,DataAnimeImNom dain){       
     }
-    
     /*********INTERFAZ DE USUARIO *******/
     @WebMethod
     public DataMap /*Map<String,DataUsuario>*/ listarUsuarios(){
@@ -131,8 +131,8 @@ public class Publicador {
         return new DataCollection(interAnime.listarAnimes());
     }
     @WebMethod
-    public byte[] getImagen(String anime, String calidad, int identificador){
-        return interAnime.getImagen(anime, calidad, identificador);
+    public byte[] getImagen(int identificador){
+        return interAnime.getImagen(identificador);
     }
     @WebMethod
     public DataAnime detalleAnime(String anime){

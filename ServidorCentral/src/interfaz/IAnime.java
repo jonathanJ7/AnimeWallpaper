@@ -35,6 +35,6 @@ import java.util.Collection;
     DataPack detallePack(String nombre,String propietario);
     
     Integer getIdentImg();
-    byte[] getImagen(String anime, String calidad, int identificador);
+    byte[] getImagen(int identificador);
     
 }

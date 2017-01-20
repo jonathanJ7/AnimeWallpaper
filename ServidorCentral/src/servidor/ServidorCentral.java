@@ -46,11 +46,10 @@ public class ServidorCentral {
     
     
     public static void main(String[] args) {
-        operaciones.getDataImagen(2);
-        /*cargarAnimes();
+        cargarAnimes();
         cargarUsuarios();
         Publicador p = new Publicador();
-        p.publicar();*/
+        p.publicar();
         
     }
     static public String getResolucion(BufferedImage img){
@@ -351,8 +350,8 @@ public class ServidorCentral {
                 byte[] barr = getFile(pathIm);
                 dtim = new DataImagen(identif,barr,null);
                 imgs.put(identif,dtim);     
-                ByteArrayInputStream bis = new ByteArrayInputStream(barr);
-                operaciones.insertarImagen(identif, null, bis);
+                /* bis = new ByteArrayInputStream(barr);
+                operaciones.insertarImagen(identif, null, bis);*/
             }
             DataCalidad dcal = new DataCalidad(imgs,calidad,nombre);
             calidades.put(calidad, dcal);
