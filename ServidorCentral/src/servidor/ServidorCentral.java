@@ -6,7 +6,7 @@
 package servidor;
 
 import Clases.Imagen;
-import dataBase.conectar;
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataCliente;
@@ -22,12 +22,15 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -43,14 +46,12 @@ public class ServidorCentral {
     
     
     public static void main(String[] args) {
-        conectar();
-        cargarAnimes();
+        operaciones.getDataImagen(2);
+        /*cargarAnimes();
         cargarUsuarios();
         Publicador p = new Publicador();
-        p.publicar();
-    }
-    static public void conectar(){
-        conectar.getConnection();
+        p.publicar();*/
+        
     }
     static public String getResolucion(BufferedImage img){
         return Integer.toString(img.getWidth())+"x"+Integer.toString(img.getHeight());
@@ -347,8 +348,11 @@ public class ServidorCentral {
             for(String nomIm :listaImagenes){
                 pathIm = pathCali+nomIm;
                 identif = Integer.parseInt(nomIm.split("\\.")[0]);
-                dtim = new DataImagen(identif,getFile(pathIm),null);
-                imgs.put(identif,dtim);                
+                byte[] barr = getFile(pathIm);
+                dtim = new DataImagen(identif,barr,null);
+                imgs.put(identif,dtim);     
+                ByteArrayInputStream bis = new ByteArrayInputStream(barr);
+                operaciones.insertarImagen(identif, null, bis);
             }
             DataCalidad dcal = new DataCalidad(imgs,calidad,nombre);
             calidades.put(calidad, dcal);
