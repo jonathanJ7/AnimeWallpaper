@@ -60,7 +60,9 @@ public class Anime extends Favorito{
         }
          Map<String, DataCalidad> cali = new HashMap();
         for(Calidad gen : calidades.values()){
-            cali.put(gen.getCalidad(),gen.toDataMiniatura());
+            DataCalidad dcal = gen.toData();
+            dcal.cargarImagenes(true);
+            cali.put(gen.getCalidad(),dcal);
         }
         return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
     }

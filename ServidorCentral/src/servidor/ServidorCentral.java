@@ -6,7 +6,6 @@
 package servidor;
 
 import Clases.Imagen;
-import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataCliente;
@@ -22,15 +21,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -349,11 +345,11 @@ public class ServidorCentral {
                 identif = Integer.parseInt(nomIm.split("\\.")[0]);
                 byte[] barr = getFile(pathIm);
                 dtim = new DataImagen(identif,barr,null);
-                imgs.put(identif,dtim);     
-                /* bis = new ByteArrayInputStream(barr);
-                operaciones.insertarImagen(identif, null, bis);*/
+                imgs.put(identif,dtim);   
             }
-            DataCalidad dcal = new DataCalidad(imgs,calidad,nombre);
+            DataCalidad dcal = new DataCalidad(imgs.keySet(),calidad,nombre);
+            dcal.setImgs(imgs);
+            
             calidades.put(calidad, dcal);
         }
         File toIm = new File(pathIm);

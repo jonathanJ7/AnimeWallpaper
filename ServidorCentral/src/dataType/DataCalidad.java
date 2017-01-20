@@ -5,6 +5,11 @@
  */
 package dataType;
 
+import dataBase.operaciones;
+import interfaz.IAnime;
+import interfaz.fabrica;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,10 +21,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DataCalidad extends DataFavorito{
     private Map<Integer,DataImagen> imgs;
+    private Collection<Integer> imgsIndices;
     private String calidad,anime;//ej: 720x480
 
     public void setImgs(Map<Integer, DataImagen> imgs) {
         this.imgs = imgs;
+    }
+    public void cargarImagenes(boolean mini){
+        imgs = operaciones.getDataImagenesMap(imgsIndices,mini);
     }
 
     public void setCalidad(String calidad) {
@@ -29,14 +38,14 @@ public class DataCalidad extends DataFavorito{
     public void setAnime(String anime) {
         this.anime = anime;
     }
-
     public DataCalidad() {
     }
 
-    public DataCalidad(Map<Integer, DataImagen> imgs, String calidad, String anime) {
-        this.imgs = imgs;
+    public DataCalidad(Collection<Integer> imgsIndices, String calidad, String anime) {
+        this.imgs = new HashMap();
         this.calidad = calidad;
         this.anime = anime;
+        this.imgsIndices = imgsIndices;
     }
 
     public Map<Integer, DataImagen> getImgs() {

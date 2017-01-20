@@ -111,7 +111,9 @@ public class CtrlAnime implements IAnime{
             for(DataImagen dim: dtc.getImgs().values()){
                 ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
             }
-            mapaCali.put(dtc.getCalidad(), new Calidad(ims,dtc.getCalidad(),dtc.getAnime()));
+            Calidad cal = new Calidad(ims,dtc.getCalidad(),dtc.getAnime());
+            cal.persistir();
+            mapaCali.put(dtc.getCalidad(), cal);
         }
         Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,imag);
         animes.put(dtanime.getNombre(),anime);
@@ -220,7 +222,7 @@ public class CtrlAnime implements IAnime{
     }
 
     public byte[] getImagen(int identificador) {
-        return operaciones.getDataImagen(identificador).getImag();
+        return operaciones.getDataImagen(identificador,false).getImag();
     }
     
     public Imagen getImagenPointer(String anime, String calidad, int identificador) {
