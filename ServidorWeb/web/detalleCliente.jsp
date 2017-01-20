@@ -4,6 +4,9 @@
     Author     : Jonathan
 --%>
 
+<%@page import="servidor.DataPack"%>
+<%@page import="java.util.Collection"%>
+<%@page import="servidor.DataPackReducido"%>
 <%@page import="servidor.DataAnime"%>
 <%@page import="servidor.DataFavorito"%>
 <%@page import="servidor.DataCliente"%>
@@ -32,6 +35,7 @@
         <%
         DataCliente dcli = (DataCliente) request.getAttribute("detalleCliente");
         String usrActual = (String) request.getSession().getAttribute("nickName");
+        
         %>
         
         <a class="titulo"><h1>Datos:</h1></a>
@@ -64,6 +68,20 @@
         
         <%
         }}
+        %>
+        </div>
+        
+        <a class="titulo"><h1>Packs:</h1></a>
+        <div class="globo">
+        <%
+        for(DataCliente.Packs.Entry ent: dcli.getPacks().getEntry()){
+            DataPack dpac = (DataPack) ent.getValue();
+        
+        %>
+            <a class="textoItem" href="/Pack/consulta/<%=dpac.getPropietario()%>/<%=dpac.getNombre()%>" ><%=dpac.getNombre()%>-<%=dpac.getPropietario()%></a><br>
+        
+        <%
+        }
         %>
         </div>
     </body>

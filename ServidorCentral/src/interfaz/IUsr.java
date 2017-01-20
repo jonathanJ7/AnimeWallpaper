@@ -24,7 +24,7 @@ public interface IUsr {
     void addUsr(DataUsuario dtusr,String pass);
     void addPendiente(String nick, String anime);
     void removePendiente(String nick, String anime);
-    void addPack(String nick, DataPack pack);
+    void addPack(String nick, String propietario,String nombre, Collection<String> pathIm);
     void removePack(String nick, String nombre);
     void addFav(String nick,DataFavorito fav);
     void removeFav(String nick,DataFavorito fav);//si es anime solo necesita el nombre, si es calidad necesita calidad y nombre del anime, y si es pack necesita propietario y nombre

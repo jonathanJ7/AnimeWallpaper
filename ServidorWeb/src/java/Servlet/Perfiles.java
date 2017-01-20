@@ -7,6 +7,7 @@ package Servlet;
 
 import herramientas.herramienta;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servidor.DataCliente;
+import servidor.DataPackReducido;
 import servidor.DataUsuario;
 
 /**
@@ -42,7 +44,7 @@ public class Perfiles extends HttpServlet {
         if(consulta != null){
             consulta = consulta.replace("%20"," ").substring(1);
             DataCliente dcli = port.detalleCliente(consulta);
-            request.setAttribute("detalleCliente", dcli);
+            request.setAttribute("detalleCliente", dcli);//optimizar
             request.getRequestDispatcher( "/detalleCliente.jsp").forward(request,response);
         }else{
             Map<String,DataUsuario> map = herramienta.pasarAMap(port.listarUsuarios());  

@@ -8,9 +8,12 @@ package servidor;
 import Clases.Imagen;
 import dataType.DataAnime;
 import dataType.DataCalidad;
+import dataType.DataCliente;
 import dataType.DataGenero;
 import dataType.DataImagen;
+import dataType.DataUsuario;
 import interfaz.IAnime;
+import interfaz.IUsr;
 import interfaz.fabrica;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -41,6 +44,7 @@ public class ServidorCentral {
     
     public static void main(String[] args) {
         cargarAnimes();
+        cargarUsuarios();
         Publicador p = new Publicador();
         p.publicar();
     }
@@ -433,5 +437,16 @@ public class ServidorCentral {
         g.drawImage(bufferedImage, 0, 0, newW, newH, 0, 0, w, h, null);
         g.dispose();
         return imagenRedimensionada;
+    }
+    static private void cargarUsuarios(){
+        IUsr interUsr = fabrica.getInstance().getIUsr();
+        
+        DataCliente dcli = null;
+        
+        dcli = new DataCliente();
+        dcli.setCorreo("asd@asd");
+        dcli.setNickname("asd");
+        
+        interUsr.addUsr(dcli, "asd");
     }
 }

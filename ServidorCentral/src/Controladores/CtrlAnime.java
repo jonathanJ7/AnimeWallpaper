@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import servidor.ServidorCentral;
 
 /**
  *
@@ -59,7 +60,7 @@ public class CtrlAnime implements IAnime{
         packs.remove(nombre+separador+propietario);
     }
     public void addPack(Pack pack){
-        packs.put(pack.getNombre()+separador+pack.getPropietario(), pack);
+        packs.put(pack.getNombre()+separador+pack.getPropietario().getNickname(), pack);
     }
     public Collection<DataAnimeImNom> listarAnimes() {
         Collection<DataAnimeImNom> ret = new HashSet();
@@ -207,17 +208,16 @@ public class CtrlAnime implements IAnime{
     public Collection<DataPackReducido> listarPacks() {
         Collection<DataPackReducido>  ret = new HashSet();
         for(Pack pack : packs.values()){
-            ret.add(new DataPackReducido(pack.getMuestra().toData(),pack.getNombre(),pack.getPropietario().getCorreo()));
+            ret.add(new DataPackReducido(ServidorCentral.redimencion(pack.getMuestra()).toData(),pack.getNombre(),pack.getPropietario().getNickname()));
         }
         return ret;
     }
 
     
     public DataPack detallePack(String nombre, String propietario) {
-        return getPack(nombre,propietario).toData();
+        return getPack(nombre,propietario).toDataMiniatura();
     }
 
-    @Override
     public byte[] getImagen(String anime, String calidad, int identificador) {
         Anime anim= getAnime(anime);
         Calidad cali = anim.getCalidad(calidad);
@@ -229,6 +229,21 @@ public class CtrlAnime implements IAnime{
                 throw new Error("No existe la imagen");
             }else{
                 return im.getImag();
+            }
+        }
+       
+    }
+    public Imagen getImagenPointer(String anime, String calidad, int identificador) {
+        Anime anim= getAnime(anime);
+        Calidad cali = anim.getCalidad(calidad);
+        if(cali ==null){
+            throw new Error("no existe la calidad: "+calidad+" en el anime: "+anime);
+        }else{
+            Imagen im = cali.getImagen(identificador);
+            if(im==null){
+                throw new Error("No existe la imagen");
+            }else{
+                return im;
             }
         }
        

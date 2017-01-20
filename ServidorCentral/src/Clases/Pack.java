@@ -12,6 +12,7 @@ import dataType.DataPack;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import servidor.ServidorCentral;
 
 /**
  *
@@ -29,7 +30,15 @@ public class Pack extends Favorito{
         for(Imagen im : colIm.values()){
             colecIm.put(im.getIdentificador(),im.toData());
         }
-        return new DataPack(colecIm,nombre,propietario.getCorreo());
+        return new DataPack(colecIm,nombre,propietario.getNickname());
+    } 
+    public DataPack toDataMiniatura(){
+        
+        Map<Integer,DataImagen> colecIm = new HashMap();
+        for(Imagen im : colIm.values()){ 
+            colecIm.put(im.getIdentificador(),ServidorCentral.redimencion(im).toData());
+        }
+        return new DataPack(colecIm,nombre,propietario.getNickname());
     }
     
     public Imagen getMuestra(){

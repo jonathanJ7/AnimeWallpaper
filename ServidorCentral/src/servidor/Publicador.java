@@ -87,8 +87,8 @@ public class Publicador {
         interUsr.removePendiente(nick, anime);
     }
     @WebMethod
-    public void addPack(String nick, DataPack pack){
-        interUsr.addPack(nick, pack);
+    public void addPack(String nick, String propietario,String nombre, /*Collection<String> */ DataCollection pathIm){
+        interUsr.addPack(nick, propietario, nombre,pathIm.getCol());
     }
     @WebMethod
     public void removePack(String nick, String nombre){

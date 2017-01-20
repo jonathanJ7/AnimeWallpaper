@@ -107,7 +107,7 @@ body{
             <div class="itemTop"><a class="textoItem" href="/Home">Home</a></div>
             <div class="itemTop"><a class="textoItem" href="/Generos">Generos</a></div>
             <div class="itemTop"><a class="textoItem" href="/Perfiles">Usuarios</a></div>
-            <div class="itemTop"><a class="textoItem" href="#home">Packs</a></div>
+            <div class="itemTop"><a class="textoItem" href="/Pack">Packs</a></div>
             
             <% String nickName = (String) request.getSession().getAttribute("nickName"); 
             if(nickName==null){

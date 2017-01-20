@@ -109,23 +109,28 @@ public class CtrlUsr implements IUsr{
     }
 
     
-    public void addPack(String nick, DataPack pack) {
+    public void addPack(String nick, String propietario,String nombre, Collection<String> pathIm) {
         Usuario usr = usuarios.get(nick);
-        Usuario usu = usuarios.get(pack.getPropietario());
+        Usuario usu = usuarios.get(propietario);
+        CtrlAnime ctrlAnime = CtrlAnime.getInstance();
         if(usu != null && usu instanceof Cliente){
             if(usr != null && usr instanceof Cliente){
                 Cliente cli = (Cliente) usr;
                 Map<Integer,Imagen> topack = new HashMap();
-                for(DataImagen dim : pack.getColIm().values()){
-                    topack.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag()));
+                for(String im : pathIm){
+                    String[] param = im.split("/");
+                    int ident = Integer.parseInt(param[2]);
+                    Imagen imagen= ctrlAnime.getImagenPointer(param[0], param[1],ident);
+                    topack.put(ident, imagen);
                 }
-                Pack pk = new Pack(topack,pack.getNombre(),usu);
+                Pack pk = new Pack(topack,nombre,usu);
                 cli.add(pk);
+                CtrlAnime.getInstance().addPack(pk);
             }else{
                 throw new Error("No existe el cliente: "+nick);
             }
         }else{
-                throw new Error("No existe el cliente: "+pack.getPropietario());            
+                throw new Error("No existe el cliente: "+propietario);            
         }
     }
 

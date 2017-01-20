@@ -8,13 +8,16 @@ package Servlet;
 import herramientas.herramienta;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import servidor.DataAnimeImNom;
-import servidor.DataGeneroReducido;
+import servidor.DataCollection;
+import servidor.DataPack;
+import servidor.DataPackReducido;
 
 /**
  *
@@ -41,13 +44,34 @@ public class Pack extends HttpServlet {
         
         if(consulta != null){
             consulta = consulta.replace("%20"," ").substring(1);
-            Collection<DataAnimeImNom> listaAnimes = herramienta.pasarACol(port.listarAnimes());
-            request.setAttribute("listaAnimes", listaAnimes);
-            request.getRequestDispatcher( "/crearPack.jsp").forward(request,response);
-        }else{/*
-            Collection<String> col = herramienta.pasarACol(port.listarGeneros());  
-            request.setAttribute("colGeneros", col);
-            request.getRequestDispatcher( "/generos.jsp").forward(request,response);*/
+            if(consulta.equals("crear")){
+                Collection<DataAnimeImNom> listaAnimes = herramienta.pasarACol(port.listarAnimes());
+                request.setAttribute("listaAnimes", listaAnimes);
+                request.getRequestDispatcher( "/crearPack.jsp").forward(request,response);
+            }else if(consulta.contains("darAltaPack")){
+                String[] parametros = consulta.substring(12).split("/");
+                int iter = 1;
+                DataCollection dcol = new DataCollection();
+                List<Object> toPack = dcol.getCol();
+                while(iter<parametros.length){
+                    String pathIm = parametros[iter] +"/"+parametros[iter+1] +"/"+parametros[iter+2];
+                    toPack.add(pathIm);
+                    iter += 3;                    
+                }
+                String cliente = (String) request.getSession().getAttribute("nickName");
+                port.addPack(cliente, cliente,parametros[0], dcol);
+                response.sendRedirect("/Home");
+            }else if(consulta.contains("consulta")){
+                String[] parametros = consulta.substring(9).split("/");
+                DataPack dpack = port.detallePack(parametros[1], parametros[0]);
+                request.setAttribute("detallePack", dpack);
+                request.getRequestDispatcher( "/detallePack.jsp").forward(request,response);
+            }
+            
+        }else{            
+            Collection<DataPackReducido>  packCol = herramienta.pasarACol(port.listarPacks());
+            request.setAttribute("colPacks", packCol);
+            request.getRequestDispatcher( "/packs.jsp").forward(request,response);
         }
     }
 

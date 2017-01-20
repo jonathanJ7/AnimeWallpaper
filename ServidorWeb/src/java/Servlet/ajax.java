@@ -45,7 +45,8 @@ public class ajax extends HttpServlet {
             for(DataAnime.Calidades.Entry ent : danime.getCalidades().getEntry()){
                 for(DataCalidad.Imgs.Entry entIm: ent.getValue().getImgs().getEntry()){
                     String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(entIm.getValue().getImag());
-                    out.println("<img class=\"image\"  src=\"data:image/png;base64, "+b64+"\" >");
+                    String path = parametros[1]+"/"+ent.getKey()+"/"+ Integer.toString(entIm.getKey());
+                    out.println("<img class=\"image\"  alt=\""+path+"\" onclick=\"seleccionar(this)\" src=\"data:image/png;base64, "+b64+"\" >");
                 }
             }
         }finally {
