@@ -64,11 +64,7 @@ public class CtrlAnime implements IAnime{
         packs.put(pack.getNombre()+separador+pack.getPropietario().getNickname(), pack);
     }
     public Collection<DataAnimeImNom> listarAnimes() {
-        Collection<DataAnimeImNom> ret = new HashSet();
-        for(Anime anim: animes.values()){
-            ret.add(anim.toDataReducido());
-        }
-        return ret;
+        return operaciones.listarAnimes();
     }
 
     public DataAnime detalleAnime(String anime) throws Error{
@@ -111,7 +107,6 @@ public class CtrlAnime implements IAnime{
                 ims.put(dim.getIdentificador(), new Imagen(dim.getIdentificador(),dim.getImag(),dim.getDescripcion()));
             }
             Calidad cal = new Calidad(ims,dtc.getCalidad(),dtc.getAnime());
-            cal.persistir();
             mapaCali.put(dtc.getCalidad(), cal);
         }
         Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,dtanime.getImagen().getIdentificador());
@@ -132,6 +127,7 @@ public class CtrlAnime implements IAnime{
             }
             throw new Error("No se pudo añadir el anime a los siguientes generos: "+paraError);
         }
+        anime.persistir();
     }
 
     
@@ -184,6 +180,7 @@ public class CtrlAnime implements IAnime{
     
     public void addGenero(DataGenero dtgen){
         Genero definitivo = new Genero(new HashMap(),dtgen.getNombre(),dtgen.getDescripcion());
+        definitivo.persistir();
         generos.put(dtgen.getNombre(), definitivo);
     }
 

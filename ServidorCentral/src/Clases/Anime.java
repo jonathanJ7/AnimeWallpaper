@@ -30,6 +30,13 @@ public class Anime extends Favorito{
     public void setCalidades(Map<String, Calidad> calidades) {
         this.calidades = calidades;
     }
+    public void persistir(){
+        operaciones.insertarAnime(generos, nombre, descripcion, link, capitulos, imagen);
+        for(Calidad cali: calidades.values()){
+            cali.persistir();
+        }
+        
+    }
     
     public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, Calidad> calidades, Integer imagen) {
         this.generos = generos;

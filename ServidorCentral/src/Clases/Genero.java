@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataGenero;
 import dataType.reducidos.DataAnimeImNom;
@@ -21,6 +22,10 @@ public class Genero {
     private Map<String,Anime> animes;
     private String nombre;
     private String descripcion;
+    
+    public void persistir(){
+        operaciones.insertarGenero(nombre, descripcion);
+    }
 
     public DataGenero toData(){
         Map<String, DataAnime> ani = new HashMap();

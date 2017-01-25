@@ -6,6 +6,7 @@
 package servidor;
 
 import Clases.Imagen;
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataCliente;
@@ -42,10 +43,11 @@ public class ServidorCentral {
     
     
     public static void main(String[] args) {
-        cargarAnimes();
+        /*cargarAnimes();
         cargarUsuarios();
         Publicador p = new Publicador();
-        p.publicar();
+        p.publicar();*/
+        operaciones.detalleAnime("Toradora");
         
     }
     static public String getResolucion(BufferedImage img){

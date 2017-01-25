@@ -41,6 +41,7 @@ public class Calidad extends Favorito{
         }
         setImgsIdent(imgs.keySet());
         imgs = null;
+        operaciones.insertarCalidad(imgsIdent, calidad, anime);
     }
 
     public Collection<Integer> getImgsIdent() {
