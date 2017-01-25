@@ -9,6 +9,7 @@ import Clases.Cuentas.Favorito;
 import dataBase.operaciones;
 import dataType.DataCalidad;
 import java.io.ByteArrayInputStream;
+import java.util.Collection;
 import java.util.Map;
 import servidor.ServidorCentral;
 
@@ -19,6 +20,7 @@ import servidor.ServidorCentral;
  */
 public class Calidad extends Favorito{
     private Map<Integer,Imagen> imgs;
+    private Collection<Integer> imgsIdent;
     private String calidad,anime;//ej: 720x480
 
     public Calidad(Map<Integer,Imagen> imgs, String calidad, String anime) {
@@ -37,7 +39,18 @@ public class Calidad extends Favorito{
             bis = new ByteArrayInputStream(mini.getImag());            
             operaciones.insertarImagen(img.getIdentificador(), img.getDescripcion(), bis, true);
         }
+        setImgsIdent(imgs.keySet());
+        imgs = null;
     }
+
+    public Collection<Integer> getImgsIdent() {
+        return imgsIdent;
+    }
+
+    public void setImgsIdent(Collection<Integer> imgsIdent) {
+        this.imgsIdent = imgsIdent;
+    }
+    
 
     public DataCalidad toDataFav(){
         return new DataCalidad(null,calidad,anime);
@@ -52,7 +65,7 @@ public class Calidad extends Favorito{
     }
 
     public DataCalidad toData(){
-        return new DataCalidad(imgs.keySet(),calidad,anime);
+        return new DataCalidad(imgsIdent,calidad,anime);
     } 
     
     public String getCalidad() {

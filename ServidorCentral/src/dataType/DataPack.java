@@ -5,6 +5,8 @@
  */
 package dataType;
 
+import dataBase.operaciones;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -17,9 +19,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 public class DataPack extends DataFavorito{
     
     private Map<Integer,DataImagen> colIm;
+    private Collection<Integer> imgsIdent;
     private String nombre;
     private String propietario;
 
+    public Collection<Integer> getImgsIdent() {
+        return imgsIdent;
+    }
+
+    
     public void setColIm(Map<Integer, DataImagen> colIm) {
         this.colIm = colIm;
     }
@@ -35,10 +43,13 @@ public class DataPack extends DataFavorito{
     public DataPack() {
     }
 
-    public DataPack(Map<Integer, DataImagen> colIm, String nombre, String propietario) {
-        this.colIm = colIm;
+    public DataPack(Collection<Integer> imgsIdent, String nombre, String propietario) {
+        this.imgsIdent = imgsIdent;
         this.nombre = nombre;
         this.propietario = propietario;
+    }
+    public void cargarImagenes(boolean mini){
+        colIm = operaciones.getDataImagenesMap(imgsIdent,mini);
     }
 
     public Map<Integer, DataImagen> getColIm() {

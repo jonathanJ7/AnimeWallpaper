@@ -9,6 +9,7 @@ import Clases.Cuentas.Favorito;
 import Clases.Cuentas.Usuario;
 import dataType.DataImagen;
 import dataType.DataPack;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,43 +20,35 @@ import servidor.ServidorCentral;
  * @author Jonathan
  */
 public class Pack extends Favorito{
-    private Map<Integer,Imagen> colIm;
+    private Collection<Integer> imgs;
     private String nombre;
     private Usuario propietario;
     
     
     public DataPack toData(){
         
-        Map<Integer,DataImagen> colecIm = new HashMap();
-        for(Imagen im : colIm.values()){
-            colecIm.put(im.getIdentificador(),im.toData());
-        }
-        return new DataPack(colecIm,nombre,propietario.getNickname());
+        DataPack dp =  new DataPack(imgs,nombre,propietario.getNickname());
+        dp.cargarImagenes(false);
+        return dp;
     } 
     public DataPack toDataMiniatura(){
         
-        Map<Integer,DataImagen> colecIm = new HashMap();
-        for(Imagen im : colIm.values()){ 
-            colecIm.put(im.getIdentificador(),ServidorCentral.redimencion(im).toData());
-        }
-        return new DataPack(colecIm,nombre,propietario.getNickname());
+        DataPack dp =  new DataPack(imgs,nombre,propietario.getNickname());
+        dp.cargarImagenes(true);
+        return dp;
     }
     
-    public Imagen getMuestra(){
-        Iterator iter = colIm.values().iterator();
-        return (Imagen) iter.next();
+    public Integer getMuestra(){
+        Iterator iter = imgs.iterator();
+        return (Integer) iter.next();
     }
     public DataPack toDataFav(){
         return new DataPack(null,nombre,propietario.getNickname());
     }
-    public Pack(Map<Integer,Imagen> colIm, String nombre, Usuario propietario) {
+    public Pack(Collection<Integer> imgs, String nombre, Usuario propietario) {
         this.nombre = nombre;
         this.propietario = propietario;
-        if(colIm == null){
-            this.colIm = new HashMap();
-        }else{            
-            this.colIm = colIm;
-        }
+        this.imgs = imgs;
     }
 
     public String getNombre() {
@@ -74,14 +67,13 @@ public class Pack extends Favorito{
         this.propietario = propietario;
     }
 
-    public Map<Integer,Imagen> getColIm() {
-        return colIm;
+    public Collection<Integer> getImgs() {
+        return imgs;
     }
-    public void add(Imagen imag){
-        colIm.put(imag.getIdentificador(),imag);
+
+    public void setImgs(Collection<Integer> imgs) {
+        this.imgs = imgs;
     }
-    public void remove(Integer id){        
-        colIm.remove(id);
-    }
+
     
 }

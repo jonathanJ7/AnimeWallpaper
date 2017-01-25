@@ -54,7 +54,7 @@ public class Pack extends HttpServlet {
                 DataCollection dcol = new DataCollection();
                 List<Object> toPack = dcol.getCol();
                 while(iter<parametros.length){
-                    String pathIm = parametros[iter] +"/"+parametros[iter+1] +"/"+parametros[iter+2];
+                    Integer pathIm = Integer.parseInt(parametros[iter+2]);
                     toPack.add(pathIm);
                     iter += 3;                    
                 }

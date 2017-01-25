@@ -109,21 +109,14 @@ public class CtrlUsr implements IUsr{
     }
 
     
-    public void addPack(String nick, String propietario,String nombre, Collection<String> pathIm) {
+    public void addPack(String nick, String propietario,String nombre, Collection<Integer> pathIm) {
         Usuario usr = usuarios.get(nick);
         Usuario usu = usuarios.get(propietario);
         CtrlAnime ctrlAnime = CtrlAnime.getInstance();
         if(usu != null && usu instanceof Cliente){
             if(usr != null && usr instanceof Cliente){
                 Cliente cli = (Cliente) usr;
-                Map<Integer,Imagen> topack = new HashMap();
-                for(String im : pathIm){
-                    String[] param = im.split("/");
-                    int ident = Integer.parseInt(param[2]);
-                    Imagen imagen= ctrlAnime.getImagenPointer(param[0], param[1],ident);
-                    topack.put(ident, imagen);
-                }
-                Pack pk = new Pack(topack,nombre,usu);
+                Pack pk = new Pack(pathIm,nombre,usu);
                 cli.add(pk);
                 CtrlAnime.getInstance().addPack(pk);
             }else{

@@ -6,9 +6,10 @@
 package Clases;
 
 import Clases.Cuentas.Favorito;
+import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
-import dataType.DataFavorito;
+import dataType.DataImagen;
 import dataType.reducidos.DataAnimeImNom;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,13 +25,13 @@ public class Anime extends Favorito{
     private String nombre,descripcion,link;
     private Integer capitulos;
     private Map<String,Calidad> calidades;
-    private Imagen imagen;
+    private Integer imagen;
 
     public void setCalidades(Map<String, Calidad> calidades) {
         this.calidades = calidades;
     }
     
-    public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, Calidad> calidades, Imagen imagen) {
+    public Anime(Collection<String> generos, String nombre, String descripcion, String link, Integer capitulos, Map<String, Calidad> calidades, Integer imagen) {
         this.generos = generos;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -51,7 +52,8 @@ public class Anime extends Favorito{
         for(Calidad gen : calidades.values()){
             cali.put(gen.getCalidad(),gen.toData());
         }
-        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
+        DataImagen imAnime = operaciones.getDataImagen(imagen, true);
+        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali,imAnime);
     }
     public DataAnime toDataMiniatura(){
         Collection<String> gnro = new HashSet();
@@ -64,10 +66,12 @@ public class Anime extends Favorito{
             dcal.cargarImagenes(true);
             cali.put(gen.getCalidad(),dcal);
         }
-        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imagen.toData());
+        DataImagen imAnime = operaciones.getDataImagen(imagen, true);
+        return new DataAnime(gnro,  nombre,  descripcion,  link,  capitulos,cali, imAnime);
     }
-    public DataAnimeImNom toDataReducido(){        
-        return new DataAnimeImNom(nombre,imagen.toData());
+    public DataAnimeImNom toDataReducido(){     
+        DataImagen imAnime = operaciones.getDataImagen(imagen, true);
+        return new DataAnimeImNom(nombre,imAnime);
     }
     public Calidad getCalidad(String cali){
         return calidades.get(cali);
@@ -99,9 +103,6 @@ public class Anime extends Favorito{
         this.capitulos = capitulos;
     }
 
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -115,7 +116,11 @@ public class Anime extends Favorito{
         return capitulos;
     }
 
-    public Imagen getImagen() {
+    public void setImagen(Integer imagen) {
+        this.imagen = imagen;
+    }
+
+    public Integer getImagen() {
         return imagen;
     }
 

@@ -104,7 +104,6 @@ public class CtrlAnime implements IAnime{
     }
     
     public void addAnime(DataAnime dtanime)  throws Error{
-        Imagen imag = new Imagen(dtanime.getImagen().getIdentificador(),dtanime.getImagen().getImag(),dtanime.getImagen().getDescripcion());
         Map<String,Calidad> mapaCali = new HashMap();
         for(DataCalidad dtc: dtanime.getCalidades().values()){
             Map<Integer,Imagen> ims = new HashMap();
@@ -115,7 +114,7 @@ public class CtrlAnime implements IAnime{
             cal.persistir();
             mapaCali.put(dtc.getCalidad(), cal);
         }
-        Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,imag);
+        Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,dtanime.getImagen().getIdentificador());
         animes.put(dtanime.getNombre(),anime);
         Collection<String> error = new HashSet();
         for(String gen: dtanime.getGeneros()){
@@ -169,7 +168,7 @@ public class CtrlAnime implements IAnime{
             }
             if(dtanime.getImagen() !=null){
                 DataImagen dtim = dtanime.getImagen();
-                anim.setImagen(new Imagen(dtim.getIdentificador(),dtim.getImag(),dtim.getDescripcion()));
+                anim.setImagen(dtim.getIdentificador());
             }
             if(dtanime.getLink() != null){
                 anim.setLink(dtanime.getLink());
@@ -211,7 +210,8 @@ public class CtrlAnime implements IAnime{
     public Collection<DataPackReducido> listarPacks() {
         Collection<DataPackReducido>  ret = new HashSet();
         for(Pack pack : packs.values()){
-            ret.add(new DataPackReducido(ServidorCentral.redimencion(pack.getMuestra()).toData(),pack.getNombre(),pack.getPropietario().getNickname()));
+            DataImagen muestra = operaciones.getDataImagen(pack.getMuestra(), true);
+            ret.add(new DataPackReducido(muestra,pack.getNombre(),pack.getPropietario().getNickname()));
         }
         return ret;
     }
