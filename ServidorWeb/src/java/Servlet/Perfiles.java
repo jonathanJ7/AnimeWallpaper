@@ -47,8 +47,8 @@ public class Perfiles extends HttpServlet {
             request.setAttribute("detalleCliente", dcli);//optimizar
             request.getRequestDispatcher( "/detalleCliente.jsp").forward(request,response);
         }else{
-            Map<String,DataUsuario> map = herramienta.pasarAMap(port.listarUsuarios());  
-            request.setAttribute("colUsr", map.values());
+            Collection<String> col = herramienta.pasarACol(port.listarUsuarios());  
+            request.setAttribute("colUsr", col);
             request.getRequestDispatcher( "/usuarios.jsp").forward(request,response);
         }
     }

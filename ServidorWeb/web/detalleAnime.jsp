@@ -208,13 +208,13 @@
             if(encontrado){
         %>
         
-            <img  onclick="cambio(this)" style="float:left;" width="50px" height="50px" src="/recursos/imagenes/favSi.png">
+            <img  onclick="cambio(this)" style="float:left;" width="75px" height="75px" src="/recursos/imagenes/favSi.png">
         
         <%
             }else{
          %>
 
-         <img  onclick="cambio(this)" style="float:left;" width="50px" height="50px" src="/recursos/imagenes/favNo.png">
+         <img  onclick="cambio(this)" style="float:left;" width="75px" height="75px" src="/recursos/imagenes/favNo.gif">
          
          
          <%
@@ -301,7 +301,7 @@
             completo= completo.substring(completo.length-9,completo.length);
             if(completo == "favSi.png"){
                 modificarFav(false);
-                img.src = "/recursos/imagenes/favNo.png";
+                img.src = "/recursos/imagenes/favNo.gif";
             }else{
                 modificarFav(true);
                 img.src = "/recursos/imagenes/favSi.png"

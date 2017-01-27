@@ -44,10 +44,10 @@ public class ServidorCentral {
     
     public static void main(String[] args) {
         /*cargarAnimes();
-        cargarUsuarios();
+        cargarUsuarios();*/
         Publicador p = new Publicador();
-        p.publicar();*/
-        operaciones.detalleAnime("Toradora");
+        p.publicar();
+        System.out.print("Listo");
         
     }
     static public String getResolucion(BufferedImage img){

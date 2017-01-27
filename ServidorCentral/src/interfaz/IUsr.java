@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Jonathan
  */
 public interface IUsr {
-    Map<String,DataUsuario> listarUsuarios();
+    Collection<String> listarUsuarios();
     DataCliente detalleCliente(String nick);
     
     void addUsr(DataUsuario dtusr,String pass);

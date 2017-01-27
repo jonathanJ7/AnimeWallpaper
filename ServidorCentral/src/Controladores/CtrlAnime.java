@@ -31,16 +31,12 @@ import servidor.ServidorCentral;
  * @author Jonathan
  */
 public class CtrlAnime implements IAnime{
-    private Map<String,Genero> generos;
-    private Map<String,Anime> animes;
     private Map<String,Pack> packs; //String = "nombre&propietario"
     
     private static final String separador= "&";
     private Integer identImg;
 
     private CtrlAnime() {
-        generos = new HashMap();
-        animes = new HashMap();
         packs = new HashMap();
         identImg = 0;
     }
@@ -68,35 +64,17 @@ public class CtrlAnime implements IAnime{
     }
 
     public DataAnime detalleAnime(String anime) throws Error{
-        Anime anim = animes.get(anime);
-        if (anim != null){
-            return anim.toDataMiniatura();
-        }else{
-            throw new Error("No existe el anime: " +anime);
-        }
+        return operaciones.detalleAnime(anime);
     }
 
     
     public Collection<String> listarGeneros() {
-        return generos.keySet();
+        return operaciones.listarGeneros();
     }
 
     
     public DataGeneroReducido detalleGenero(String gen) throws Error{
-        Genero genero = generos.get(gen);
-        if (genero != null){
-            return genero.toDataReducido();
-        }else{
-            throw new Error("No existe el genero: " +gen);
-        }
-    }
-    public Anime getAnime(String anime){
-        Anime ret =  animes.get(anime);
-        if (ret == null){
-            throw new Error("No existe el anime: "+anime);
-        }else{
-            return ret;
-        }
+        return operaciones.detalleGenero(gen);
     }
     
     public void addAnime(DataAnime dtanime)  throws Error{
@@ -110,9 +88,8 @@ public class CtrlAnime implements IAnime{
             mapaCali.put(dtc.getCalidad(), cal);
         }
         Anime anime = new Anime(dtanime.getGeneros(),dtanime.getNombre(),dtanime.getDescripcion(),dtanime.getLink(),dtanime.getCapitulos(),mapaCali,dtanime.getImagen().getIdentificador());
-        animes.put(dtanime.getNombre(),anime);
         Collection<String> error = new HashSet();
-        for(String gen: dtanime.getGeneros()){
+        /*for(String gen: dtanime.getGeneros()){
             Genero gener = generos.get(gen);
             if (gener == null){
                 error.add(gen);
@@ -126,13 +103,13 @@ public class CtrlAnime implements IAnime{
                 paraError += err+", ";
             }
             throw new Error("No se pudo añadir el anime a los siguientes generos: "+paraError);
-        }
+        }*/
         anime.persistir();
     }
 
     
     public void modAnime(DataAnime dtanime, String nombre) {
-        Anime anim = animes.get(nombre);
+        /*Anime anim = animes.get(nombre);
         if(anim!=null){
             if(dtanime.getCalidades() != null){
                 Map<String,Calidad> mapaCali = new HashMap();
@@ -174,19 +151,18 @@ public class CtrlAnime implements IAnime{
             } 
         }else{
             throw new Error("No existe el anime: "+nombre);
-        }
+        }*/
     }
 
     
     public void addGenero(DataGenero dtgen){
         Genero definitivo = new Genero(new HashMap(),dtgen.getNombre(),dtgen.getDescripcion());
         definitivo.persistir();
-        generos.put(dtgen.getNombre(), definitivo);
     }
 
     
     public void modGenero(String nombre,String nuevoNom,String desc) {
-        Genero gen = generos.get(nombre);
+        /*Genero gen = generos.get(nombre);
         if(gen==null){
             throw new Error("No existe el genero: "+nombre);
         }else{
@@ -198,7 +174,7 @@ public class CtrlAnime implements IAnime{
                 generos.remove(nombre);
                 generos.put(nuevoNom,gen);
             }
-        }
+        }*/
         
         
     }
@@ -220,22 +196,6 @@ public class CtrlAnime implements IAnime{
 
     public byte[] getImagen(int identificador) {
         return operaciones.getDataImagen(identificador,false).getImag();
-    }
-    
-    public Imagen getImagenPointer(String anime, String calidad, int identificador) {
-        Anime anim= getAnime(anime);
-        Calidad cali = anim.getCalidad(calidad);
-        if(cali ==null){
-            throw new Error("no existe la calidad: "+calidad+" en el anime: "+anime);
-        }else{
-            Imagen im = cali.getImagen(identificador);
-            if(im==null){
-                throw new Error("No existe la imagen");
-            }else{
-                return im;
-            }
-        }
-       
     }
     
 }

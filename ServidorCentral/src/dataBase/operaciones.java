@@ -5,10 +5,14 @@
  */
 package dataBase;
 
+import Clases.Cuentas.Admin;
+import Clases.Cuentas.Cliente;
+import Clases.Cuentas.Usuario;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataImagen;
 import dataType.reducidos.DataAnimeImNom;
+import dataType.reducidos.DataGeneroReducido;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,6 +42,31 @@ public class operaciones {
             System.out.println("Error en insercion en generos: " +ex.getMessage());
         }
     }
+    public static void  insertarUsuario(String nickname, String correo, String pass,Boolean escliente){
+        String sql = "INSERT INTO usuario (nickname,correo,pass,escliente) VALUES(?,?,?,?)";
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nickname); 
+            pst.setString(2, correo); 
+            pst.setString(3, pass); 
+            pst.setBoolean(4, escliente);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error en insercion en usuario: " +ex.getMessage());
+        }
+    }
+    public static void  insertarPackCliente(String cliente, String propietario, String nombrepack){
+        String sql = "INSERT INTO packcliente (cliente,propietario,nombrepack) VALUES(?,?,?)";
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, cliente); 
+            pst.setString(2, propietario); 
+            pst.setString(3, nombrepack); 
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error en insercion en packcliente: " +ex.getMessage());
+        }
+    }
     public static void insertarAnime(Collection<String> generos,String nombre,String descripcion,String link,Integer capitulos,Integer imagen){
         String sql = "INSERT INTO anime (nombre,descripcion,link,capitulos,imagen) VALUES(?,?,?,?,?)";
         try {
@@ -62,6 +91,20 @@ public class operaciones {
             
         } catch (SQLException ex) {
             System.out.println("Error en insercion en anime: " +ex.getMessage());
+        }
+    }
+    public static void insertarPack(Collection<Integer> imagenes,String nombre,String propietario){
+        String sql = "INSERT INTO pack (nombre,propietario,imagen) VALUES(?,?,?)";
+        for(Integer im: imagenes){
+            try {
+                PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, nombre);
+                pst.setString(2, propietario);
+                pst.setInt(3, im);
+                pst.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("Error en insercion en pack: " +ex.getMessage());
+            }
         }
     }
     public static void insertarCalidad(Collection<Integer> imgsIdent,String calidad,String anime){
@@ -233,26 +276,55 @@ public class operaciones {
         return null;
     }
     public static Collection<String> getGenerosAsociados(String anime){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT generosanime.nombre FROM generosanime WHERE generosanime.anime='"+anime+"' ";
+            ResultSet resS = statement.executeQuery(sql);
+            
+            Collection<String> ret = new HashSet();
+            while(resS.next()){
+                String gen = resS.getString(1);
+                ret.add(gen);                
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
         return null;
     }
     public static Map<String, DataCalidad> getCalidadesAsociadas(String anime){//MAL ESTO,REVISAR
         try {
             Statement statement = con.createStatement();
-            String sql = "SELECT calidadimagen.identificador FROM calidadimagen WHERE calidadimagen.anime='"+anime+"' ";
+            String sql = "SELECT calidadimagen.calidad, calidadimagen.identificador,miniaturas.descripcion, miniaturas.imagen FROM calidadimagen JOIN miniaturas ON calidadimagen.anime='"+anime+"' and miniaturas.identificador=calidadimagen.identificador   ";
             ResultSet resS = statement.executeQuery(sql);
             
             Map<String, DataCalidad>   ret = new HashMap();
-            Collection<Integer> identsCol = new HashSet();
             while(resS.next()){
-                Integer ident = resS.getInt(1);
-                 identsCol.add(ident);
+                String cali = resS.getString(1);
+                Integer identificador = resS.getInt(2);
+                String desc = resS.getString(3);
                 
+                ByteArrayInputStream img = null;
+                img = (ByteArrayInputStream) resS.getBlob(4).getBinaryStream();
+                byte[] array = new byte[img.available()];
+                img.read(array);
+                DataImagen dtim =new DataImagen(identificador,array,desc);
+                
+                DataCalidad dcal = ret.get(cali);
+                if(dcal ==null){
+                    dcal = new DataCalidad(null,cali,anime);
+                    ret.put(cali, dcal);
+                }
+                Map<Integer,DataImagen>  colImCali = dcal.getImgs();
+                colImCali.put(identificador, dtim);
             }
-            Collection<DataImagen>  col = getDataImagenes(identsCol,true);
             return ret;
             
         } catch (SQLException ex) {
             System.out.println("Error en consulta: " +ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Error en casteo: " +ex.getMessage());
         }
         return null;
     }
@@ -280,6 +352,103 @@ public class operaciones {
                 ret = new DataAnime(generos,anime,desc,link,capitulos,calidades,dtim);
             }
             return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Error en casteo: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static Collection<String> listarGeneros(){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT generos.nombre FROM generos";
+            ResultSet resS = statement.executeQuery(sql);
+            
+            Collection<String> ret = new HashSet();
+            while(resS.next()){
+                String gen = resS.getString(1);
+                ret.add(gen);                
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static Collection<String> listarUsuarios(){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT usuario.nickname FROM usuario";
+            ResultSet resS = statement.executeQuery(sql);
+            
+            Collection<String> ret = new HashSet();
+            while(resS.next()){
+                String usr = resS.getString(1);
+                ret.add(usr);                
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static Usuario getUsuario(String nickOCorreo){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT * FROM usuario WHERE usuario.nickname='"+nickOCorreo+"' or usuario.correo='"+nickOCorreo+"'";
+            ResultSet resS = statement.executeQuery(sql);
+            Usuario ret = null;
+            if(resS.next()){
+                String nick = resS.getString(1);
+                String correo = resS.getString(2);
+                String pass = resS.getString(3);
+                Boolean escliente = resS.getBoolean(4);
+                if(escliente){
+                    ret = new Cliente(nick,correo,pass);
+                }else{
+                    ret = new Admin(nick,correo,pass);
+                }
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static DataGeneroReducido detalleGenero(String gen){ //RECIEN EMPEZANDO
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT generosanime.anime,miniaturas.imagen,miniaturas.identificador,miniaturas.descripcion FROM generosanime JOIN anime ON generosanime.nombre='"+gen+"' and generosanime.anime=anime.nombre JOIN miniaturas ON miniaturas.identificador=anime.imagen";
+            ResultSet resS = statement.executeQuery(sql);
+            
+            Map<String,DataAnimeImNom> aux = new HashMap();
+            while(resS.next()){
+                String anime = resS.getString(1);
+                Integer identificador = resS.getInt(3);
+                String desc = resS.getString(4);
+                
+                ByteArrayInputStream img = null;
+                img = (ByteArrayInputStream) resS.getBlob(2).getBinaryStream();
+                byte[] array = new byte[img.available()];
+                img.read(array);
+                DataImagen dtim =new DataImagen(identificador,array,desc);
+                
+                aux.put(anime, new DataAnimeImNom(anime,dtim));
+            }
+            
+            
+            statement = con.createStatement();
+            sql = "SELECT generos.descripcion FROM generos WHERE generos.nombre='"+gen+"'";
+            resS = statement.executeQuery(sql);
+            resS.next();
+            String descripcion = resS.getString(1);
+            
+            return new DataGeneroReducido(aux,gen,descripcion);
             
         } catch (SQLException ex) {
             System.out.println("Error en consulta: " +ex.getMessage());

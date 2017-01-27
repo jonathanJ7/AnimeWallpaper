@@ -32,13 +32,13 @@
     </style>
     <body>
         <% 
-        Collection<DataUsuario> usuarios = (Collection<DataUsuario> ) request.getAttribute("colUsr");        
-        for(DataUsuario dusr: usuarios){
+        Collection<String> usuarios = (Collection<String> ) request.getAttribute("colUsr");        
+        for(String dusr: usuarios){
         %>
         
 
-            <div class="card" onclick="location.href = '/Perfiles/<%=dusr.getNickname()%>'" >
-                <p><%=dusr.getNickname()%></p>
+            <div class="card" onclick="location.href = '/Perfiles/<%=dusr%>'" >
+                <p><%=dusr%></p>
             </div>
         <%
         }

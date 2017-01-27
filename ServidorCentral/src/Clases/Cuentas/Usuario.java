@@ -5,6 +5,7 @@
  */
 package Clases.Cuentas;
 
+import dataBase.operaciones;
 import dataType.DataUsuario;
 
 /**
@@ -19,6 +20,7 @@ public class Usuario {
     public DataUsuario toData(){
         return new DataUsuario(nickname,correo);
     }
+    
     
     public Usuario(String nickname, String correo, String pass) {
         this.nickname = nickname;

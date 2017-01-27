@@ -7,6 +7,7 @@ package Clases.Cuentas;
 
 import Clases.Anime;
 import Clases.Pack;
+import dataBase.operaciones;
 import dataType.DataCliente;
 import dataType.DataFavorito;
 import dataType.DataNotificacion;
@@ -27,6 +28,12 @@ public class Cliente extends Usuario{
     private Collection<Favorito> fav;
     private Collection<Notificacion> noVistas;
     private Collection<Notificacion> visto;
+    
+    
+    
+    public void persistir(){
+        operaciones.insertarUsuario(this.getNickname(), this.getCorreo(), this.getPass(), true);
+    }
     
     public DataUsuario toData(){
         Collection<String> pend = new HashSet();
@@ -89,7 +96,7 @@ public class Cliente extends Usuario{
         return visto;
     }
     public void add(Pack pack){
-        packs.put(pack.getNombre(), pack);
+        operaciones.insertarPackCliente(this.getNickname(), pack.getPropietario().getNickname(), pack.getNombre());
     }
     public void remove(String nomPack){
         packs.remove(nomPack);

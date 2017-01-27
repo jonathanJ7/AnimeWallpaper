@@ -7,6 +7,7 @@ package Clases;
 
 import Clases.Cuentas.Favorito;
 import Clases.Cuentas.Usuario;
+import dataBase.operaciones;
 import dataType.DataImagen;
 import dataType.DataPack;
 import java.util.Collection;
@@ -24,6 +25,10 @@ public class Pack extends Favorito{
     private String nombre;
     private Usuario propietario;
     
+    
+    public void persistir(){
+        operaciones.insertarPack(imgs, nombre, propietario.getNickname());
+    }
     
     public DataPack toData(){
         

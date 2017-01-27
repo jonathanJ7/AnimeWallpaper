@@ -5,6 +5,7 @@
  */
 package Clases.Cuentas;
 
+import dataBase.operaciones;
 import dataType.DataAdmin;
 import dataType.DataUsuario;
 
@@ -20,5 +21,7 @@ public class Admin extends Usuario{
     public DataUsuario toData(){
         return new DataAdmin(this.getNickname(), this.getCorreo());
     }
-    
+    public void persistir(){
+        operaciones.insertarUsuario(this.getNickname(), this.getCorreo(), this.getPass(), false);
+    }
 }

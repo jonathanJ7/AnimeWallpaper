@@ -63,12 +63,12 @@ public class Publicador {
             return endpoint;
     }
     @WebMethod
-    public void publicdtt(DataPackReducido dpr,DataAnimeImNom dain){       
+    public void publicdtt(DataPackReducido dpr,DataAnimeImNom dain,DataMap dmp){       
     }
     /*********INTERFAZ DE USUARIO *******/
     @WebMethod
-    public DataMap /*Map<String,DataUsuario>*/ listarUsuarios(){
-        return new DataMap(interUsr.listarUsuarios());
+    public DataCollection /*Collection<String>*/ listarUsuarios(){//nicks
+        return new DataCollection(interUsr.listarUsuarios());
     }
     @WebMethod
     public DataCliente detalleCliente(String nick){

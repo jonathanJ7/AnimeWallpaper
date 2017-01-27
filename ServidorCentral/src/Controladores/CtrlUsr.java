@@ -7,22 +7,18 @@ package Controladores;
 
 import Clases.Cuentas.Admin;
 import Clases.Cuentas.Cliente;
-import Clases.Cuentas.Notificacion;
 import Clases.Cuentas.Usuario;
-import Clases.Imagen;
 import Clases.Pack;
+import dataBase.operaciones;
 import dataType.DataAdmin;
-import dataType.DataAnime;
-import dataType.DataCalidad;
 import dataType.DataCliente;
 import dataType.DataFavorito;
-import dataType.DataImagen;
 import dataType.DataNotificacion;
-import dataType.DataPack;
 import dataType.DataUsuario;
 import interfaz.IUsr;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -30,10 +26,8 @@ import java.util.Map;
  * @author Jonathan
  */
 public class CtrlUsr implements IUsr{
-    Map<String,Usuario> usuarios; //String = nick 
 
     private CtrlUsr() {
-        usuarios = new HashMap();
     }
     private static CtrlUsr instance =null;
     public static CtrlUsr getInstance(){
@@ -44,17 +38,13 @@ public class CtrlUsr implements IUsr{
     }
 
     
-    public Map<String, DataUsuario> listarUsuarios() { //String nick
-        Map<String, DataUsuario> ret = new HashMap();
-        for(Usuario usr: usuarios.values()){
-            ret.put(usr.getNickname(), usr.toData());
-        }
-        return ret;
+    public Collection<String> listarUsuarios() { 
+        return operaciones.listarUsuarios();
     }
 
     
     public DataCliente detalleCliente(String nick) throws Error{
-        Usuario usr = usuarios.get(nick);
+        Usuario usr = operaciones.getUsuario(nick);
         if(usr == null || !(usr instanceof Cliente)){
             throw new Error("No existe el cliente: "+nick);
         }else{
@@ -64,61 +54,58 @@ public class CtrlUsr implements IUsr{
     }
     
     public Collection<DataFavorito> getDataFavorito(String nick) throws Error{
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr == null || !(usr instanceof Cliente)){
             throw new Error("No existe el cliente: "+nick);
         }else{
             Cliente cli = (Cliente) usr;
             return cli.getDataFavorito();
-        }
+        }*/
+        return new HashSet();//provisorio
     }
     
     
 
     
     public void addUsr(DataUsuario dtusr,String pass) {
-        boolean error = false;
-        for(Usuario usu: usuarios.values()){
-            if(usu.getCorreo().equals(dtusr.getCorreo()) || usu.getNickname().equals(dtusr.getNickname())){
-                error = true;
-                break;
-            }
-        }
-        if(error){
-            throw new Error("Usuario no disponible");
-        }else{
-            if(dtusr instanceof DataCliente){
-                Cliente cli = new Cliente(dtusr.getNickname(),dtusr.getCorreo(),pass);
-                usuarios.put(cli.getNickname(),cli);
-            }else if(dtusr instanceof DataAdmin){
-                Admin adm = new Admin(dtusr.getNickname(),dtusr.getCorreo(),pass);
-                usuarios.put(adm.getNickname(),adm);
-            }
+        if(dtusr instanceof DataCliente){
+            Cliente cli = new Cliente(dtusr.getNickname(),dtusr.getCorreo(),pass);
+            cli.persistir();
+        }else if(dtusr instanceof DataAdmin){
+            Admin adm = new Admin(dtusr.getNickname(),dtusr.getCorreo(),pass);
+            adm.persistir();
         }
     }
 
     
     public void addPendiente(String nick, String anime) {
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
             cli.add(anime);
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
     }
 
     
     public void addPack(String nick, String propietario,String nombre, Collection<Integer> pathIm) {
-        Usuario usr = usuarios.get(nick);
-        Usuario usu = usuarios.get(propietario);
+        Usuario usr = operaciones.getUsuario(nick);
+        Usuario usu = null;
+        if(propietario.equals(nombre)){
+            usu = usr;
+        }else{
+            usu = operaciones.getUsuario(propietario);
+        }
         CtrlAnime ctrlAnime = CtrlAnime.getInstance();
         if(usu != null && usu instanceof Cliente){
             if(usr != null && usr instanceof Cliente){
                 Cliente cli = (Cliente) usr;
                 Pack pk = new Pack(pathIm,nombre,usu);
+                if(propietario.equals(nick)){
+                    pk.persistir();
+                }
                 cli.add(pk);
-                CtrlAnime.getInstance().addPack(pk);
             }else{
                 throw new Error("No existe el cliente: "+nick);
             }
@@ -128,7 +115,7 @@ public class CtrlUsr implements IUsr{
     }
 
     
-    public void addFav(String nick, DataFavorito fav) {
+    public void addFav(String nick, DataFavorito fav) {/*
         Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
@@ -146,11 +133,11 @@ public class CtrlUsr implements IUsr{
             }
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
     }
 
     
-    public void removeFav(String nick, DataFavorito fav) {
+    public void removeFav(String nick, DataFavorito fav) {/*
         Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
@@ -168,23 +155,23 @@ public class CtrlUsr implements IUsr{
             }
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
     }
 
     
     public void addNotificacion(String nick, DataNotificacion notif) {
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
             cli.add(new Notificacion(notif.getMensaje(),notif.getLink()));
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
     }
 
     
     public void movNotificacion(String nick, DataNotificacion notif) {
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
             boolean error=true;
@@ -201,42 +188,39 @@ public class CtrlUsr implements IUsr{
             }
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
         
     }
 
     
     public String credenciales(String correo, String pass) {//se loguea por correo por seguridad
-        for(Usuario usr : usuarios.values()){
-            if(usr.getCorreo().equals(correo)){
-                if(usr.getPass().equals(pass)){
-                    return usr.getNickname();
-                }
-                break;
-            }
+        Usuario usu = operaciones.getUsuario(correo);
+        if (usu.getPass().equals(pass)){
+            return usu.getNickname();
+        }else{
+            return null;
         }
-        return null;
     }
 
     public void removePendiente(String nick, String anime) {
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
             cli.removeAnime(anime);
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
         
     }
 
     public void removePack(String nick, String nombre) {
-        Usuario usr = usuarios.get(nick);
+        /*Usuario usr = usuarios.get(nick);
         if(usr != null && usr instanceof Cliente){
             Cliente cli = (Cliente) usr;
             cli.remove(nombre);
         }else{
             throw new Error("No existe el cliente: "+nick);
-        }
+        }*/
     }
     
 }
