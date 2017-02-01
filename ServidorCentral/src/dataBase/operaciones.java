@@ -11,6 +11,7 @@ import Clases.Cuentas.Usuario;
 import Clases.Pack;
 import dataType.DataAnime;
 import dataType.DataCalidad;
+import dataType.DataFavorito;
 import dataType.DataImagen;
 import dataType.reducidos.DataAnimeImNom;
 import dataType.reducidos.DataGeneroReducido;
@@ -42,6 +43,26 @@ public class operaciones {
             int n= pst.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error en insercion en generos: " +ex.getMessage());
+        }
+    }
+    public static void  insertarFavAnime(String nickname,String anime){
+        String sql = "INSERT INTO clientefavanime (nickname,anime) VALUES(?,?)";
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nickname); 
+            pst.setString(2, anime); 
+            int n= pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error en insercion en anime favorito: " +ex.getMessage());
+        }
+    }
+    public static void  removerFavAnime(String nickname,String anime){
+        String sql = "DELETE FROM clientefavanime WHERE clientefavanime.anime='"+anime+"' and clientefavanime.nickname='"+nickname+"'";
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error de borrado anime favorito: " +ex.getMessage());
         }
     }
     public static void  insertarUsuario(String nickname, String correo, String pass,Boolean escliente){
@@ -537,5 +558,23 @@ public class operaciones {
         }
         return null;
     }
+    public static Collection<DataFavorito> getDataFavoritoAnime(String nick){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT clientefavanime.anime FROM clientefavanime WHERE  clientefavanime.nickname='"+nick+"'";
+            ResultSet resS = statement.executeQuery(sql);
+            Collection<DataFavorito> ret = new HashSet();
+            while(resS.next()){
+                String anime = resS.getString(1);
+                ret.add( new DataAnime(null,anime,null,null,null,null,null));
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+        
 
 }

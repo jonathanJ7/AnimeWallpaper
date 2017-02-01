@@ -11,15 +11,14 @@ import Clases.Cuentas.Usuario;
 import Clases.Pack;
 import dataBase.operaciones;
 import dataType.DataAdmin;
+import dataType.DataAnime;
 import dataType.DataCliente;
 import dataType.DataFavorito;
 import dataType.DataNotificacion;
 import dataType.DataUsuario;
 import interfaz.IUsr;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  *
@@ -50,19 +49,14 @@ public class CtrlUsr implements IUsr{
         }else{
             Cliente cli = (Cliente) usr;
             cli.cargarPacks();
-            return (DataCliente) cli.toData();
+            DataCliente ret =  (DataCliente) cli.toData();
+            ret.setFav(operaciones.getDataFavoritoAnime(nick));
+            return ret;
         }
     }
     
-    public Collection<DataFavorito> getDataFavorito(String nick) throws Error{
-        /*Usuario usr = usuarios.get(nick);
-        if(usr == null || !(usr instanceof Cliente)){
-            throw new Error("No existe el cliente: "+nick);
-        }else{
-            Cliente cli = (Cliente) usr;
-            return cli.getDataFavorito();
-        }*/
-        return new HashSet();//provisorio
+    public Collection<DataFavorito> getDataFavorito(String nick){
+        return operaciones.getDataFavoritoAnime(nick);
     }
     
     
@@ -116,47 +110,19 @@ public class CtrlUsr implements IUsr{
     }
 
     
-    public void addFav(String nick, DataFavorito fav) {/*
-        Usuario usr = usuarios.get(nick);
-        if(usr != null && usr instanceof Cliente){
-            Cliente cli = (Cliente) usr;
-            if(fav instanceof DataPack){
-                DataPack DPack = (DataPack) fav;
-                Pack pack = CtrlAnime.getInstance().getPack(DPack.getNombre(), DPack.getPropietario());
-                cli.add(pack);
-            }else if(fav instanceof DataAnime){
-                cli.add(CtrlAnime.getInstance().getAnime(((DataAnime) fav).getNombre()));
-            }else if(fav instanceof DataCalidad){
-                cli.add(CtrlAnime.getInstance().getAnime(
-                        ((DataCalidad) fav).getAnime()
-                ).getCalidad(((DataCalidad) fav).getCalidad())
-                );                
-            }
-        }else{
-            throw new Error("No existe el cliente: "+nick);
-        }*/
+    public void addFav(String nick, DataFavorito fav) {
+        if(fav instanceof DataAnime){
+            DataAnime danime = (DataAnime) fav;
+            operaciones.insertarFavAnime(nick, danime.getNombre());
+        }
     }
 
     
-    public void removeFav(String nick, DataFavorito fav) {/*
-        Usuario usr = usuarios.get(nick);
-        if(usr != null && usr instanceof Cliente){
-            Cliente cli = (Cliente) usr;
-            if(fav instanceof DataPack){
-                DataPack DPack = (DataPack) fav;
-                Pack pack = CtrlAnime.getInstance().getPack(DPack.getNombre(), DPack.getPropietario());
-                cli.remove(pack);
-            }else if(fav instanceof DataAnime){
-                cli.remove(CtrlAnime.getInstance().getAnime(((DataAnime) fav).getNombre()));
-            }else if(fav instanceof DataCalidad){
-                cli.remove(CtrlAnime.getInstance().getAnime(
-                        ((DataCalidad) fav).getAnime()
-                ).getCalidad(((DataCalidad) fav).getCalidad())
-                );                
-            }
-        }else{
-            throw new Error("No existe el cliente: "+nick);
-        }*/
+    public void removeFav(String nick, DataFavorito fav) {
+        if(fav instanceof DataAnime){
+            DataAnime danime = (DataAnime) fav;
+            operaciones.removerFavAnime(nick, danime.getNombre());
+        }
     }
 
     
