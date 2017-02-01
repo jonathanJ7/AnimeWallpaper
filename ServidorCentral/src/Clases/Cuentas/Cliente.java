@@ -83,7 +83,9 @@ public class Cliente extends Usuario{
     public Map<String, Pack> getPacks() {
         return packs;
     }
-
+    public void cargarPacks(){
+        packs = operaciones.getPacks(this.getNickname());
+    }
     public Collection<Favorito> getFav() {
         return fav;
     }

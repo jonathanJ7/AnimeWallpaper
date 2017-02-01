@@ -61,12 +61,18 @@
         </style>
     </head>
     <body>
+        
         <% 
         Collection<DataAnimeImNom> listaAnimes = (Collection<DataAnimeImNom> ) request.getAttribute("listaAnimes");        
         for(DataAnimeImNom data: listaAnimes){
             String b64 = javax.xml.bind.DatatypeConverter.printBase64Binary(data.getImg().getImag());
         %>
         
+<!-- Begin BidVertiser code -->
+<SCRIPT SRC="http://bdv.bidvertiser.com/BidVertiser.dbm?pid=759083&bid=1866115" TYPE="text/javascript"></SCRIPT>
+<!-- End BidVertiser code --> 
+
+
 
               
             <div class="container" onclick="location.href = '/Anime/<%=data.getNombre()%>'" >
@@ -79,6 +85,7 @@
         }
         %>
         
+          
         
         
         

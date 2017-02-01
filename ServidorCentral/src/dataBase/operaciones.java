@@ -8,11 +8,13 @@ package dataBase;
 import Clases.Cuentas.Admin;
 import Clases.Cuentas.Cliente;
 import Clases.Cuentas.Usuario;
+import Clases.Pack;
 import dataType.DataAnime;
 import dataType.DataCalidad;
 import dataType.DataImagen;
 import dataType.reducidos.DataAnimeImNom;
 import dataType.reducidos.DataGeneroReducido;
+import dataType.reducidos.DataPackReducido;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -107,6 +109,7 @@ public class operaciones {
             }
         }
     }
+    
     public static void insertarCalidad(Collection<Integer> imgsIdent,String calidad,String anime){
         String sql = "INSERT INTO calidad (anime,calidad) VALUES(?,?)";
         try {
@@ -457,4 +460,82 @@ public class operaciones {
         }
         return null;
     }
+    
+    public static Map<String,Pack> getPacks(String cliente){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT packcliente.propietario, packcliente.nombrepack, pack.imagen FROM packcliente JOIN pack ON  packcliente.cliente='"+cliente+"' and packcliente.propietario=pack.propietario and packcliente.nombrepack = pack.nombre ";
+            ResultSet resS = statement.executeQuery(sql);
+            Map<String,Pack> ret = new HashMap();
+            while(resS.next()){
+                String propietario = resS.getString(1);
+                String nomPack = resS.getString(2);
+                Integer imagen = resS.getInt(3);
+                
+                String key = nomPack+"&"+propietario;
+                Pack pack = ret.get(key);
+                if(pack == null){
+                    pack = new Pack(new HashSet(),nomPack,getUsuario(propietario));
+                    ret.put(key, pack);
+                }
+                pack.getImgs().add(imagen);
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static Pack getPack(String nombre, String propietario){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT pack.imagen FROM pack WHERE  pack.nombre='"+nombre+"' and pack.propietario='"+propietario+"'";
+            ResultSet resS = statement.executeQuery(sql);
+            Collection<Integer> imagenes = new HashSet();
+            Pack ret = new Pack(imagenes,nombre,getUsuario(propietario));
+            while(resS.next()){
+                Integer imagen = resS.getInt(1);
+                imagenes.add(imagen);
+            }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+        public static Collection<Pack> listarPacks() {
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT * FROM pack";
+            ResultSet resS = statement.executeQuery(sql);
+            
+            Map<String,Pack> ret = new HashMap();           
+            
+            while(resS.next()){
+                String nombre = resS.getString(1);
+                String propietario = resS.getString(2);
+                Integer imagen = resS.getInt(3);
+                
+                Collection<Integer> imagenes = null;
+                
+                Pack pack = ret.get(nombre+"&"+propietario);
+                if(pack==null){
+                    imagenes = new HashSet();
+                    pack = new Pack(imagenes,nombre,getUsuario(propietario));
+                    ret.put(nombre+"&"+propietario, pack);
+                }else{
+                    imagenes = pack.getImgs();
+                }
+                imagenes.add(imagen);
+            }
+            return ret.values();
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+
 }

@@ -31,13 +31,10 @@ import servidor.ServidorCentral;
  * @author Jonathan
  */
 public class CtrlAnime implements IAnime{
-    private Map<String,Pack> packs; //String = "nombre&propietario"
     
-    private static final String separador= "&";
     private Integer identImg;
 
     private CtrlAnime() {
-        packs = new HashMap();
         identImg = 0;
     }
     public Integer getIdentImg(){
@@ -51,13 +48,10 @@ public class CtrlAnime implements IAnime{
         return instance;
     }
     public Pack getPack(String nombre, String propietario){
-        return packs.get(nombre+separador+propietario);
+        return operaciones.getPack(nombre, propietario);
     }
     public void removePack(String nombre, String propietario){
-        packs.remove(nombre+separador+propietario);
-    }
-    public void addPack(Pack pack){
-        packs.put(pack.getNombre()+separador+pack.getPropietario().getNickname(), pack);
+        //packs.remove(nombre+separador+propietario);
     }
     public Collection<DataAnimeImNom> listarAnimes() {
         return operaciones.listarAnimes();
@@ -182,7 +176,7 @@ public class CtrlAnime implements IAnime{
     
     public Collection<DataPackReducido> listarPacks() {
         Collection<DataPackReducido>  ret = new HashSet();
-        for(Pack pack : packs.values()){
+        for(Pack pack : operaciones.listarPacks()){
             DataImagen muestra = operaciones.getDataImagen(pack.getMuestra(), true);
             ret.add(new DataPackReducido(muestra,pack.getNombre(),pack.getPropietario().getNickname()));
         }

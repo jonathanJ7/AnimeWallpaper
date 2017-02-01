@@ -49,6 +49,7 @@ public class CtrlUsr implements IUsr{
             throw new Error("No existe el cliente: "+nick);
         }else{
             Cliente cli = (Cliente) usr;
+            cli.cargarPacks();
             return (DataCliente) cli.toData();
         }
     }
