@@ -42,7 +42,7 @@ public class Cliente extends Usuario{
         }
         Map<String, DataPack> pa = new HashMap();
         for(Pack an : packs.values()){
-            pa.put(an.getNombre(), an.toData());
+            pa.put(an.getNombre()+"&"+an.getPropietario().getNickname(), an.toDataFav());
         }
         Collection<DataFavorito> fa = new HashSet();
         for(Favorito an : fav){

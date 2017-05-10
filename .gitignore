@@ -8,6 +8,7 @@ ServidorCentral/boot/
 ServidorCentral/boot - copia/
 ServidorWeb/build.xml
 ServidorWeb/catalog.xml
-ServidorWeb/web/WEB-INF/
 ServidorWeb/web/META-INF/
+ServidorWeb/web/WEB-INF/
+ServidorWeb/src/java/META-INF/
 ServidorWeb/src/conf/

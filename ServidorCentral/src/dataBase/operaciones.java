@@ -133,12 +133,19 @@ public class operaciones {
     
     public static void insertarCalidad(Collection<Integer> imgsIdent,String calidad,String anime){
         String sql = "INSERT INTO calidad (anime,calidad) VALUES(?,?)";
+        int n;
+        PreparedStatement pst;
         try {
-            PreparedStatement pst = con.prepareStatement(sql);
+            pst = con.prepareStatement(sql);
             pst.setString(1, anime); 
             pst.setString(2, calidad); 
-            int n= pst.executeUpdate();
-            sql = "INSERT INTO calidadimagen (anime,calidad,identificador) VALUES(?,?,?)";
+            n= pst.executeUpdate();
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en insercion en calidad: " +ex.getMessage());
+        }
+        sql = "INSERT INTO calidadimagen (anime,calidad,identificador) VALUES(?,?,?)";
             for(Integer identificador: imgsIdent){
                 try {
                     pst = con.prepareStatement(sql);
@@ -150,10 +157,6 @@ public class operaciones {
                     System.out.println("Error en insercion en calidadimagen: " +ex.getMessage());
                 }
             }
-            
-        } catch (SQLException ex) {
-            System.out.println("Error en insercion en calidad: " +ex.getMessage());
-        }
     }
     public static void  insertarImagen(int identificador,String desc,ByteArrayInputStream  img,boolean miniatura){        
         String tabla = null;
@@ -568,6 +571,20 @@ public class operaciones {
                 String anime = resS.getString(1);
                 ret.add( new DataAnime(null,anime,null,null,null,null,null));
             }
+            return ret;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error en consulta: " +ex.getMessage());
+        }
+        return null;
+    }
+    public static Integer getIdentImg(){
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT Max(identificador) AS maxident FROM imagenes";
+            ResultSet resS = statement.executeQuery(sql);
+            resS.next();
+            Integer ret = resS.getInt("maxident");            
             return ret;
             
         } catch (SQLException ex) {

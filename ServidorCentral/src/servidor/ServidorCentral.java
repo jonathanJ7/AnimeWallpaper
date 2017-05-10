@@ -43,7 +43,7 @@ public class ServidorCentral {
     
     
     public static void main(String[] args) {
-        /*cargarAnimes();
+        cargarAnimes();/*
         cargarUsuarios();*/
         Publicador p = new Publicador();
         p.publicar();
@@ -57,7 +57,7 @@ public class ServidorCentral {
         IAnime interAnime = fabrica.getInstance().getIAnime();
         String nombre =null;
         String descripcion =null;
-        
+        /*
         nombre="Shojo";
         descripcion = "En japonés significa \"joven\" o \"niña\". Estos anime son generalmente dirigidos a las niñas. Ejemplos: Fruits Basket o Mermaid Melody Pichi Pichi Pitch ";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
@@ -162,15 +162,19 @@ public class ServidorCentral {
         
         nombre="Shonen";
         descripcion = "";
+        interAnime.addGenero(new DataGenero(null,nombre,descripcion));*/
+        
+        
+        nombre="Fantasia";
+        descripcion = "Género en el que hay presencia de elementos que rompen con la realidad establecida.";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
         
         
-        nombre="Shonen";
-        descripcion = "";
+        
+        nombre="SuperPoderes";
+        descripcion = "Animes de super poderes";
         interAnime.addGenero(new DataGenero(null,nombre,descripcion));
         
-        
-        */
     }
     static private void cargarAnimes(){
         organizarImagenes();
@@ -179,7 +183,7 @@ public class ServidorCentral {
         String nombre,link,desc;
         int capitulos;
         IAnime interAnime = fabrica.getInstance().getIAnime();
-        
+       /*
         nombre = "Inu x Boku SS";
         link = "http://jkanime.net/inu-x-boku-ss/";
         desc = "La historia tiene por protagonista a Ririchou Shirakiin, hija de la casa Shirakiin y que se siente acomplejada por no poder vivir por su propia cuenta y sin protección, con lo que decide irse a vivir sola bajo la condición de vivir en la mansión “Ayakashi Kan“. En la mansión sólo pueden residir aquellos que han pasado por un duro examen, y cada uno de sus residentes está acompañado por un agente del Servicio Secreto. Aunque Riricho ha rechazado la idea de tener un agente detrás, descubrirá estando en la mansión que en realidad el agente que la protege es el espíritu de un zorro al que ella había salvado anteriormente.";
@@ -207,7 +211,7 @@ public class ServidorCentral {
         generos.add("Harem");
         
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
-        
+        */
         nombre = "Watamote";
         link = "http://jkanime.net/watashi-ga-motenai-no-wa-dou-kangaetemo-omaera-ga-warui/";
         desc = "Kuroki Tomoko, una chica que tiene \"50 años de experiencia\" en citas y que ha salido con más de un centenar de chicos… en juegos otome.\n" +
@@ -223,7 +227,7 @@ public class ServidorCentral {
         generos.add("Shonen");
         
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
-        
+        /*
         nombre = "Toradora";
         link = "http://jkanime.net/toradora/";
         desc = "Takasu Ryuuji comienza su segundo año de instituto con mucho animo. Sin embargo, hay una cosa que el odia, y es su mirada, heredada de su padre (un ganster), con lo cual posee una habilidad innata para intimidar a los demás, provocándole esto muchos malentendidos con sus compañeros, no obstante, todo esto va cambiar el primer día de clases, cuando Ryuuji tiene un encontronazo con Aisaka Taiga, la persona mas peligrosa del centro.";
@@ -263,9 +267,25 @@ public class ServidorCentral {
         generos.add("Seinen");
         
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
-        /*
         
-                
+        
+        nombre = "shingeki no kyojin";
+        link = "http://jkanime.net/shingeki-no-kyojin/";
+        desc = "La historia nos traslada a un mundo en el que la humanidad estuvo a punto de ser exterminada cientos de años atrás por los Titanes. Los Titanes son seres enormes, parecen no ser inteligentes y devoran humanos. Lo peor es que parece que lo hacen por placer y no por alimentarse.\n"
+                + "\n"
+                + "Una pequeña parte de la humanidad ha conseguido sobrevivir protegiéndose con unos altísimos muros, más altos que el mayor de los Titanes. La ciudad vive su vida tranquila, y hace más de 100 años que ningún Titan aparece por allí.\n"
+                + "\n"
+                + "Eren y Mikasa son todavía unos adolescentes cuando ven algo horroroso: un Titan mucho mayor que todos los que la humanidad había conocido hasta el momento está destruyendo los muros de la ciudad, en ese momento la humanidad volverá a recordar el terror.";
+        capitulos = 25;
+        
+        generos=new HashSet();
+        generos.add("Fantasia");
+        generos.add("Drama");
+        generos.add("Accion");
+        generos.add("SuperPoderes");
+        
+        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
+     /*         
         nombre = "";
         link = "";
         desc = "";
@@ -294,23 +314,11 @@ public class ServidorCentral {
         interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
                 
                 
-        nombre = "";
-        link = "";
-        desc = "";
-        capitulos = 12;
         
-        generos=new HashSet();
-        generos.add("Comedia");
-        generos.add("Misterio");
-        generos.add("Shonen");
-        generos.add("Sobrenatural");
-        
-        interAnime.addAnime(cargarAnimeAux(generos,nombre,link,desc,capitulos));
                 
                 
                 
                 */
-        
         
         
     }

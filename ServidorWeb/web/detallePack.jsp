@@ -158,6 +158,24 @@
                 display: inline-block;
                 font-size: 250%;
             }
+            .boton{
+                background-color: red;
+                text-align: center; 
+                width: 16%;
+                display: inline-block;
+                font-size: 150%;
+                margin-left: 42%;
+                border-radius: 20%;
+                border-style: solid;
+                border-width: 2px;
+                border-color: black;
+                text-decoration: none;
+                color: white;
+            }
+            .boton:hover{
+                background-color:#cc0000;
+                cursor: pointer;
+            }
         </style>
     <body>
         
@@ -166,8 +184,11 @@
         String b64 = null;
         %>
         
-        <a class="titulo">Nombre: <%=dpack.getNombre()%><br>  </a>
-        <a class="titulo">Propietario: <%=dpack.getPropietario()%></a> <br><br>
+        
+        <a class="titulo">Nombre: <%=dpack.getNombre()%>  </a><br>
+        <a class="titulo">Propietario: <%=dpack.getPropietario()%></a> <br>
+        <a class="boton" href="/Pack/addPack/<%=dpack.getNombre()%>/<%=dpack.getPropietario()%>">Agregar </a><br> <br> 
+        
         
         
         <%      

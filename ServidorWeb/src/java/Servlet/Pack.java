@@ -8,6 +8,7 @@ package Servlet;
 import herramientas.herramienta;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,6 +67,13 @@ public class Pack extends HttpServlet {
                 DataPack dpack = port.detallePack(parametros[1], parametros[0]);
                 request.setAttribute("detallePack", dpack);
                 request.getRequestDispatcher( "/detallePack.jsp").forward(request,response);
+            }else if(consulta.contains("addPack")){
+                String[] parametros = consulta.substring(8).split("/");
+                String cliente = (String) request.getSession().getAttribute("nickName");
+                DataCollection dcol = new DataCollection();
+                dcol.getCol();
+                port.addPack(cliente, parametros[1],parametros[0], dcol);
+                response.sendRedirect("/Home");
             }
             
         }else{            

@@ -35,7 +35,7 @@ public class CtrlAnime implements IAnime{
     private Integer identImg;
 
     private CtrlAnime() {
-        identImg = 0;
+        identImg = operaciones.getIdentImg()+1;
     }
     public Integer getIdentImg(){
         return identImg++;

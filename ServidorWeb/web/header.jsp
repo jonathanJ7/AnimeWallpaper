@@ -37,6 +37,18 @@
     transition: 0.3s;
     font-size: 17px;
 }
+.botonnotif{
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+    background-color: blue;
+    border-radius: 100%;
+    
+}
 body{
     margin-top :50px;
     
@@ -50,7 +62,7 @@ body{
     
 }
 /* Change background color of links on hover */
-.textoItem:hover {background-color: #555;}
+.textoItem:hover {background-color:#555;}
 
 .login{
    float: right;
@@ -78,10 +90,24 @@ body{
 .dropdown-content {
     display: none;
     position: absolute;
-    margin-top: 30%;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right:0; margin-top: 30%;
+}
+.notifbox {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right:0; margin-top: 70%;
+}
+.notifbox a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
 /* Links inside the dropdown */
@@ -91,6 +117,7 @@ body{
     text-decoration: none;
     display: block;
 }
+
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
@@ -142,12 +169,21 @@ body{
             </div>
             <% }else{ %>
             <div style="float:right;">
-                    <div class="dropdown">
+                <div class="dropdown">
                     <div class="itemTop"><a class="textoItem" href="/Perfiles/<%=nickName%>"><%=nickName%></a></div>
-                    <div id="myDropdown" class="dropdown-content" style="right:0; margin-top: 50%;">
+                    <div id="myDropdown" class="dropdown-content">
                             <a class="inputLogin" href="/Perfiles/<%=nickName%>">Mi perfil</a>
                             <a class="inputLogin" href="/Pack/crear">Crear pack</a>
                             <a class="inputLogin" href="/cerrarsesion.jsp">Cerrar sesion</a>
+                            
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="itemTop"><a onclick='mostrar(this)' class="botonnotif">10</a></div>
+                    <div  class="notifbox">
+                            <a class="inputLogin" href="/Perfiles/<%=nickName%>">Notificacion uno</a>
+                            <a class="inputLogin" href="/Perfiles/<%=nickName%>">Notificacion dos</a>
+                            <a class="inputLogin" href="/Perfiles/<%=nickName%>">Notificacion tres</a>
                             
                     </div>
                 </div>
@@ -166,5 +202,22 @@ body{
     }
     %>
     </body>
+    <script> 
+    
+    function mostrar(objeto){
+        objeto.setAttribute("onclick","ocultar(this)");
+        var x = document.getElementsByClassName("notifbox")[0];        
+        x.style.display= "block";
+        objeto.style.backgroundColor = "#0033aa";
+        
+    }
+    function ocultar(objeto){
+        objeto.setAttribute("onclick","mostrar(this)");
+        var x = document.getElementsByClassName("notifbox")[0];        
+        x.style.display= "none";
+        objeto.style.backgroundColor = "blue";
+    }
+    
+    </script>
     
 </html>
