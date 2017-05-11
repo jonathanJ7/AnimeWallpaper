@@ -187,11 +187,13 @@
         
         <a class="titulo">Nombre: <%=dpack.getNombre()%>  </a><br>
         <a class="titulo">Propietario: <%=dpack.getPropietario()%></a> <br>
+        <a class="boton"  id="desc"  download="animeWallpapers.zip">Descargar</a>
         <a class="boton" href="/Pack/addPack/<%=dpack.getNombre()%>/<%=dpack.getPropietario()%>">Agregar </a><br> <br> 
         
         
         
         <%      
+        String paraZip ="";
         for(DataPack.ColIm.Entry ent: dpack.getColIm().getEntry()){
             DataImagen imagen = ent.getValue();
             String alt = imagen.getDescripcion();
@@ -199,6 +201,7 @@
             if(alt==null){
                 alt="Sin descripción";
             }
+            paraZip+= "&"+Integer.toString(ent.getKey());
         %>
 
 
@@ -211,9 +214,13 @@
             
         <%
         }
+        paraZip = paraZip.substring(1);
         %>
-       
+        
         <jsp:include page="/header.jsp"/>
     </body>
+    <script> 
+            document.getElementById("desc").setAttribute("href","/archivos/<%=paraZip%>");
+        </script>
     
 </html>

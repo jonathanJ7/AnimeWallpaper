@@ -174,4 +174,8 @@ public class Publicador {
     public DataPack detallePack(String nombre,String propietario){
         return interAnime.detallePack(nombre, propietario);
     }
+    @WebMethod
+    public byte[] zip(String imgs){
+        return interAnime.zip(imgs);
+    }
 }

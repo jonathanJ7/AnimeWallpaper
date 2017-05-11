@@ -36,5 +36,6 @@ import java.util.Collection;
     
     Integer getIdentImg();
     byte[] getImagen(int identificador);
+    byte[] zip(String imgs);
     
 }

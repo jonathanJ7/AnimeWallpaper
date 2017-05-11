@@ -10,6 +10,7 @@ import Clases.Calidad;
 import Clases.Genero;
 import Clases.Imagen;
 import Clases.Pack;
+import dataBase.Archivos;
 import dataBase.operaciones;
 import dataType.DataAnime;
 import dataType.DataCalidad;
@@ -20,10 +21,14 @@ import dataType.reducidos.DataAnimeImNom;
 import dataType.reducidos.DataGeneroReducido;
 import dataType.reducidos.DataPackReducido;
 import interfaz.IAnime;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.zip.ZipOutputStream;
 import servidor.ServidorCentral;
 
 /**
@@ -192,4 +197,25 @@ public class CtrlAnime implements IAnime{
         return operaciones.getDataImagen(identificador,false).getImag();
     }
     
+    public byte[] zip(String ims){
+        Archivos arch = new Archivos();
+        Map<Integer,InputStream> colArch = new HashMap();
+        String[] arrIms = ims.split("&");
+         byte[]  barr = null;
+         InputStream input;
+         int aux;
+        try {
+            for(String s: arrIms){
+                aux = Integer.parseInt(s);
+                barr = operaciones.getDataImagen(aux, false).getImag();
+                input = new ByteArrayInputStream(barr);
+                colArch.put(aux, input);                
+            }
+            arch.Zippear(colArch, "build.zip");
+            
+            
+        } catch (Exception ex) {} 
+        
+        return ServidorCentral.getFile("build.zip");
+    }
 }
